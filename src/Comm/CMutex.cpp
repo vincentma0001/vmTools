@@ -1,0 +1,174 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// File name 	: CMutex.cpp
+// Version 		: 1.0.0.0
+// Brief 		: 
+// Auther 		: v.m.
+// Create time 	: 21/9/2016 8:17:38
+// Modify time 	: 21/9/2016 8:17:38
+// Note 		:
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright : this file is copyright by Julong Co. LTD
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// include file
+#include <windows.h>
+
+#include "CException.h"
+#include "CMutex.h"
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : CMutex
+// Full name : CMutex::CMutex
+// Access    : public 
+// Brief     : 
+// Parameter : LPCTSTR lpName, BOOL bInheritHandle /*= FALSE */
+// Return    : 
+// Notes     : 
+CMutex::CMutex(LPCTSTR lpName, BOOL bInheritHandle /*= FALSE */) : m_hMutex( OpenMutex( MUTEX_ALL_ACCESS, bInheritHandle, lpName ) )
+{
+	if ( m_hMutex==NULL && GetLastError()==ERROR_FILE_NOT_FOUND )
+	{
+		m_hMutex=CreateMutex( NULL, false, lpName );
+	}
+	if( m_hMutex == NULL )
+		throw CEXP( "CMutex::CMutex - Can't open a Mutex object. ErrCode:%d", ::GetLastError() );
+} // End of function CMutex(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ~CMutex
+// Full name : CMutex::~CMutex
+// Access    : virtual public 
+// Brief     : 
+// Parameter : void
+// Return    : 
+// Notes     : 
+CMutex::~CMutex(void)
+{
+	if( m_hMutex != NULL )
+		CloseHandle( m_hMutex );
+} // End of function ~CMutex(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : GetHandle
+// Full name : CMutex::GetHandle
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : HANDLE
+// Notes     : 
+HANDLE CMutex::GetHandle()
+{
+	return m_hMutex;
+} // End of function GetHandle(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : Release
+// Full name : CMutex::Release
+// Access    : public 
+// Brief     : 
+// Parameter : void
+// Return    : bool
+// Notes     : 
+bool CMutex::Release(void)
+{
+	if( m_hMutex == NULL )
+		return false;
+	
+	if( !ReleaseMutex( m_hMutex ) )
+	{
+		return false;
+	}
+	
+	return true;
+} // End of function Release(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : Wait
+// Full name : CMutex::Wait
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : void
+// Notes     : 
+void CMutex::Wait() const
+{
+	if ( !Wait(INFINITE) )
+	{
+		throw CEXP( "CMutex::Wait() Unexpected timeout on infinite wait. ErrCode:%d", ::GetLastError() );
+	}
+} // End of function Wait(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : Wait
+// Full name : CMutex::Wait
+// Access    : public 
+// Brief     : 
+// Parameter : DWORD timeoutMillis
+// Return    : bool
+// Notes     : 
+bool CMutex::Wait(DWORD timeoutMillis) const
+{
+	bool ok;
+	
+	DWORD result = ::WaitForSingleObject(m_hMutex, timeoutMillis);
+	
+	switch( result )
+	{
+	case WAIT_TIMEOUT :
+		ok = false ;
+		break ;
+	case WAIT_OBJECT_0 :
+		ok = true ;
+		break ;
+	default :
+		throw CEXP( "CMutex::Wait() - WaitforSingleObject, ErrCode:%d", ::GetLastError() );
+		break ;
+	}
+	
+	return ok;
+} // End of function Wait(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : CWinMutexLocker
+// Full name : CWinMutexLocker::CWinMutexLocker
+// Access    : public 
+// Brief     : 
+// Parameter : CMutex& rhs
+// Return    : 
+// Notes     : 
+CWinMutexLocker::CWinMutexLocker(CMutex& rhs) :m_Mutex(rhs)
+{
+	m_Mutex.Wait();
+} // End of function CWinMutexLocker(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ~CWinMutexLocker
+// Full name : CWinMutexLocker::~CWinMutexLocker
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : 
+// Notes     : 
+CWinMutexLocker::~CWinMutexLocker()
+{
+	m_Mutex.Release();
+} // End of function ~CWinMutexLocker(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CMutex.cpp
+/////////////////////////////////////////////////////////////////////////////////////////

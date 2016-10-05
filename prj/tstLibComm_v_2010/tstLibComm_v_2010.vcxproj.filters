@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{7b81f3bb-5b61-4da0-99ea-9c3634b3f8c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\tstCase">
+      <UniqueIdentifier>{794a4b74-8b1b-4b77-ad60-d7d829847c85}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\tst\Comm\testLibComm.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\TestFrameForLibComm.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForAtom.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForExp.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\CTstCaseForTmp.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForWinWaitableTimer.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForRand.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForThread.cpp">
+      <Filter>src\tstCase</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\tst\Comm\TestFrameForLibComm.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCaseInc.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForAtom.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForExp.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\CTstCaseForTmp.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForWinWaitableTimer.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForRand.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForThread.h">
+      <Filter>src\tstCase</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

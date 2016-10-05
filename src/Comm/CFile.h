@@ -1,0 +1,99 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// File name 	: CFile.h
+// Version 		: 0.0.1.0
+// Brief 		: 
+// Auther 		: v.m.
+// Create time 	: 10/1/2016 16:42:37
+// Modify time 	: 10/1/2016 16:42:37
+// Note 		:
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright : this file is copyright by v.m.'s tools lib
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+// compile macro definition
+
+#if defined (_MSC_VER) && (_MSC_VER >= 1300)
+#pragma once
+#endif
+
+#ifndef __VM_TOOLS_CFILE_H__
+#define __VM_TOOLS_CFILE_H__
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// include file
+#include <string>
+
+namespace JL{
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // class define : CFile
+    //        Notes : 此类包含了有关文件的操作，以及信息
+    //
+    /////////////////////////////////////////////////////////////////////////////////////////
+    class CFile
+    {
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // data members :
+    public:
+        // 文件名（含文件路径）
+        std::string     mstrFileName;
+        // 文件名（不含文件路径）
+        std::string     mstrFileBase;
+        // 文件路径
+        std::string     mstrFileDir;
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // Construct && Destruct
+    public:
+        // Default Construct
+        CFile();
+        // Construct define
+        CFile(const char* szFileName);
+        // Destruct define
+        virtual ~CFile(){
+			if (  mhFile!=NULL)
+			{
+				::CloseHandle( mhFile );
+			}
+		};
+    private:
+        // No Copy
+		
+        CFile(const CFile& obj){};
+        // No Evaluation
+        CFile& operator = (const CFile& obj){}
+
+        /////////////////////////////////////////////////////////////////////////////////////////
+        // Functions :
+    public:
+        // 获取文件名（不含路径）
+        void GetFileBase(const char* cszFileName, char* szBuf, const unsigned long culMaxBuf);
+        // 获取文件路径
+        void GetFileDir(const char* cszFileName, char* szBuf, const unsigned long culMaxBuf);
+        // 获取当前执行文件的文件名
+        const char* GetCurrFile();
+        // 获取当前执行文件的文件路径
+        const char* GetCurrDir();
+
+	private:
+		HANDLE mhFile;
+
+	public:
+		void Open( const char* szFileName );
+		DWORD Write( LPVOID pBuffer, DWORD dwBuffLen );
+
+    }; // End of class CFile
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+#endif // __VM_TOOLS_CFILE_H__
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CFile.h
+/////////////////////////////////////////////////////////////////////////////////////////

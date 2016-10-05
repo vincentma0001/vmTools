@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D34B7B90-35F5-4F75-9E7B-C666B4C4FA27}</ProjectGuid>
+    <RootNamespace>LibComm_v_2010</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)tmp\LibComm\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)tmp\LibComm\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.lib</TargetExt>
+    <TargetName>LibComm</TargetName>
+    <IncludePath>E:\我的项目\vmTools\trunk\src;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(OutDir)\LibComm.lib $(SolutionDir)lib\LibComm.lib</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\CModuleLoader.h" />
+    <ClInclude Include="..\..\src\CommInc.h" />
+    <ClInclude Include="..\..\src\Comm\CAtom.h" />
+    <ClInclude Include="..\..\src\Comm\CBit.h" />
+    <ClInclude Include="..\..\src\Comm\CCppExp.h" />
+    <ClInclude Include="..\..\src\Comm\CError.h" />
+    <ClInclude Include="..\..\src\Comm\CException.h" />
+    <ClInclude Include="..\..\src\Comm\CFile.h" />
+    <ClInclude Include="..\..\src\Comm\CMyString.h" />
+    <ClInclude Include="..\..\src\Comm\CRand.h" />
+    <ClInclude Include="..\..\src\Comm\CSimpleMap.h" />
+    <ClInclude Include="..\..\src\Comm\CSingleTon.h" />
+    <ClInclude Include="..\..\src\Comm\CThread.h" />
+    <ClInclude Include="..\..\src\Comm\CTime.h" />
+    <ClInclude Include="..\..\src\Comm\CValue.h" />
+    <ClInclude Include="..\..\src\Comm\CWinAbsObjs.h" />
+    <ClInclude Include="..\..\src\Comm\CWinCS.h" />
+    <ClInclude Include="..\..\src\Comm\CWinError.h" />
+    <ClInclude Include="..\..\src\Comm\CWinSeh.h" />
+    <ClInclude Include="..\..\src\Comm\CWinSehExp.h" />
+    <ClInclude Include="..\..\src\Comm\CWinWaitableTimer.h" />
+    <ClInclude Include="..\..\src\Comm\CWinWaitForObjs.h" />
+    <ClInclude Include="..\..\src\Comm\DllMacro.h" />
+    <ClInclude Include="..\..\src\Comm\VerifyDef.h" />
+    <ClInclude Include="..\..\src\Log.h" />
+    <ClInclude Include="..\..\src\Log\CAbsLogImp.h" />
+    <ClInclude Include="..\..\src\Log\CLog.h" />
+    <ClInclude Include="..\..\src\Log\CStdLog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\CModuleLoader.cpp" />
+    <ClCompile Include="..\..\src\Comm\CBit.cpp" />
+    <ClCompile Include="..\..\src\Comm\CCppExp.cpp" />
+    <ClCompile Include="..\..\src\Comm\CException.cpp" />
+    <ClCompile Include="..\..\src\Comm\CFile.cpp" />
+    <ClCompile Include="..\..\src\Comm\CRand.cpp" />
+    <ClCompile Include="..\..\src\Comm\CThread.cpp" />
+    <ClCompile Include="..\..\src\Comm\CTime.cpp" />
+    <ClCompile Include="..\..\src\Comm\CValue.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinAbsObjs.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinCS.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinError.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinSeh.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinSehExp.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinWaitableTimer.cpp" />
+    <ClCompile Include="..\..\src\Comm\CWinWaitForObjs.cpp" />
+    <ClCompile Include="..\..\src\Log.cpp" />
+    <ClCompile Include="..\..\src\Log\CAbsLogImp.cpp" />
+    <ClCompile Include="..\..\src\Log\CLog.cpp" />
+    <ClCompile Include="..\..\src\Log\CStdLog.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

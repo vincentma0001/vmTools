@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{0da3093e-29d9-4548-bbf3-ec39e5b07b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\IPC">
+      <UniqueIdentifier>{0ef8db67-afbb-44be-8e3b-29ec8813d9e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Err">
+      <UniqueIdentifier>{fa90e1ae-2475-420d-9563-5b792130601c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Exp">
+      <UniqueIdentifier>{857c41bf-803c-4e43-80f6-93a6fa9b40f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\File">
+      <UniqueIdentifier>{257c5c79-f836-444f-a780-efa8cc9dd5c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\log">
+      <UniqueIdentifier>{97352f44-6846-4be7-ac8d-797aedb832c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Thread">
+      <UniqueIdentifier>{e4ffe792-77b7-4c2e-82e8-010a5b9b2567}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\CommInc.h" />
+    <ClInclude Include="..\..\src\Comm\CBit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CMyString.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CSimpleMap.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CSingleTon.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CTime.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CValue.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\DllMacro.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\VerifyDef.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CAtom.h">
+      <Filter>src\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinCS.h">
+      <Filter>src\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinError.h">
+      <Filter>src\Err</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CCppExp.h">
+      <Filter>src\Exp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CException.h">
+      <Filter>src\Exp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CError.h">
+      <Filter>src\Err</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinSehExp.h">
+      <Filter>src\Exp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CFile.h">
+      <Filter>src\File</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinSeh.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Log\CAbsLogImp.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Log\CLog.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Log\CStdLog.h">
+      <Filter>src\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Log.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinWaitableTimer.h">
+      <Filter>src\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinWaitForObjs.h">
+      <Filter>src\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CWinAbsObjs.h">
+      <Filter>src\IPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\CModuleLoader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Comm\CRand.h" />
+    <ClInclude Include="..\..\src\Comm\CThread.h">
+      <Filter>src\Thread</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Comm\CBit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CTime.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CValue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinCS.cpp">
+      <Filter>src\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinError.cpp">
+      <Filter>src\Err</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CCppExp.cpp">
+      <Filter>src\Exp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CException.cpp">
+      <Filter>src\Exp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinSehExp.cpp">
+      <Filter>src\Exp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CFile.cpp">
+      <Filter>src\File</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinSeh.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Log\CAbsLogImp.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Log\CLog.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Log\CStdLog.cpp">
+      <Filter>src\log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Log.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinWaitableTimer.cpp">
+      <Filter>src\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinWaitForObjs.cpp">
+      <Filter>src\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CWinAbsObjs.cpp">
+      <Filter>src\IPC</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CModuleLoader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CRand.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Comm\CThread.cpp">
+      <Filter>src\Thread</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,150 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// File name 	: CWinWaitForObjs.h
+// Version 		: 1.0.0.0
+// Brief 		: 
+// Author 		: v.m.
+// Create time 	: 15/3/2016 14:24:08
+// Modify time 	: 15/3/2016 14:24:08
+// Note 		:
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright : this file is copyright by Julong Co.LTD
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+// compile macro definition
+#if defined (_MSC_VER) && (_MSC_VER >= 1300)
+#pragma once
+#endif
+
+#ifndef __CWINWAITFOROBJS_H__
+#define __CWINWAITFOROBJS_H__
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// include file
+#ifndef _WINDOWS_
+#include <Windows.h>
+#endif
+
+#include <vector>
+#include "CWinAbsObjs.h"
+#include "VerifyDef.h"
+#include "CException.h"
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// class define : CWinWaitForObjs
+//        Notes : ## add class brief here #
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+class CWinWaitForObjs
+{
+/////////////////////////////////////////////////////////////////////////////////////////
+// data members :
+private:
+    HANDLE*             mpHandles;
+    unsigned long       mulMaxCountsOfHandles;
+
+    std::vector<CWinAbsObj*>  mVecForObjs;
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Construct & Destruct :
+public:
+	CWinWaitForObjs( const unsigned long culMaxHandls );        // Construct define
+	virtual ~CWinWaitForObjs();                                 // Destruct define
+
+public:
+    void AddObj( CWinAbsObj* chObj );
+    bool WaitForObjs( BOOL bWaitAll, DWORD dwMillSeconds, bool bAlertable  );
+
+}; // End of class CWinWaitForObjs
+/////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef _MAX_HANDLES_
+#define _MAX_HANDLES_ 1024
+#endif
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// class define : CWinWaitForHandles
+//        Notes : ## add class brief here ##
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+class CWinWaitForHandles
+{
+/////////////////////////////////////////////////////////////////////////////////////////
+// type define :
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// data members :
+private:
+	HANDLE								mHandles[_MAX_HANDLES_];
+	DWORD								mdwHandlesNumber;
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// interface define :
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Construct && Destruct
+public:
+	CWinWaitForHandles(){
+
+	};											// Construct define
+	~CWinWaitForHandles(){};											// Destruct define
+private:
+
+	
+	CWinWaitForHandles( const CWinWaitForHandles& obj ){};					// No Copy
+	CWinWaitForHandles& operator = ( const CWinWaitForHandles& obj ){}		// No Assignment
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Functions :
+public:
+	void Reset()
+	{
+		memset( &mHandles, 0x00, sizeof(mHandles) );
+		mdwHandlesNumber=0;
+	}
+	DWORD AddHandle( HANDLE hHandle )
+	{
+		mHandles[mdwHandlesNumber]= hHandle;
+		mdwHandlesNumber++;
+
+		return mdwHandlesNumber;
+	}
+	DWORD Wait( BOOL bWaitAll=true, DWORD dwTimeout=INFINITE, BOOL bAlertable=true )
+	{
+		DWORD ldwRet = WaitForMultipleObjectsEx( mdwHandlesNumber, mHandles, bWaitAll, dwTimeout, bAlertable );
+		if ( ldwRet == WAIT_TIMEOUT )
+		{
+			return false;
+		}
+		if ( ldwRet == WAIT_FAILED )
+		{
+			throw CEXP( "wait failed!" );
+		}
+		for( DWORD i=0; i<mdwHandlesNumber; i++ )
+		{
+			if ( (WAIT_OBJECT_0+i) == ldwRet )
+			{
+				return i;
+			}
+		}
+		
+		throw CEXP( "CWinWaitForHandles::Wait(), Can't Get an Handle Obj!" );
+    return false;
+	}
+private:
+protected:
+
+}; // End of class CWinWaitForHandles
+/////////////////////////////////////////////////////////////////////////////////////////
+ 
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+#endif // __CWINWAITFOROBJS_H__
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CWinWaitForObjs.h
+/////////////////////////////////////////////////////////////////////////////////////////
