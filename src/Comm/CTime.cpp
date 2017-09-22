@@ -16,6 +16,10 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
+#include <windows.h>
+#include <TIME.H>
+#include "CException.h"
+#include "VerifyDef.h"
 #include "CTime.h"
 
 namespace JL{
@@ -28,8 +32,9 @@ namespace JL{
 // Parameter : 
 // Return    : 
 // Notes     : 
-CTime::CTime() :mTime(0)
+CTime::CTime()
 {
+	memset(&mTime, 0x00 ,sizeof(_timeb));
 
 } // End of function CTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -42,8 +47,10 @@ CTime::CTime() :mTime(0)
 // Parameter : const char* szTime
 // Return    : 
 // Notes     : 
-CTime::CTime(const char* szTime) : mTime(0)
+CTime::CTime(const char* szTime)
 {
+	memset(&mTime, 0x00 ,sizeof(_timeb));
+
     if ( szTime == NULL )
         throw std::logic_error( "Get an invalied handle!" );
 
@@ -58,7 +65,7 @@ CTime::CTime(const char* szTime) : mTime(0)
      lTm.tm_mon  -= 1;
      lTm.tm_isdst = -1;
 
-    mTime = mktime( &lTm );
+    mTime.time = mktime( &lTm );
 } // End of function CTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -114,13 +121,13 @@ CTime::~CTime()
 // Parameter : 
 // Return    : std::string
 // Notes     : 
-const char* CTime::ToStringShort()
+const char* CTime::ToStringDay()
 {
     struct tm* lpTm = NULL;
 #if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
-    lpTm = localtime( &mTime );
+    lpTm = localtime( &mTime.time );
 #else
-    errno_t er = localtime_s( lpTm, &mTime );
+    errno_t er = localtime_s( lpTm, &mTime.time );
 #endif
     strftime( mszBuf, _MAX_TIME_BUF_, "%Y-%m-%d", lpTm);
 
@@ -136,17 +143,17 @@ const char* CTime::ToStringShort()
 // Parameter : 
 // Return    : std::string
 // Notes     : 
-const char* CTime::ToStringLong()
+const char* CTime::ToStringDayTime()
 {
     
 #if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
     struct tm* lpTm = NULL;
-    lpTm = localtime( &mTime );
+    lpTm = localtime( &mTime.time );
     strftime( mszBuf, _MAX_TIME_BUF_, "%Y-%m-%d %H:%M:%S", lpTm);
     return mszBuf;
 #else
     struct tm loTm ;
-    errno_t er = localtime_s( &loTm, &mTime );
+    errno_t er = localtime_s( &loTm, &mTime.time );
     strftime( mszBuf, _MAX_TIME_BUF_, "%Y-%m-%d %H:%M:%S", &loTm);
     return mszBuf;
 
@@ -154,6 +161,59 @@ const char* CTime::ToStringLong()
 
 
 } // End of function ToStringLong(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ToStringTime
+// Full name : CTime::ToStringTime
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : const char*
+// Notes     : 
+const char* CTime::ToStringTime()
+{
+#if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
+    struct tm* lpTm = NULL;
+    lpTm = localtime( &mTime.time );
+    strftime( mszBuf, _MAX_TIME_BUF_, "%H:%M:%S", lpTm);
+    return mszBuf;
+#else
+    struct tm loTm ;
+    errno_t er = localtime_s( &loTm, &mTime.time );
+    strftime( mszBuf, _MAX_TIME_BUF_, "%H:%M:%S", &loTm);
+    return mszBuf;
+    
+#endif
+} // End of function ToStringTime(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ToStringFull
+// Full name : CTime::ToStringFull
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : const char*
+// Notes     : 
+const char* CTime::ToStringFull()
+{
+    char lszBuf[_MAX_TIME_BUF_] = {0};
+#if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
+    struct tm* lpTm = NULL;
+    lpTm = localtime( &mTime.time );
+    strftime( lszBuf, _MAX_TIME_BUF_, "%Y-%m-%d %H:%M:%S", lpTm);
+    sprintf( mszBuf, "%s.%03d", lszBuf, mTime.millitm );
+    return mszBuf;
+#else
+    struct tm loTm ;
+    errno_t er = localtime_s( &loTm, &mTime.time );
+    strftime( lszBuf, _MAX_TIME_BUF_, "%Y-%m-%d %H:%M:%S", &loTm);
+    sprintf_s( mszBuf, _MAX_TIME_BUF_, "%s.%03d", lszBuf, mTime.millitm );
+    return mszBuf;
+    
+#endif
+} // End of function ToStringFull(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -167,9 +227,80 @@ const char* CTime::ToStringLong()
 CTime CTime::GetCurrTime()
 {
     CTime lTime;
-    time( &lTime.mTime );
+	_ftime( &lTime.mTime );
     return lTime;
 } // End of function GetCurrTime(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : GetMillitm
+// Full name : CTime::GetMillitm
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : unsigned short
+// Notes     : 
+unsigned short CTime::GetMillitm()
+{
+	return mTime.millitm;
+} // End of function GetMillitm(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ToStringMillitm
+// Full name : CTime::ToStringMillitm
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : const char*
+// Notes     : 
+const char* CTime::ToStringMillitm(const char* szFormat)
+{
+	memset(mszBuf, 0x00, sizeof(mszBuf));
+	sprintf( mszBuf, szFormat, mTime.millitm );
+	return mszBuf;
+} // End of function ToStringMillitm(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : operator==
+// Full name : CTime::operator==
+// Access    : public 
+// Brief     : 
+// Parameter : const CTime& Obj
+// Return    : bool
+// Notes     : 
+bool CTime::operator==(const CTime& Obj)
+{
+	if ( mTime.time == Obj.mTime.time && mTime.millitm == Obj.mTime.millitm )
+	{
+		return true;
+	}
+	
+	return false;
+} // End of function operator==(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : operator!=
+// Full name : CTime::operator!=
+// Access    : public 
+// Brief     : 
+// Parameter : const CTime& Obj
+// Return    : bool
+// Notes     : 
+bool CTime::operator!=(const CTime& Obj)
+{
+	if ( mTime.time != Obj.mTime.time )
+	{
+		return true;
+	}else if ( (mTime.time == Obj.mTime.time) && ( mTime.millitm != mTime.millitm ) )
+	{
+		return true;
+	}
+	
+	return false;
+} // End of function operator!=(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -183,12 +314,12 @@ CTime CTime::GetCurrTime()
 const char* CTime::ToString(const char* szFormat)
 {
 #if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
-    struct tm* lpTm = localtime( &mTime );
+    struct tm* lpTm = localtime( &mTime.time );
     strftime( mszBuf, _MAX_TIME_BUF_, szFormat, lpTm);
     return mszBuf;
 #else
     struct tm loTm;
-    errno_t er = localtime_s( &loTm, &mTime );
+    errno_t er = localtime_s( &loTm, &mTime.time );
     strftime( mszBuf, _MAX_TIME_BUF_, szFormat, &loTm );
     return mszBuf;
 
@@ -225,15 +356,15 @@ void JL::CTime::SetTime(const char* szFormat)
 
     tm* lpTm = NULL;
 #if defined (_MSC_VER)&&(_MSC_VER<=1300)
-    lpTm = localtime( &mTime );
+    lpTm = localtime( &mTime.time );
 #else
-    errno_t er = localtime_s( lpTm, &mTime );
+    errno_t er = localtime_s( lpTm, &mTime.time );
 #endif
     lpTm->tm_hour = luiHour;
     lpTm->tm_min = luiMin;
     lpTm->tm_sec = luiSec;
 
-    mTime = mktime( lpTm );
+    mTime.time = mktime( lpTm );
 } // End of function SetTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -245,7 +376,7 @@ void JL::CTime::SetTime(const char* szFormat)
 // Parameter : unsigned int uiHour, unsigned int uiMin, unsigned int uiSec
 // Return    : void
 // Notes     : 
-void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int uiSec)
+void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int uiSec, unsigned short usMill)
 {
     if ( ( uiHour>=24 ) || (uiMin>=60) || ( uiSec>=60 ) )
     {
@@ -254,15 +385,17 @@ void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int ui
 
     tm* lpTm = NULL;
 #if defined (_MSC_VER)&&(_MSC_VER<=1300)
-    lpTm = localtime( &mTime );
+    lpTm = localtime( &mTime.time );
 #else
-    errno_t er = localtime_s( lpTm, &mTime );
+    errno_t er = localtime_s( lpTm, &mTime.time );
 #endif
     lpTm->tm_hour = uiHour;
     lpTm->tm_min = uiMin;
     lpTm->tm_sec = uiSec;
 
-    mTime = mktime( lpTm );
+
+    mTime.time = mktime( lpTm );
+    mTime.millitm = usMill;
 } // End of function SetTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -276,7 +409,7 @@ void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int ui
 // Notes     : 
 void JL::CTime::AddTime(double tTimeDiff)
 {
-    mTime += (time_t)tTimeDiff;
+    mTime.time += (time_t)tTimeDiff;
 } // End of function AddTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -290,7 +423,7 @@ void JL::CTime::AddTime(double tTimeDiff)
 // Notes     : 
 time_t JL::CTime::GetTime(void)
 {
-    return mTime;
+    return mTime.time;
 } // End of function GetTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -302,8 +435,9 @@ time_t JL::CTime::GetTime(void)
 // Parameter : time_t tTime
 // Return    : 
 // Notes     : 
-JL::CTime::CTime(time_t tTime) :mTime(tTime)
+JL::CTime::CTime(time_t tTime)
 {
+	mTime.time = tTime;
     memset( mszBuf, 0x00, sizeof(mszBuf)  );
 } // End of function CTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -318,8 +452,13 @@ JL::CTime::CTime(time_t tTime) :mTime(tTime)
 // Notes     : 
 bool JL::CTime::operator>(const CTime& Obj)
 {
-    if ( mTime > Obj.mTime )
+    if ( mTime.time > Obj.mTime.time )
+	{
         return true;
+	}else if( (mTime.time == Obj.mTime.time) && (mTime.millitm > Obj.mTime.millitm) )
+	{
+		return true;
+	}
 
     return false;
 } // End of function operator>(...
@@ -333,10 +472,15 @@ bool JL::CTime::operator>(const CTime& Obj)
 // Parameter : const CTime* Obj
 // Return    : bool
 // Notes     : 
-bool JL::CTime::operator<(const CTime* Obj)
+bool JL::CTime::operator<(const CTime& Obj)
 {
-    if ( mTime < Obj->mTime )
+    if ( mTime.time < Obj.mTime.time )
+	{
         return true;
+	}else if( (mTime.time == Obj.mTime.time) && (mTime.millitm < Obj.mTime.millitm) )
+	{
+		return true;
+	}
 
     return false;
 } // End of function operator<(...
@@ -352,7 +496,7 @@ bool JL::CTime::operator<(const CTime* Obj)
 // Notes     : 
 double JL::CTime::operator-(const CTime& Obj)
 {
-    double ldDiff = difftime( mTime, Obj.mTime );
+    double ldDiff = difftime( mTime.time, Obj.mTime.time );
     return ldDiff;
 } // End of function operator-(...
 /////////////////////////////////////////////////////////////////////////////////////////

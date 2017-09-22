@@ -19,17 +19,17 @@
 #include <windows.h>
 #include <iostream>
 
-#include "VerifyDef.h"
+#include <VerifyDef.h>
 
-#include "CException.h"
-#include "CCppExp.h"
-#include "CWinSehExp.h"
-#include "CExpTrack.h"
+#include <CException.h>
+#include <CCppExp.h>
+#include <CWinSehExp.h>
+#include <CExpTrack.h>
 
-#include "../Log.h"
-//#include <../../prj/Release/msado15.tlh>
 
 #include "CAdoDB.h"
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CAdoDB
 // Full name : CAdoDB::CAdoDB
@@ -80,7 +80,6 @@ void CAdoDB::Open(const char* szServerAddr, const char* szDB, const char* szUser
     mstrUserName = szUserName;
     mstrUserPwd = szUserPwd;
 
-    LOG("Configure info[Server:%s DB:%s User:%s Pwd:%s]", mstrServerAddr.c_str(), mstrDB.c_str(), mstrUserName.c_str(), mstrUserPwd.c_str());
     try
     {
 
@@ -90,7 +89,7 @@ void CAdoDB::Open(const char* szServerAddr, const char* szDB, const char* szUser
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -121,38 +120,29 @@ void CAdoDB::Connect()
     HRESULT hr;
     try
     {
-        LOG("CAdoDB::Connect(), Step 1");
+
         if (mpConnection != NULL)
         {
             this->Close();
         }
-        LOG("CAdoDB::Connect(), Step 2");
         hr = mpConnection.CreateInstance(__uuidof(Connection));
         if (SUCCEEDED(hr))
         {
-            LOG("CAdoDB::Connect(), Step 2.1");
-            LOG("CAdoDB::Connect(), Step 2.1.1");
             mpConnection->CommandTimeout = 10;
             char lszBuf[1024] = { 0 };
             sprintf_s(lszBuf, sizeof(lszBuf), "Provider=SQLOLEDB;Data Source=%s;Initial Catalog=%s;User ID=%s;Password=%s", mstrServerAddr.c_str(), mstrDB.c_str(), mstrUserName.c_str(), mstrUserPwd.c_str());
             mpConnection->Open(lszBuf, "", "", adModeUnknown);
-            LOG("CAdoDB::Connect(), Step 2.1.2");
         }
         else
         {
-            LOG("CAdoDB::Connect(), Step 2.2");
-            LOG("CAdoDB::Connect(), Step 2.2.1");
-            _com_error e(hr);
-            throw  CEXP("CAdoDB::Connect(), Create Instance failed(%s)!", (char*)e.ErrorMessage());
-            LOG("CAdoDB::Connect(), Step 2.2.2");
+            throw  CEXP("CAdoDB::Connect(), Create Instance failed!");
         }
 
-        LOG("CAdoDB::Connect(), Step 3");
         return;
 
     } catch (_com_error &e){
             throw CEXP("Get an exception(%s)", Convert(e.Description()));
-    }catch( JL::CException& ex ){
+    }catch( CException& ex ){
         EXP_TRACK_ADD( ex );
         throw CEXP_E( ex );
     }catch( std::exception& ex ){
@@ -173,7 +163,7 @@ void CAdoDB::Connect()
 // Parameter : char* szCmdStr
 // Return    : _RecordsetPtr&
 // Notes     : 
-long CAdoDB::Excute(const char* szCmdStr)
+long CAdoDB::Excute(char* szCmdStr)
 {
     try
     {
@@ -187,16 +177,18 @@ long CAdoDB::Excute(const char* szCmdStr)
             mpRecords.Release();
         }
 
+        //VARIANT lviRecordsAffected;
         _variant_t lvAffected;;
+        //mpRecords.CreateInstance(__uuidof(Recordset));
 
-        LOG("CAdoDB::Excute(), SQL:%s", szCmdStr);
-        mpRecords = mpConnection->Execute(_bstr_t(szCmdStr), &lvAffected, adCmdText);
-        //mpConnection->Execute(_bstr_t(szCmdStr), &lvAffected, adCmdText);
+        //mpRecords = mpConnection->Execute(_bstr_t(szCmdStr), &lvAffected, adCmdText);
+        mpConnection->Execute(_bstr_t(szCmdStr), &lvAffected, adCmdText);
         return lvAffected.lVal;
 
     }catch (_com_error &e){
+        RollbackTrans();
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
-    }catch (JL::CException& ex){
+    }catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }catch (std::exception& ex){
@@ -248,7 +240,7 @@ void CAdoDB::Call_Begin(char* szCmdStr)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -289,7 +281,7 @@ void CAdoDB::SetParamI(const char* szParamName, bool IsInput, int iValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -328,7 +320,7 @@ void CAdoDB::SetParamD(const char* szParamName, bool IsInput, double dValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -353,12 +345,12 @@ void CAdoDB::SetParamD(const char* szParamName, bool IsInput, double dValue)
 // Parameter : const char* szParamName, bool IsInput, std::string strValue
 // Return    : void
 // Notes     : 
-void CAdoDB::SetParamS(const char* szParamName, bool IsInput, std::string strValue, long lSize )
+void CAdoDB::SetParamS(const char* szParamName, bool IsInput, std::string strValue, int iSize)
 {
     try
     {
         _ParameterPtr param;
-        param = mpCommand->CreateParameter(_bstr_t(szParamName), DataTypeEnum::adChar, IsInput == true ? adParamInput : adParamOutput, lSize, _variant_t(strValue.c_str()));
+        param = mpCommand->CreateParameter(_bstr_t(szParamName), DataTypeEnum::adChar, IsInput == true ? adParamInput : adParamOutput, iSize, _variant_t(strValue.c_str()));
         mpCommand->Parameters->Append(param);
 
         return;
@@ -366,7 +358,7 @@ void CAdoDB::SetParamS(const char* szParamName, bool IsInput, std::string strVal
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -418,7 +410,7 @@ long CAdoDB::Call_End(void)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -457,7 +449,7 @@ int CAdoDB::GetReturn( )
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -473,6 +465,45 @@ int CAdoDB::GetReturn( )
 } // End of function GetReturn(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//// Name      : SetParamB
+//// Full name : CAdoDB::SetParamB
+//// Access    : public 
+//// Brief     : 
+//// Parameter : const char* szParamName, bool IsInput, char* szBuf, unsigned int uiBufLen
+//// Return    : void
+//// Notes     : 
+//void CAdoDB::SetParamB(const char* szParamName, bool IsInput, char* szBuf, unsigned int uiBufLen)
+//{
+//    try
+//    {
+//        _ParameterPtr param;
+//        param = mpCommand->CreateParameter(_bstr_t(szParamName), DataTypeEnum::adChar, IsInput == true ? adParamInput : adParamOutput, uiBufLen, _variant_t(szBuf));
+//        mpCommand->Parameters->Append(param);
+//
+//        return;
+//    }
+//    catch (_com_error &e){
+//        throw CEXP("Get an exception(%s)", Convert(e.Description()));
+//    }
+//    catch (CException& ex){
+//        EXP_TRACK_ADD(ex);
+//        throw CEXP_E(ex);
+//    }
+//    catch (std::exception& ex){
+//        throw CEXP_CPP(ex);
+//    }
+//    catch (CWinSeh& seh){
+//        throw CEXP_SEH(seh);
+//    }
+//    catch (...){
+//        throw CEXP("Get an unknown exception!");
+//    }
+//} // End of function SetParamB(...
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetParamI
 // Full name : CAdoDB::GetParamI
@@ -486,7 +517,7 @@ void CAdoDB::GetParamI(const char* szParamName, int& iValue)
     try
     {
         
-        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->Value;
+        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->GetValue();
         if (  lvReturn.vt != VT_I4 )
         {
             throw CEXP("CAdoDB::GetParamI(), the param(%s)'s type is't intger!", szParamName);
@@ -497,7 +528,7 @@ void CAdoDB::GetParamI(const char* szParamName, int& iValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -526,10 +557,10 @@ void CAdoDB::GetParamD(const char* szParamName, double& dValue)
     try
     {
 
-        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->Value;
+        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->GetValue();
         if (lvReturn.vt != VT_I4)
         {
-            throw CEXP("CAdoDB::GetParamD(), the param(%s)'s type is't double!");
+            throw CEXP("CAdoDB::GetParamD(), the param(%s)'s type is't double!", szParamName);
         }
         dValue = lvReturn.dblVal;
         return;
@@ -537,7 +568,7 @@ void CAdoDB::GetParamD(const char* szParamName, double& dValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -567,18 +598,18 @@ void CAdoDB::GetParamS(const char* szParamName, std::string& strValue)
     try
     {
 
-        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->Value;
+        _variant_t lvReturn = mpCommand->Parameters->GetItem(_bstr_t(szParamName))->GetValue();
         if (lvReturn.vt != VT_BSTR)
         {
-            throw CEXP("CAdoDB::GetParamS(), the param(%s)'s type is't bstr!");
+            throw CEXP("CAdoDB::GetParamD(), the param(%s)'s type is't string!");
         }
-        strValue = Convert(_bstr_t(lvReturn));
+        strValue = Convert( _bstr_t(lvReturn) );
         return;
     }
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -622,7 +653,7 @@ void CAdoDB::Close()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -657,14 +688,13 @@ void CAdoDB::BeginTrans()
         }
 
         mpConnection->BeginTrans();
-        mbIsSetTrans = true;
 
-        LOG("CAdoDB::BeginTrans(), done!");
+        mbIsSetTrans = true;
     }
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -707,14 +737,13 @@ void CAdoDB::CommitTrans()
         {
             throw CEXP("CommitTrans failed!");
         }
-        mbIsSetTrans = false;
 
-        LOG("CAdoDB::CommitTrans(), done!");
+        mbIsSetTrans = false;
     }
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -759,13 +788,11 @@ void CAdoDB::RollbackTrans()
         }
 
         mbIsSetTrans = false;
-
-        LOG("CAdoDB::RollbackTrans(), done!");
     }
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -803,7 +830,7 @@ void CAdoDB::CloseRecord()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -863,7 +890,7 @@ void CAdoDB::RecordMoveNext()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -901,7 +928,7 @@ void CAdoDB::RecordMovePrev()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -939,7 +966,7 @@ void CAdoDB::RecordMoveLast()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -984,7 +1011,7 @@ bool CAdoDB::ColumnValueIB(long lIndex, char *szBuff, int nBuffSize)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1030,7 +1057,7 @@ bool CAdoDB::ColumnValueNB(const char* szColumnName, char *szBuff, int nBuffSize
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1075,7 +1102,7 @@ bool CAdoDB::ColumnValueIS(long lIndex, std::string& strValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1121,7 +1148,7 @@ bool CAdoDB::ColumnValueNS(const char* szColumnName, std::string& strValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1211,7 +1238,7 @@ bool CAdoDB::ColumnValueID(long lIndex, double& dValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1258,7 +1285,7 @@ bool CAdoDB::ColumnValueND(const char* szColumnName, double& dValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1303,7 +1330,7 @@ bool CAdoDB::ColumnValueII(long lIndex, int& iValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1349,7 +1376,7 @@ bool CAdoDB::ColumnValueNI(const char* szColumnName, int& iValue)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1385,7 +1412,7 @@ const char* CAdoDB::Convert(_bstr_t& bStr)
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }
@@ -1400,25 +1427,6 @@ const char* CAdoDB::Convert(_bstr_t& bStr)
     }
 } // End of function Convert(...
 /////////////////////////////////////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Name      : Rtrim
-// Full name : CAdoDB::Rtrim
-// Access    : private 
-// Brief     : 
-// Parameter : std::string &str
-// Return    : std::string
-// Notes     : 
-std::string CAdoDB::Rtrim(std::string &str)
-{
-    //std::string::size_type lstPos = str.find_first_of(::isspace, str.rbegin(), );
-    //str.erase( lstPos,  );
-    //return str;
-    return "";
-} // End of function Rtrim(...
-/////////////////////////////////////////////////////////////////////////////////////////
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //// Name      : Convert
@@ -1477,7 +1485,7 @@ void CAdoDB::RecordMoveFirst()
     catch (_com_error &e){
         throw CEXP("Get an exception(%s)", Convert(e.Description()));
     }
-    catch (JL::CException& ex){
+    catch (CException& ex){
         EXP_TRACK_ADD(ex);
         throw CEXP_E(ex);
     }

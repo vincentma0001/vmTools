@@ -38,7 +38,7 @@
 #define MAKEUSEREXP( EXPVAlUE )     EXPTYPE_USER|EXPVAlUE       // 生成用户定义异常码
 
 // 异常创建宏
-#if defined (_MSC_VER) && (_MSC_VER<=1300)
+//#if defined (_MSC_VER) && (_MSC_VER<=1300)
 #   define CEXP                                                                JL::CException( "Func", __LINE__, __FILE__ )
 #   define CEXP_F                                                              JL::CException( "Func", __LINE__, __FILE__ )
 #   define CEXP_T                                                              JL::CException( "Func", __LINE__, __FILE__ )
@@ -49,18 +49,18 @@
 #   define CEXP_TCS                                                            JL::CException( "Func", __LINE__, __FILE__ )
 #   define CEXP_FTCS                                                           JL::CException( "Func", __LINE__, __FILE__ )
 #   define CEXP_E( ex )                                                        JL::CException( ex, "Func", __LINE__, __FILE__, NULL )
-#else
-#   define CEXP( szFormat, ... )                                               JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
-#   define CEXP_F( szFormat, szFunc, ... )                                     JL::CException( szFormat, szFunc, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
-#   define CEXP_T( szFormat, ulExpType, ... )                                  JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__,ulExpType, MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
-#   define CEXP_C( szFormat, ulExpCode, ... )                                  JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__,  MAKEUSEREXP(ET_UNKNOWN),ulExpCode,NULL, __VA_ARGS__ )
-#   define CEXP_S( szFormat, szTime, ... )                                     JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), szTime, __VA_ARGS__ )
-#   define CEXP_TC( szFormat,ulExpType,ulExpCode, ... )                        JL::CException( szFormat, __FUNCTION__,  __LINE__, __FILE__, ulExpType,ulExpCode, NULL, __VA_ARGS__ )
-#   define CEXP_FTC( szFormat,szFunc,ulExpType,ulExpCode, ... )                JL::CException( szFormat, szFunc,  __LINE__, __FILE__, ulExpType,ulExpCode, NULL, __VA_ARGS__ )
-#   define CEXP_TCS( szFormat, ulExpType,ulExpCode, szTime, ... )              JL::CException( szFormat, __FUNCTION__,  __LINE__, __FILE__, ulExpType,ulExpCode, szTime, __VA_ARGS__ )
-#   define CEXP_FTCS( szFormat, szFunc, ulExpType, ulExpCode, szTime,  ... )   JL::CException( szFormat, szFunc,  __LINE__, __FILE__, ulExpType,ulExpCode, szTime, __VA_ARGS__ )
-
-#   define CEXP_E( ex )                                                        JL::CException( ex, __FUNCTION__, __LINE__, __FILE__, NULL )
+// #else
+// #   define CEXP( szFormat, ... )                                               JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
+// #   define CEXP_F( szFormat, szFunc, ... )                                     JL::CException( szFormat, szFunc, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
+// #   define CEXP_T( szFormat, ulExpType, ... )                                  JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__,ulExpType, MAKEUSEREXP(ET_UNKNOWN), NULL, __VA_ARGS__ )
+// #   define CEXP_C( szFormat, ulExpCode, ... )                                  JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__,  MAKEUSEREXP(ET_UNKNOWN),ulExpCode,NULL, __VA_ARGS__ )
+// #   define CEXP_S( szFormat, szTime, ... )                                     JL::CException( szFormat, __FUNCTION__, __LINE__, __FILE__, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), szTime, __VA_ARGS__ )
+// #   define CEXP_TC( szFormat,ulExpType,ulExpCode, ... )                        JL::CException( szFormat, __FUNCTION__,  __LINE__, __FILE__, ulExpType,ulExpCode, NULL, __VA_ARGS__ )
+// #   define CEXP_FTC( szFormat,szFunc,ulExpType,ulExpCode, ... )                JL::CException( szFormat, szFunc,  __LINE__, __FILE__, ulExpType,ulExpCode, NULL, __VA_ARGS__ )
+// #   define CEXP_TCS( szFormat, ulExpType,ulExpCode, szTime, ... )              JL::CException( szFormat, __FUNCTION__,  __LINE__, __FILE__, ulExpType,ulExpCode, szTime, __VA_ARGS__ )
+// #   define CEXP_FTCS( szFormat, szFunc, ulExpType, ulExpCode, szTime,  ... )   JL::CException( szFormat, szFunc,  __LINE__, __FILE__, ulExpType,ulExpCode, szTime, __VA_ARGS__ )
+// 
+// #   define CEXP_E( ex )                                                        JL::CException( ex, __FUNCTION__, __LINE__, __FILE__, NULL )
 //#   define CEXP_E_F( ex, szFunc )                                              CException( ex, szFunc, MAKEUSEREXP(ET_UNKNOWN),MAKEUSEREXP(ET_UNKNOWN), __LINE__, __FILE__, NULL )
 //#   define CEXP_E_T( ex, ulExpType )                                           CException( ex, __FUNCTION__, ulExpType,MAKEUSEREXP(ET_UNKNOWN), __LINE__, __FILE__, NULL )
 //#   define CEXP_E_C( ex, ulExpCode )                                           CException( ex, __FUNCTION__, MAKEUSEREXP(ET_UNKNOWN),ulExpCode, __LINE__, __FILE__, NULL )
@@ -69,7 +69,7 @@
 //#   define CEXP_E_FTC( ex,szFunc,ulExpType,ulExpCode )                         CException( ex, szFunc, ulExpType,ulExpCode, __LINE__, __FILE__, NULL )
 //#   define CEXP_E_TCS( ex, ulExpType,ulExpCode, szTime )                       CException( ex, __FUNCTION__, ulExpType,ulExpCode, __LINE__, __FILE__, szTime )
 //#   define CEXP_E_FTCS( ex, szFunc, ulExpType, ulExpCode, szTime )             CException( ex, szFunc, ulExpType,ulExpCode, __LINE__, __FILE__, szTime )
-#endif
+//#endif
 
 namespace JL {
 
@@ -108,14 +108,14 @@ public:
 // Construct && Destruct
 public:
     // Construct define
-    CException( const char* szFormat,
-                const char* szFunc,
-                const unsigned long culLine,
-                const char* szFile,
-                const unsigned long culExpType = MAKEUSEREXP(ET_UNKNOWN),
-                const unsigned long culExpCode = MAKEUSEREXP(ET_UNKNOWN),
-                const char* szTime = NULL,
-                ...);
+//     CException( const char* szFormat,
+//                 const char* szFunc,
+//                 const unsigned long culLine,
+//                 const char* szFile,
+//                 const unsigned long culExpType = MAKEUSEREXP(ET_UNKNOWN),
+//                 const unsigned long culExpCode = MAKEUSEREXP(ET_UNKNOWN),
+//                 const char* szTime = NULL,
+//                 ...);
 #if defined (_MSC_VER) && (_MSC_VER<=1300)
     CException( const char* szFunc,
                 const unsigned long culLine,

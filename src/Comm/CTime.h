@@ -16,9 +16,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
-#include <TIME.H>
-#include "CException.h"
-#include "VerifyDef.h"
+#include <sys/TIMEB.H>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // macro define
@@ -38,8 +36,9 @@ class CTime
 //////////////////////////////////////////////////////////////////////////////////////////
 // data members :
 private:
-    time_t          mTime;
+    //time_t          mTime;
     char            mszBuf[_MAX_TIME_BUF_];
+	struct _timeb	mTime;
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // Construct & Destruct :
@@ -51,22 +50,38 @@ public:
     CTime( const CTime& Obj );                                  // Copy Construct
     CTime& operator = ( const CTime& Obj );                     // Assignment
     bool operator > ( const CTime& Obj );
-    bool operator < ( const CTime* Obj );
+    bool operator < ( const CTime& Obj );
     double operator - ( const CTime& Obj );
+	bool operator == ( const CTime& Obj );
+	bool operator != ( const CTime& Obj );
 
 public:
     const char* ToString( const char* szFormat );
-    const char* ToStringShort();                                // 获取时间字符串，格式"%Y-%m-%d"
-    const char* ToStringLong();                                 // 获取时间字符串，格式"%Y-%m-%d %H:%M:%S"
-    static CTime GetCurrTime( );                                // 获取当前时间
+    const char* ToStringDay();                                  // 获取时间字符串，格式"%Y-%m-%d"
+    const char* ToStringDayTime();                              // 获取时间字符串，格式"%Y-%m-%d %H:%M:%S"
+    const char* ToStringMillitm( const char* szFormat );                              // 获取时间字符串，格式"%Mill"
+    const char* ToStringTime();                                 // 获取时间字符串，格式"%H:%M:%S"
+    const char* ToStringFull();                                 // 获取时间字符串，格式""%Y-%m-%d %H:%M:%S:%Mill"
+    static CTime GetCurrTime();                                 // 获取当前时间
+    
+public:
     time_t GetTime( void );
+	unsigned short GetMillitm();
+	
     void SetTime( const char* szFormat);
-    void SetTime( unsigned int uiHour, unsigned int uiMin, unsigned int uiSec );
+    void SetTime( unsigned int uiHour=0, unsigned int uiMin=0, unsigned int uiSec=0, unsigned short usMill=0 );
     void AddTime( double tTimeDiff );
 }; // End of class CTime
 //////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////
 } // End of namesapce JL
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// namespace
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // End of file CTime.h

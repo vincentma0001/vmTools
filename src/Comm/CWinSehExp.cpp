@@ -22,6 +22,10 @@
 #include "CWinSehExp.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// namespace JL
+namespace JL{
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CWinSehExp
 // Full name : CWinSehExp::CWinSehExp
 // Access    : public 
@@ -38,14 +42,18 @@ CWinSehExp::CWinSehExp( CWinSeh& seh,
                         const unsigned long culLine /*= __LINE__*/, 
                         const char* szFile /*= __FILE__*/, 
                         const char* szTime /*= NULL */) 
-                        : CException( seh.GetExpDes(), 
-                                      szFunc,
+                        : CException( szFunc,
                                       culLine,
                                       szFile )
 {
+	mstrMsg = seh.GetExpDes();
+	mstrTime = szTime;
+
 } // End of function CException(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////
+} // End of namespace JL
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // End of file CWinSehExp.cpp

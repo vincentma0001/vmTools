@@ -49,7 +49,7 @@
 #   include <windows.h>
 #endif
 
-#include "CError.h"
+#include <string>
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
@@ -57,22 +57,25 @@
 //        Notes : 此类封装了window错误代码及错误信息的获取操作
 //
 /////////////////////////////////////////////////////////////////////////////////////
-class CWinError : public CError
+class CWinErr
 {
+private:
+	unsigned long       mdwErrorCode;          // 错误代码
+    std::string         mstrErrorDes;          // 错误代码描述
 /////////////////////////////////////////////////////////////////////////////////////
 // functions :
 public:
-    CWinError( const DWORD cdwError=GetLastError() )
-        : CError(cdwError){};			                        // Construct define
-	~CWinError(){};			                                    // Destruct define
-public:
-    virtual const char* ToString();                             // 获取错误描述
-
+    CWinErr( const DWORD cdwError=GetLastError() )
+        : mdwErrorCode(cdwError){};			                        // Construct define
+	~CWinErr(){};			                                    // Destruct define
 /////////////////////////////////////////////////////////////////////////////////////////
 // static functions:
 public:
-    DWORD GetErrorCode();                                // 获取错误代码
-    const char* GetErrorInfo( void );                    // 获取错误描述
+    const char* ToString();                             // 获取错误描述
+
+public:
+    DWORD GetErrCode();                                // 获取错误代码
+    const char* GetErrMsg( void );                     // 获取错误描述
 
 }; // End of class CWinError
 /////////////////////////////////////////////////////////////////////////////////////

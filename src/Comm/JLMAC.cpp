@@ -1,10 +1,18 @@
 // JLMAC.cpp: implementation of the JLMAC class.
 //
 //////////////////////////////////////////////////////////////////////
-#include <Windows.h>
 
+#pragma comment( lib,"jlcrypt.lib" )
+
+#include "../stdafx.h"
+#include "../CResponseServer.h"
 #include "JLMAC.h"
+#include "Function.h"
+#include <jlcrypt.h>
 #include <string.h>
+
+#include <exception>
+#include <STRING>
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -878,6 +886,32 @@ int JLMAC:: MY_3des( uint8 input[8], uint8 output[8] ,int TYPE)
 	return(0);
 }
 
+void JLMAC:: MY_set_3DESkey(unsigned char *key1)
+{
+
+	memcpy(key_3DES,key1,16);	
+}
+
+int JLMAC:: JL_3DES( uint8 input[8], uint8 output[8] ,int TYPE) 
+{
+	des3_context ctx1;
+
+	des3_set_2keys( &ctx1, key_3DES , key_3DES+8);
+
+	switch(TYPE){
+	case 0:			/*  加密  */
+		des3_encrypt( &ctx1, input , output );
+		break;
+	case 1:			/*  解密  */
+		des3_decrypt( &ctx1, input, output );
+		break;
+	default:
+		return(1);
+	}
+
+	return(0);
+}
+
 void JLMAC::Stgstr( uint8 input1[8], uint8 input2[8], uint8 output[8] )
 {
 	int	i;
@@ -942,7 +976,7 @@ void JLMAC:: Get3DesMAC( unsigned char *packet, unsigned char *mac_value, int pa
 		memset(packet+packet_size,0x00,num*8 - packet_size);
 	}
 	else num=packet_size/8;
-	unsigned char buffer[200] ;
+	unsigned char buffer[1024] ;
 	memcpy(buffer,packet,num*8);
 
 
@@ -1054,4 +1088,117 @@ int JLMAC::des_main_ks( uint32 SK[32], uint8 key[8] )
     }
 
     return( 0 );
+}
+
+void JLMAC::EncryptSM4( char* pszOutBuf, const unsigned int ulOutBufLen, const char* pszMainKey, const char* pszWorkingKey, const char* pszIV, bool bIsUseBCD, bool bbIsUseBCD2 )
+{
+	unsigned char lszMainKey[33] = { 0 };
+	unsigned char lszWorkKey[33] = { 0 };
+	
+	if ( bIsUseBCD == true )
+	{
+		BCDToASC( (unsigned char*)pszMainKey,		lszMainKey, 32 );
+		BCDToASC( (unsigned char*)pszWorkingKey,	lszWorkKey, 32 );
+	}
+	else
+	{
+		memcpy(lszMainKey, pszMainKey, 32);
+		memcpy(lszWorkKey, pszWorkingKey, 32);
+	}
+	
+	// 原有加密算法
+	// 	unsigned char lszPinKey1[9] = { 0 };
+	// 	unsigned char lszPinKey2[9] = { 0 };
+	// 	memcpy(lszPinKey1, lszMainKey, 8);
+	// 	memcpy(lszPinKey2, lszMainKey + 8, 8);
+	// 	
+	// 	unsigned char lszTempKey1[33] = { 0 };
+	// 	gJLMac.MY_set_key(lszPinKey1, lszPinKey2);
+	// 	gJLMac.MY_3des(lszWorkKey, lszTempKey1, 0);
+	// 	gJLMac.MY_3des(lszWorkKey + 8, lszTempKey1 + 8, 0);
+	
+	// 使用国密
+	unsigned char lszTempKey1[128] = { 0 };
+	try{
+		::Sm4( "ECB", 1, (char*)lszMainKey, (char*)pszIV, (char*)lszWorkKey, (char*)lszTempKey1 );
+	}catch( ... )
+	{
+	}
+	
+	unsigned char lszTempKey2[33] = { 0 };
+	if ( bbIsUseBCD2 == true )
+	{
+		ASCToBCD( lszTempKey1, lszTempKey2, 32 );
+	}
+	else
+	{
+		memcpy(lszTempKey2, lszTempKey1, 32);
+		
+	}
+
+	memcpy(pszOutBuf, lszTempKey2, ulOutBufLen);
+}
+
+void JLMAC::AuthenticSM4( char* pszOutBuf, const unsigned int ulOutBufLen, const char* pszWorkKey, const char* pszIV, bool bIsUseBCD, bool bIsUseBCD2 )
+{
+	std::string lstrWorkKey = pszWorkKey;
+	unsigned char lszWorkKey[33] = { 0 };
+	if ( bIsUseBCD == true )
+	{
+		BCDToASC( (unsigned char*)pszWorkKey, lszWorkKey, 32 );
+	}
+	else
+	{
+		memcpy(lszWorkKey, lstrWorkKey.c_str(), 32);
+	}
+	
+	// 使用国密
+	unsigned char lszNullString[17] = { 0 };
+	unsigned char lszOutBuf[128] = { 0 };
+	try{
+		::Sm4( "ECB", 1, (char*)lszWorkKey, (char*)pszIV, "00", (char*)lszOutBuf );
+	}catch( ... )
+	{
+	}
+	
+	unsigned char lszAuthenticString[33] = { 0 };
+	if ( bIsUseBCD2 == true )
+	{
+		ASCToBCD( lszOutBuf, lszAuthenticString, 32 );
+	}
+	else
+	{
+		memcpy( lszAuthenticString, lszOutBuf, ulOutBufLen);
+	}
+	
+	memcpy( pszOutBuf, lszAuthenticString, ulOutBufLen );
+}
+
+unsigned int JLMAC::GetMacSM4( PBYTE pMacString, UINT iMacStringLen, const char* pszMackey, const char* pszIV, PBYTE pszMacValue, UINT iMacLen )
+{
+	int size=0;
+	unsigned char lszMacValue[17] = {0};
+	unsigned char lszBuf[33] = {0};
+	unsigned char lszOutBuf[33] = {0};
+	
+	while( iMacStringLen > size)
+	{
+		if( (iMacStringLen - size) <= 16 )
+		{
+			Do_XOR(lszMacValue, &pMacString[size], iMacStringLen - size);
+			BCDToASC(lszMacValue, lszBuf, 32 );
+			::Sm4( "ECB", 1, (char*)pszMackey, (char*)pszIV, (char*)lszBuf, (char*)lszOutBuf  );
+			break;
+		}
+		Do_XOR(lszMacValue, &pMacString[size], 16);
+		BCDToASC( lszMacValue, lszBuf, 32 );
+		::Sm4( "ECB", 1, (char*)pszMackey, (char*)pszIV, (char*)lszBuf, (char*)lszOutBuf );
+		ASCToBCD(lszOutBuf, lszMacValue,32);
+		
+		size += 16;
+	}
+	
+	memcpy( pszMacValue, lszOutBuf, iMacLen );
+	
+	return iMacLen;
 }

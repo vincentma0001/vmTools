@@ -36,23 +36,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)tmp\tstLibComm\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>tstLibComm</TargetName>
-    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(SolutionDir)src;E:\我的项目\SDK\boost_1_60_0;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib;E:\我的项目\SDK\lib\boost;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_MBCS;_WIN32_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -72,24 +60,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\tst\Comm\CTstCaseForTmp.cpp" />
-    <ClCompile Include="..\..\tst\Comm\TestFrameForLibComm.cpp" />
-    <ClCompile Include="..\..\tst\Comm\testLibComm.cpp" />
-    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForAtom.cpp" />
-    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForExp.cpp" />
-    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForRand.cpp" />
-    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForThread.cpp" />
-    <ClCompile Include="..\..\tst\Comm\tstCase\CTstCaseForWinWaitableTimer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\tst\Comm\CTstCaseForTmp.h" />
-    <ClInclude Include="..\..\tst\Comm\TestFrameForLibComm.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCaseInc.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForAtom.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForExp.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForRand.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForThread.h" />
-    <ClInclude Include="..\..\tst\Comm\tstCase\CTstCaseForWinWaitableTimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

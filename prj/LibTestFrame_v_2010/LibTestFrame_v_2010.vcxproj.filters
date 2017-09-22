@@ -5,46 +5,46 @@
       <UniqueIdentifier>{820f246c-df7a-42a8-b1f7-2eaf1ed6553f}</UniqueIdentifier>
     </Filter>
     <Filter Include="res">
-      <UniqueIdentifier>{54672db4-e45f-4da6-9e55-e08d51a8e346}</UniqueIdentifier>
+      <UniqueIdentifier>{f14f1a35-e81c-4734-840e-d42859f9bcc8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\Test\CAbsTestCase.h">
+    <ClCompile Include="..\..\src\CAbsTestCase.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CAbsTestFrame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CComCase.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\CTestCaseFactory.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\CAbsTestCase.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\CAbsTestFrame.h">
+    <ClInclude Include="..\..\src\CAbsTestFrame.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\CComCase.h">
+    <ClInclude Include="..\..\src\CComCase.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\CTestCaseFactory.h">
+    <ClInclude Include="..\..\src\CTestCaseFactory.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\stCmd.h">
+    <ClInclude Include="..\..\src\stCmd.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\TestFrameInc.h" />
-    <ClInclude Include="resource.h">
+    <ClInclude Include="..\..\res\resource.h">
       <Filter>res</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\inc\CTestFrameInc.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Test\CAbsTestCase.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Test\CAbsTestFrame.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Test\CComCase.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Test\CTestCaseFactory.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="LibTestFrame.rc">
+    <ResourceCompile Include="..\..\res\LibTestFrame.rc">
       <Filter>res</Filter>
     </ResourceCompile>
   </ItemGroup>

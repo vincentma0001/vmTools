@@ -82,7 +82,7 @@ void CWinWaitForObjs::AddObj(CWinAbsObj* chObj)
 bool CWinWaitForObjs::WaitForObjs(BOOL bWaitAll, DWORD dwMillSeconds, bool bAlertable)
 {
     DWORD ldwCountOfObjs = (DWORD)mVecForObjs.size();
-    DWORD ldwRet = WaitForMultipleObjectsEx( ldwCountOfObjs, mpHandles, bWaitAll, dwMillSeconds, bAlertable );
+    DWORD ldwRet = WaitForMultipleObjectsEx( ldwCountOfObjs, mpHandles,bWaitAll, dwMillSeconds, bAlertable );
     if ( ldwRet == WAIT_TIMEOUT )
     {
         return false;

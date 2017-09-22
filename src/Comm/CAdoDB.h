@@ -23,16 +23,13 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
-#include <string>
 
+//#import "C:\Program Files\Common Files\System\ADO\msado15.dll" no_namespace, named_guids rename("EOF","adoEOF"), rename("BOF","adoBOF")
 #import "C:/Program Files/Common Files/System/ado/msado15.dll" no_namespace rename("EOF", "adoEOF") rename("BOF", "FirstOfFile")  
-
 
 typedef _RecordsetPtr  AdoRecPtr;
 typedef _ConnectionPtr AdoCnnPtr;
 typedef _CommandPtr    AdoComPtr;
-
-#define P_IS_SUCCESS 0;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -69,18 +66,20 @@ public:
     void Close();
     void Connect();
 
-    long Excute(const char* szCmdStr);
+    long Excute(char* szCmdStr);
     
     void Call_Begin(char* szPropName);
-    long Call_End(void);
-    int GetReturn(void);
-
     void SetParamI(const char* szParamName, bool IsInput, int    iValue);
     void SetParamD(const char* szParamName, bool IsInput, double dValue);
-    void SetParamS(const char* szParamName, bool IsInput, std::string strValue, long lSize);
+    void SetParamS(const char* szParamName, bool IsInput, std::string strValue, int iSize);
+    //void SetParamB(const char* szParamName, bool IsInput, char* szBuf, unsigned int uiBufLen);
+    long Call_End( void );
+    int GetReturn( void );
     void GetParamI(const char* szParamName, int&    iValue);
     void GetParamD(const char* szParamName, double& dValue);
     void GetParamS(const char* szParamName, std::string& strValue);
+    //void GetParamB(const char* szParamName, char* szBuf, unsigned int uiBufLen);
+
 
     void BeginTrans();
     void CommitTrans();
@@ -107,8 +106,6 @@ public:
 
 private:
     const char* Convert(_bstr_t& bStr);
-    std::string Rtrim(std::string &str);
-
     //BSTR Convert( const char* pStr);
 }; // End of class CAdoDB
 /////////////////////////////////////////////////////////////////////////////////////////

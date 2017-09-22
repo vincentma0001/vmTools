@@ -57,6 +57,16 @@ public:
 	virtual ~JLMAC();
 
 public:
+
+	// SM4????
+	// ????
+	void EncryptSM4( char* pszOutBuf, const unsigned int ulOutBufLen, const char* pszMainKey, const char* pszWorkingKey, const char* pszIV,  bool bIsNeedConvert1, bool bIsNeedConvert2 );
+	// ?????
+	void AuthenticSM4( char* pszOutBuf, const unsigned int ulOutBufLen, const char* pszWorkKey, const char* pszIV, bool bIsNeedConvert1, bool bIsNeedConvert2 );
+	// ??MAC?
+	unsigned int GetMacSM4( PBYTE pMacString, UINT iMacStringLen, const char* pszMackey, const char* pszIV, PBYTE pszMacValue, UINT iMacLen );
+
+public:
 	int  fnJL_MAC(void);
 	int  GetMAC(unsigned char *,int ,unsigned char * ,unsigned char * ,unsigned char);
 	void DES(unsigned char *,unsigned char *,unsigned char *,unsigned char );
@@ -99,6 +109,9 @@ public:
     void HostDes(unsigned char *card_no,unsigned char *work_key,unsigned char *pin,unsigned char *encrypt_pin,unsigned char flag);
 	void DSP_2_HEX(char *dsp,char *hex,int count);
 	void HEX_2_DSP(char *hex,char *dsp,int count);
+	int JL_3DES( uint8 input[8], uint8 output[8] ,int TYPE);
+	void MY_set_3DESkey(unsigned char *key1);
+
 public:
 	static unsigned char C[17][28];
 	static unsigned char D[17][28];
@@ -116,6 +129,7 @@ public:
 	static uint32 SB8[64];
 	static uint32 LHs[16];
 	static uint32 RHs[16];
+    unsigned char key_3DES[16];
 	
 	
 };

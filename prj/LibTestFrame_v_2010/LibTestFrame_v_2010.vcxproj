@@ -16,7 +16,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -43,26 +43,23 @@
     <IntDir>$(SolutionDir)tmp\LibTestFrame\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetName>LibTestFrame</TargetName>
+    <TargetName>LibCTestFrame</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <TargetExt>.dll</TargetExt>
-    <IncludePath>E:\我的项目\vmTools\trunk\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib;$(LibraryPath)</LibraryPath>
+    <TargetExt>.lib</TargetExt>
+    <IncludePath>E:\我的项目\vmTools\trunk\inc;E:\我的项目\vmTools\trunk\LibComm\src;E:\我的项目\vmTools\trunk\LibTestFrame\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <ExceptionHandling>Async</ExceptionHandling>
-      <PreprocessorDefinitions>_VM_TOOLS_DLL_EXPORT_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(OutDir)LibTestFrame.lib $(SolutionDir)lib\LibTestFrame.lib
-copy $(OutDir)LibTestFrame.dll $(SolutionDir)bin\LibTestFrame.dll</Command>
+      <Command>copy $(OutDir)\LibTestFrame.lib $(SolutionDir)lib\LibTestFrame.lib</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -79,22 +76,22 @@ copy $(OutDir)LibTestFrame.dll $(SolutionDir)bin\LibTestFrame.dll</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\TestFrameInc.h" />
-    <ClInclude Include="..\..\src\Test\CAbsTestCase.h" />
-    <ClInclude Include="..\..\src\Test\CAbsTestFrame.h" />
-    <ClInclude Include="..\..\src\Test\CComCase.h" />
-    <ClInclude Include="..\..\src\Test\CTestCaseFactory.h" />
-    <ClInclude Include="..\..\src\Test\stCmd.h" />
-    <ClInclude Include="resource.h" />
+    <ClCompile Include="..\..\src\CAbsTestCase.cpp" />
+    <ClCompile Include="..\..\src\CAbsTestFrame.cpp" />
+    <ClCompile Include="..\..\src\CComCase.cpp" />
+    <ClCompile Include="..\..\src\CTestCaseFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Test\CAbsTestCase.cpp" />
-    <ClCompile Include="..\..\src\Test\CAbsTestFrame.cpp" />
-    <ClCompile Include="..\..\src\Test\CComCase.cpp" />
-    <ClCompile Include="..\..\src\Test\CTestCaseFactory.cpp" />
+    <ClInclude Include="..\..\..\inc\CTestFrameInc.h" />
+    <ClInclude Include="..\..\res\resource.h" />
+    <ClInclude Include="..\..\src\CAbsTestCase.h" />
+    <ClInclude Include="..\..\src\CAbsTestFrame.h" />
+    <ClInclude Include="..\..\src\CComCase.h" />
+    <ClInclude Include="..\..\src\CTestCaseFactory.h" />
+    <ClInclude Include="..\..\src\stCmd.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="LibTestFrame.rc" />
+    <ResourceCompile Include="..\..\res\LibTestFrame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

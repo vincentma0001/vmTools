@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetExt>.lib</TargetExt>
     <TargetName>LibComm</TargetName>
-    <IncludePath>E:\我的项目\vmTools\trunk\src;$(IncludePath)</IncludePath>
+    <IncludePath>E:\我的项目\vmTools\trunk\LibComm\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -74,56 +74,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\CModuleLoader.h" />
-    <ClInclude Include="..\..\src\CommInc.h" />
-    <ClInclude Include="..\..\src\Comm\CAtom.h" />
-    <ClInclude Include="..\..\src\Comm\CBit.h" />
-    <ClInclude Include="..\..\src\Comm\CCppExp.h" />
-    <ClInclude Include="..\..\src\Comm\CError.h" />
-    <ClInclude Include="..\..\src\Comm\CException.h" />
-    <ClInclude Include="..\..\src\Comm\CFile.h" />
-    <ClInclude Include="..\..\src\Comm\CMyString.h" />
-    <ClInclude Include="..\..\src\Comm\CRand.h" />
-    <ClInclude Include="..\..\src\Comm\CSimpleMap.h" />
-    <ClInclude Include="..\..\src\Comm\CSingleTon.h" />
-    <ClInclude Include="..\..\src\Comm\CThread.h" />
-    <ClInclude Include="..\..\src\Comm\CTime.h" />
-    <ClInclude Include="..\..\src\Comm\CValue.h" />
-    <ClInclude Include="..\..\src\Comm\CWinAbsObjs.h" />
-    <ClInclude Include="..\..\src\Comm\CWinCS.h" />
-    <ClInclude Include="..\..\src\Comm\CWinError.h" />
-    <ClInclude Include="..\..\src\Comm\CWinSeh.h" />
-    <ClInclude Include="..\..\src\Comm\CWinSehExp.h" />
-    <ClInclude Include="..\..\src\Comm\CWinWaitableTimer.h" />
-    <ClInclude Include="..\..\src\Comm\CWinWaitForObjs.h" />
-    <ClInclude Include="..\..\src\Comm\DllMacro.h" />
-    <ClInclude Include="..\..\src\Comm\VerifyDef.h" />
-    <ClInclude Include="..\..\src\Log.h" />
-    <ClInclude Include="..\..\src\Log\CAbsLogImp.h" />
-    <ClInclude Include="..\..\src\Log\CLog.h" />
-    <ClInclude Include="..\..\src\Log\CStdLog.h" />
+    <ClCompile Include="..\..\src\CAtom.cpp" />
+    <ClCompile Include="..\..\src\CBit.cpp" />
+    <ClCompile Include="..\..\src\CCppExp.cpp" />
+    <ClCompile Include="..\..\src\CErr.cpp" />
+    <ClCompile Include="..\..\src\CException.cpp" />
+    <ClCompile Include="..\..\src\CFile.cpp" />
+    <ClCompile Include="..\..\src\CMySqlExpTrack.cpp" />
+    <ClCompile Include="..\..\src\CTime.cpp" />
+    <ClCompile Include="..\..\src\CValue.cpp" />
+    <ClCompile Include="..\..\src\CWinCS.cpp" />
+    <ClCompile Include="..\..\src\CWinError.cpp" />
+    <ClCompile Include="..\..\src\CWinSeh.cpp" />
+    <ClCompile Include="..\..\src\CWinSehExp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\CModuleLoader.cpp" />
-    <ClCompile Include="..\..\src\Comm\CBit.cpp" />
-    <ClCompile Include="..\..\src\Comm\CCppExp.cpp" />
-    <ClCompile Include="..\..\src\Comm\CException.cpp" />
-    <ClCompile Include="..\..\src\Comm\CFile.cpp" />
-    <ClCompile Include="..\..\src\Comm\CRand.cpp" />
-    <ClCompile Include="..\..\src\Comm\CThread.cpp" />
-    <ClCompile Include="..\..\src\Comm\CTime.cpp" />
-    <ClCompile Include="..\..\src\Comm\CValue.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinAbsObjs.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinCS.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinError.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinSeh.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinSehExp.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinWaitableTimer.cpp" />
-    <ClCompile Include="..\..\src\Comm\CWinWaitForObjs.cpp" />
-    <ClCompile Include="..\..\src\Log.cpp" />
-    <ClCompile Include="..\..\src\Log\CAbsLogImp.cpp" />
-    <ClCompile Include="..\..\src\Log\CLog.cpp" />
-    <ClCompile Include="..\..\src\Log\CStdLog.cpp" />
+    <ClInclude Include="..\..\src\CAtom.h" />
+    <ClInclude Include="..\..\src\CBit.h" />
+    <ClInclude Include="..\..\src\CCppExp.h" />
+    <ClInclude Include="..\..\src\CErr.h" />
+    <ClInclude Include="..\..\src\CError.h" />
+    <ClInclude Include="..\..\src\CException.h" />
+    <ClInclude Include="..\..\src\CExpTrack.h" />
+    <ClInclude Include="..\..\src\CFile.h" />
+    <ClInclude Include="..\..\src\CMySqlExpTrack.h" />
+    <ClInclude Include="..\..\src\CMyString.h" />
+    <ClInclude Include="..\..\src\CSimpleMap.h" />
+    <ClInclude Include="..\..\src\CSingleTon.h" />
+    <ClInclude Include="..\..\src\CTime.h" />
+    <ClInclude Include="..\..\src\CValue.h" />
+    <ClInclude Include="..\..\src\CvmString.h" />
+    <ClInclude Include="..\..\src\CWinCS.h" />
+    <ClInclude Include="..\..\src\CWinErr.h" />
+    <ClInclude Include="..\..\src\CWinError.h" />
+    <ClInclude Include="..\..\src\CWinSeh.h" />
+    <ClInclude Include="..\..\src\CWinSehExp.h" />
+    <ClInclude Include="..\..\src\DllMacro.h" />
+    <ClInclude Include="..\..\src\VerifyDef.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

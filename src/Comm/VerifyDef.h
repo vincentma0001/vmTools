@@ -33,7 +33,7 @@
 #   if defined (_MSC_VER) && (_MSC_VER<=1300)
 //#       define THROW_INVAILED_HANDLE(pHandle, szFunc)  CEXP_F( "Get anInvailed Handle(%s)", szFunc, #pHandle );
 #       define THROW_INVAILED_HANDLE(pHandle)  CEXP( "Get anInvailed Handle(%s)", #pHandle );
-#       define THROW_ASSERT_FAILED(Expression, szFunc) CEXP_F( "Assert failed Expression(%s)", szFunc, #Expression )
+#       define THROW_ASSERT_FAILED(Expression) CEXP( "Assert failed Expression(%s)", #Expression )
 #   else
 #       define THROW_INVAILED_HANDLE(pHandle)  CEXP( "Get anInvailed Handle(%s)", #pHandle );
 #       define THROW_ASSERT_FAILED(Expression) CEXP( "Assert failed Expression(%s)", #Expression )
@@ -74,7 +74,7 @@
 // assert macro define
 
 #if defined (_MSC_VER) && (_MSC_VER<=1300)
-#   define _ASSERT_( X, szFunc ) if ( !(X) ) { throw THROW_ASSERT_FAILED(X, szFunc); }
+#   define _ASSERT_( X ) if ( !(X) ) { throw THROW_ASSERT_FAILED(X); }
 #else
 #   define _ASSERT_( X ) if ( !(X) ) { throw THROW_ASSERT_FAILED(X); }
 #endif
@@ -88,9 +88,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // file macro define
 
-#ifndef __FILEBASE__
-#define __FILEBASE__ GetFileBase(__FILE__).c_str()
-#endif
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // string macro define

@@ -36,10 +36,10 @@
 // 
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <STRING>
+
 #ifndef _WINDOWS_
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#undef WIN32_LEAN_AND_MEAN
+#	error this file need #include <windows.h>
 #endif
 
 namespace JL{
@@ -65,7 +65,7 @@ namespace JL{
 
 		// functions :
 		public :
-			HANDLE GetEvent	(  ) const;
+			HANDLE GetHandle	(  ) const;
 			void Wait		(  ) const;
 			bool Wait		( DWORD timeoutMillis ) const;
 			void Reset		(  );

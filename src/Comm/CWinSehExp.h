@@ -29,10 +29,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // macro define
 
-#define CEXP_SEH( wSeh )                                                    CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, NULL )
-#define CEXP_SEH_F( wSeh, szFunc )                                          CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, NULL )
-#define CEXP_SEH_T( wSeh, szTime )                                          CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, szTime )
-#define CEXP_SEH_FT( wSeh, szFunc, szTime )                                 CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, szTime )
+#define CEXP_SEH( wSeh )                                                    JL::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, NULL )
+#define CEXP_SEH_F( wSeh, szFunc )                                          JL::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, NULL )
+#define CEXP_SEH_T( wSeh, szTime )                                          JL::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, szTime )
+#define CEXP_SEH_FT( wSeh, szFunc, szTime )                                 JL::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, szTime )
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// namespace 
+namespace JL{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -57,6 +61,8 @@ public:
 }; // End of class CWinSehExp
 /////////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////
+} // End of namespace JL
 /////////////////////////////////////////////////////////////////////////////////////////
 #endif // __CWINSEHEXP_H__
 /////////////////////////////////////////////////////////////////////////////////////////

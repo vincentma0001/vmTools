@@ -31,7 +31,7 @@
 // Return    : 非空     - 错误描述
 //             空       - 获取错误描述失败,或无错误信息
 // Notes     : 
-const char* CWinError::ToString()
+const char* CWinErr::ToString()
 {
     try
     {
@@ -163,7 +163,7 @@ const char* CWinError::ToString()
 
         // 将获得的信息
         mstrErrorDes = std::string( (LPCSTR)(lpMsgBuf) ); //ssBuf.str().c_str();
-        mstrErrorDes.replace( (mstrErrorDes.end()-sizeof(char)),mstrErrorDes.end(), std::string() );
+        mstrErrorDes.replace( (mstrErrorDes.end()-2),mstrErrorDes.end(), std::string() );
 
         return mstrErrorDes.c_str();
     } // End of __try
@@ -182,7 +182,7 @@ const char* CWinError::ToString()
 // Parameter : 无
 // Return    : windows 错误代码, 其后通过GetErrorInfo获取代码描述
 // Notes     : 
-DWORD CWinError::GetErrorCode()
+DWORD CWinErr::GetErrCode()
 {
     mdwErrorCode = ::GetLastError();
     return mdwErrorCode;
@@ -196,32 +196,9 @@ DWORD CWinError::GetErrorCode()
 // Parameter : cdwErrCode - 需要获取信息的错误代码
 // Return    : 错误代码所代表的错误描述
 // Notes     : 
-const char* CWinError::GetErrorInfo(void)
+const char* CWinErr::GetErrMsg(void)
 {
-    try
-    {
-        LPVOID lpMsgBuf;
-        ::FormatMessageA( FORMAT_MESSAGE_ALLOCATE_BUFFER |
-            FORMAT_MESSAGE_FROM_SYSTEM | 
-            FORMAT_MESSAGE_IGNORE_INSERTS,
-            NULL,
-            mdwErrorCode,
-            MAKELANGID( LANG_ENGLISH,SUBLANG_ENGLISH_US ), // Default language
-            (LPSTR) &lpMsgBuf,
-            0,
-            NULL );
-        
-        // 将获得的信息
-        std::string lstrBuf = std::string( (LPCSTR)(lpMsgBuf) );
-        
-        // 去除字符串末尾换行控制符
-        lstrBuf.replace( (lstrBuf.end()-sizeof(char)),lstrBuf.end(), std::string() );
-        return lstrBuf.c_str();
-    } // end of __try
-    catch( ... )
-    {
-        return NULL;
-    }
+  return ToString();
     
 } // End of Function CWinError::GetErrorInfo
 /////////////////////////////////////////////////////////////////////////////////////////

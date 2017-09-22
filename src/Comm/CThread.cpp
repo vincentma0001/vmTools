@@ -1,9 +1,6 @@
 
-#include <WINDOWS.H>
-#include "CException.h"
-#include "CWinError.h"
-#include "CWinSeh.h"
-#include "CThread.h"
+
+#include <CommInc.h>
 
 ///////////////////////////////////////////////////////////////////////////
 // function : construcot & destructor
@@ -117,18 +114,18 @@ unsigned long __stdcall CThread::ThreadFunction( void *pV )
 	{
         CWinSeh::ResetSeh();
 		try{
-		    result = pThis->OnRun();
+		    result = pThis->Run();
 		} // End of try
         catch( std::exception &ex )
         {
-			throw CEXP( "WaitForSingleObject Cpp Exception(%d:%s)!", ex.what());
+            std::cout << "Cpp    Exception : " << ex.what() << std::endl;
         }
         catch( CWinSeh &ex )
         {
-			throw CEXP( "WaitForSingleObject System Exception(%d:%s)!", ex.GetExpCode(), ex.GetExpDes());
+            std::cout << "System Exception : " << ex.GetExpCode() << " : " << ex.GetExpDes( ) << std::endl;
         }
 		catch(...){
-			throw CEXP( "WaitForSingleObject Get an unknown exception!");
+            std::cout << "Get an unknown exception!" << std::endl;
 		} // End of catch( ... )
 	} // end of if
 

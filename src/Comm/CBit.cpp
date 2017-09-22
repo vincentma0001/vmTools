@@ -41,16 +41,10 @@
 // Notes     : 
 std::string CBit::ToString()
 {
-    const PSTBIT pBit = (PSTBIT)(&muiBit);
+    const PSTBIT pBit = (PSTBIT)(&mcBit);
     std::stringstream ssBuf;
-    ssBuf   << pBit->bit31 << pBit->bit30 << pBit->bit29 << pBit->bit28  << " "
-        << pBit->bit27 << pBit->bit26 << pBit->bit25 << pBit->bit24 << " "
-        << pBit->bit23 << pBit->bit22 << pBit->bit21 << pBit->bit20 <<  " "
-        << pBit->bit19 << pBit->bit18 << pBit->bit17 << pBit->bit16 << " "
-        << pBit->bit15 << pBit->bit14 << pBit->bit13 << pBit->bit12 << " "
-        << pBit->bit11 << pBit->bit10 << pBit->bit09 << pBit->bit08 << " "
-        << pBit->bit07 << pBit->bit06 << pBit->bit05 << pBit->bit04 << " "
-        << pBit->bit03 << pBit->bit02 << pBit->bit01 << pBit->bit00 ;
+    ssBuf << pBit->bit00 << pBit->bit01 << pBit->bit02 << pBit->bit03
+          << pBit->bit04 << pBit->bit05 << pBit->bit06 << pBit->bit07 ;
     return ssBuf.str();
 } // End of function ToString(...
 /////////////////////////////////////////////////////////////////////////////////////
@@ -65,7 +59,7 @@ std::string CBit::ToString()
 // Notes     : 
 void CBit::Merge(const unsigned int uiBit)
 {
-    muiBit = muiBit|uiBit;
+    mcBit = mcBit|uiBit;
 } // End of function Merge(...
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -79,22 +73,8 @@ void CBit::Merge(const unsigned int uiBit)
 // Notes     : 
 void CBit::Resolve(const unsigned int uiBit)
 {
-    muiBit = muiBit^uiBit;
+    mcBit = mcBit^uiBit;
 } // End of function Resolve(...
-/////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////
-// Name      : IsSet
-// Full name : CBit::IsSet
-// Access    : public 
-// Brief     : 
-// Parameter : const unsigned int uiBit
-// Return    : bool
-// Notes     : 
-bool CBit::IsSet(const unsigned int uiBit)
-{
-    return muiBit&uiBit^uiBit?false:true;
-} // End of function IsSet(...
 /////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +87,7 @@ bool CBit::IsSet(const unsigned int uiBit)
 // Notes     : 
 bool CBit::SetBit(const unsigned int uiPos, enum enBitVal enVal)
 {
-    PSTBIT pBit = (PSTBIT)&muiBit;
+    PSTBIT pBit = (PSTBIT)&mcBit;
     switch( uiPos )
     {
     case 0:
@@ -136,83 +116,6 @@ bool CBit::SetBit(const unsigned int uiPos, enum enBitVal enVal)
         pBit->bit07 = enVal;
         break;
 
-    case 8:
-        pBit->bit08 = enVal;
-        break;
-    case 9:
-        pBit->bit09 = enVal;
-        break;
-    case 10:
-        pBit->bit10 = enVal;
-        break;
-    case 11:
-        pBit->bit11 = enVal;
-        break;
-
-    case 12:
-        pBit->bit12 = enVal;
-        break;
-    case 13:
-        pBit->bit13 = enVal;
-        break;
-    case 14:
-        pBit->bit14 = enVal;
-        break;
-    case 15:
-        pBit->bit15 = enVal;
-        break;
-
-    case 16:
-        pBit->bit16 = enVal;
-        break;
-    case 17:
-        pBit->bit17 = enVal;
-        break;
-    case 18:
-        pBit->bit18 = enVal;
-        break;
-    case 19:
-        pBit->bit19 = enVal;
-        break;
-
-    case 20:
-        pBit->bit20 = enVal;
-        break;
-    case 21:
-        pBit->bit21 = enVal;
-        break;
-    case 22:
-        pBit->bit22 = enVal;
-        break;
-    case 23:
-        pBit->bit23 = enVal;
-        break;
-
-    case 24:
-        pBit->bit24 = enVal;
-        break;
-    case 25:
-        pBit->bit25 = enVal;
-        break;
-    case 26:
-        pBit->bit26 = enVal;
-        break;
-    case 27:
-        pBit->bit27 = enVal;
-        break;
-
-    case 28:
-        pBit->bit28 = enVal;
-        break;
-    case 29:
-        pBit->bit29 = enVal;
-        break;
-    case 30:
-        pBit->bit30 = enVal;
-        break;
-    case 31:
-        pBit->bit31 = enVal;
-        break;
     default:         
         return false;
     }
@@ -220,6 +123,42 @@ bool CBit::SetBit(const unsigned int uiPos, enum enBitVal enVal)
 } // End of function SetBit(...
 /////////////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : IsSet
+// Full name : CBit::IsSet
+// Access    : public 
+// Brief     : 
+// Parameter : const unsigned int uiPos
+// Return    : bool
+// Notes     : 
+bool CBit::IsSet(const unsigned int uiPos)
+{
+    PSTBIT pBit = (PSTBIT)&mcBit;
+    switch( uiPos )
+    {
+    case 0:
+        return unsigned int(pBit->bit00)>0?true:false;
+    case 1:
+        return unsigned int(pBit->bit01)>0?true:false;
+    case 2:
+        return unsigned int(pBit->bit02)>0?true:false;
+    case 3:
+        return unsigned int(pBit->bit03)>0?true:false;
+    case 4:
+        return unsigned int(pBit->bit04)>0?true:false;
+    case 5:
+        return unsigned int(pBit->bit05)>0?true:false;
+    case 6:
+        return unsigned int(pBit->bit06)>0?true:false;
+    case 7:
+        return unsigned int(pBit->bit07)>0?true:false;
+
+    default:         
+        return false;
+    }
+    return true;
+} // End of function IsSet(...
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

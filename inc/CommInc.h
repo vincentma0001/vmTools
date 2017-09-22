@@ -29,16 +29,16 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
 
-#include <Comm/DllMacro.h>
-#include <Comm/CErr.h>
-#include <Comm/CWinErr.h>
-#include <Comm/CWinSeh.h>
-#include <Comm/CSingleTon.h>
-#include <Comm/CWinCS.h>
-#include <Comm/CBit.h>
+#include <DllMacro.h>
+#include <CErr.h>
+#include <CWinErr.h>
+#include <CWinSeh.h>
+#include <CSingleTon.h>
+#include <CWinCS.h>
+#include <CBit.h>
 //#include <Comm/CExpTrack.h>
-#include <Comm/CSimpleMap.h>
-#include <Comm/CTime.h>
+#include <CSimpleMap.h>
+#include <CTime.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

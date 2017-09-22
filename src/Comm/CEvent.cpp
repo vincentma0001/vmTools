@@ -81,7 +81,7 @@ namespace JL{
 	////////////////////////////////////////////////////////////////////////////
 	// function : get current event handle
 
-	HANDLE CEvent::GetEvent() const
+	HANDLE CEvent::GetHandle() const
 	{
 		return m_hEvent;
 	}
@@ -118,8 +118,8 @@ namespace JL{
 		}
 		else
 		{
-            CWinError loErr;
-			throw CEXP( "CEvent::Wait() - WaitForSingleObject failed(%d:%s) ", loErr.GetErrorCode(), loErr.GetErrorInfo() );
+            CWinErr loErr;
+			throw CEXP( "CEvent::Wait() - WaitForSingleObject failed(%d:%s) ", loErr.GetErrCode(), loErr.GetErrMsg() );
 		} // end of if
 		    
 		return ok;
@@ -132,8 +132,8 @@ namespace JL{
 	{
 		if (!::ResetEvent(m_hEvent))
 		{
-            CWinError loErr;
-			throw CEXP( "CEvent::Reset","ResetEvent failed(%d:%s)!", loErr.GetErrorCode(), loErr.GetErrorInfo());
+            CWinErr loErr;
+			throw CEXP( "CEvent::Reset","ResetEvent failed(%d:%s)!", loErr.GetErrCode(), loErr.GetErrMsg());
 		} // end of if
 	}
 
@@ -144,8 +144,8 @@ namespace JL{
 	{
 		if (!::SetEvent(m_hEvent))
 		{
-            CWinError loErr;
-			throw CEXP( "CEvent::Set()", ("SetEvent failed(%d:%s)!"), loErr.GetErrorCode(), loErr.GetErrorInfo() );
+            CWinErr loErr;
+			throw CEXP( "CEvent::Set()", ("SetEvent failed(%d:%s)!"), loErr.GetErrCode(), loErr.GetErrMsg() );
 		} // end of if
 	}
 
@@ -158,8 +158,8 @@ namespace JL{
 	{
 		if (!::PulseEvent(m_hEvent))
 		{
-            CWinError loErr;
-			throw CEXP( ("CEvent::Pulse()"), loErr.GetErrorCode(), loErr.GetErrorInfo() );
+            CWinErr loErr;
+			throw CEXP( ("CEvent::Pulse()"), loErr.GetErrCode(), loErr.GetErrMsg() );
 		} // end of if
 	}
 
@@ -179,8 +179,8 @@ namespace JL{
 
 		if (hEvent == NULL)
 		{
-            CWinError loErr;
-			throw CEXP( ("CreateEvent failed(%d:%s)!"), loErr.GetErrorCode(), loErr.GetErrorInfo() );
+            CWinErr loErr;
+			throw CEXP( ("CreateEvent failed(%d:%s)!"), loErr.GetErrCode(), loErr.GetErrMsg() );
 		} // end of if
 
 		return hEvent;

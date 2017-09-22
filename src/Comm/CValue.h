@@ -90,11 +90,7 @@ public:
     // 获取十六进制字符串长度
     const size_t SizeForHex();
 
-public:
-    // 转换
-    //static const char* Convert(int iValue);
-    //static const char* Convert(double dValue);
-    //static const char* Convert(unsigned int uiValue);
+
 }; // End of class CValue
 /////////////////////////////////////////////////////////////////////////////////////////
 
