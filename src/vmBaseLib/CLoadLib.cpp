@@ -1,0 +1,147 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// File name 	: CLoadLib.cpp
+// Version 		: 1.0.0.0
+// Brief 		: 
+// Author 		: v.m.
+// Create time 	: 19/7/2016 16:06:40
+// Modify time 	: 19/7/2016 16:06:40
+// Note 		:
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright : this file is copyright by Julong Co.LTD
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// include file
+#include "CLoadLib.h"
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : CLoadLib
+// Full name : CLoadLib::CLoadLib
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : 
+// Notes     : 
+CLoadLib::CLoadLib()
+{
+    mhModule = NULL;
+    miLastError = -1;
+    mstrLastError = "";
+} // End of function CLoadLib(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : ~CLoadLib
+// Full name : CLoadLib::~CLoadLib
+// Access    : virtual public 
+// Brief     : 
+// Parameter : 
+// Return    : 
+// Notes     : 
+CLoadLib::~CLoadLib()
+{
+    if (mhModule != NULL)
+    {
+        FreeLibrary(mhModule);
+    }
+} // End of function ~CLoadLib(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : GetErrorCode
+// Full name : CLoadLib::GetErrorCode
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : int
+// Notes     : 
+int CLoadLib::GetErrorCode()
+{
+    return miLastError;
+} // End of function GetErrorCode(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : GetErrorInfo
+// Full name : CLoadLib::GetErrorInfo
+// Access    : public 
+// Brief     : 
+// Parameter : 
+// Return    : const char*
+// Notes     : 
+const char* CLoadLib::GetErrorInfo()
+{
+    return mstrLastError.c_str();
+} // End of function GetErrorInfo(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : Load
+// Full name : CLoadLib::Load
+// Access    : public 
+// Brief     : 
+// Parameter : const char* szDllName
+// Return    : bool
+// Notes     : 
+bool CLoadLib::Load(const char* szDllName)
+{
+    mhModule = ::LoadLibrary(szDllName);
+    if (FAILED(mhModule))
+    {
+        CWinError loErr;
+        miLastError = loErr.GetErrorCode();
+        mstrLastError = loErr.GetErrorInfo();
+        return false;
+    }
+
+    return true;
+} // End of function Load(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : GetFunc
+// Full name : CLoadLib::GetFunc
+// Access    : public 
+// Brief     : 
+// Parameter : const char* szFuncName
+// Return    : FARPROC
+// Notes     : 
+FARPROC CLoadLib::GetFunc(const char* szFuncName)
+{
+    if (SUCCEEDED(mhModule))
+    {
+        FARPROC loProc = ::GetProcAddress(mhModule, szFuncName);
+        if (loProc != NULL)
+        {
+            return loProc;
+        }
+        else
+        {
+            CWinError loErr;
+            miLastError = loErr.GetErrorCode();
+            mstrLastError = loErr.GetErrorInfo();
+            return NULL;
+        }
+    }
+    else
+    {
+        miLastError = -1;
+        mstrLastError = "dll is unloaded!";
+        return NULL;
+    }
+} // End of function GetFunc(...
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CLoadLib.cpp
+/////////////////////////////////////////////////////////////////////////////////////////
