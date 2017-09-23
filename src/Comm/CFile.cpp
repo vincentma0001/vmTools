@@ -37,12 +37,12 @@
 #   define MAX_PATH 260
 #endif // !MAX_PATH
 
-char JL::CFile::mszBuf[MAX_PATH] = {0};
+char vm::CFile::mszBuf[MAX_PATH] = {0};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Function implementation
 
-namespace JL{
+namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CFile
@@ -85,7 +85,7 @@ CFile::CFile(const char* szFileName): mpFile(NULL)
 //         GetFileDir(szFileName, szBuf, MAX_PATH);
 //         mstrFileDir = szBuf;
 
-    }catch (JL::CException& ex){
+    }catch (vm::CException& ex){
         throw ex;
     }catch (std::exception& ex){
         throw CEXP_CPP(ex);

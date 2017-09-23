@@ -58,7 +58,7 @@ public:
     long Decrement  ( void )
     {return InterlockedDecrement( &mlValue );};                                   // 原子减一操作
     long CompareExchange( long clCompareVal, long clChangeVal )
-    {return (long)InterlockedCompareExchange( (PVOID*)&mlValue, (PVOID)clChangeVal, (PVOID)clCompareVal );};  // 比较变更操作，若存储值等于比较值,则变更存储值。
+    {return (long)InterlockedCompareExchange( (unsigned long long*)&mlValue, (unsigned long long)clChangeVal, (unsigned long long)clCompareVal );};  // 比较变更操作，若存储值等于比较值,则变更存储值。
 
 public:
     operator long(){return mlValue;};                                    // 获取存储值

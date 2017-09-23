@@ -72,7 +72,7 @@ public:
 public:
     void Open( const char* szFileName )
     {
-        JL::CFile loFile;
+        vm::CFile loFile;
         std::string lstrBuf = loFile.GetCurrDir();
 
         mstrFileName = lstrBuf+"\\"+szFileName;

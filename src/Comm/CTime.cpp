@@ -22,7 +22,7 @@
 #include "VerifyDef.h"
 #include "CTime.h"
 
-namespace JL{
+namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CTime
@@ -227,7 +227,11 @@ const char* CTime::ToStringFull()
 CTime CTime::GetCurrTime()
 {
     CTime lTime;
+#if defined ( _MSC_VER ) && ( _MSC_VER <=1200 )
 	_ftime( &lTime.mTime );
+#else
+	errno_t loErr = _ftime64_s(&lTime.mTime);
+#endif
     return lTime;
 } // End of function GetCurrTime(...
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -335,7 +339,7 @@ const char* CTime::ToString(const char* szFormat)
 // Parameter : const char* szFormat
 // Return    : void
 // Notes     : 
-void JL::CTime::SetTime(const char* szFormat)
+void vm::CTime::SetTime(const char* szFormat)
 {
     _VERIFY_( szFormat );
 
@@ -376,7 +380,7 @@ void JL::CTime::SetTime(const char* szFormat)
 // Parameter : unsigned int uiHour, unsigned int uiMin, unsigned int uiSec
 // Return    : void
 // Notes     : 
-void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int uiSec, unsigned short usMill)
+void vm::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int uiSec, unsigned short usMill)
 {
     if ( ( uiHour>=24 ) || (uiMin>=60) || ( uiSec>=60 ) )
     {
@@ -407,7 +411,7 @@ void JL::CTime::SetTime(unsigned int uiHour, unsigned int uiMin, unsigned int ui
 // Parameter : double tTimeDiff
 // Return    : void
 // Notes     : 
-void JL::CTime::AddTime(double tTimeDiff)
+void vm::CTime::AddTime(double tTimeDiff)
 {
     mTime.time += (time_t)tTimeDiff;
 } // End of function AddTime(...
@@ -421,7 +425,7 @@ void JL::CTime::AddTime(double tTimeDiff)
 // Parameter : void
 // Return    : time_t
 // Notes     : 
-time_t JL::CTime::GetTime(void)
+time_t vm::CTime::GetTime(void)
 {
     return mTime.time;
 } // End of function GetTime(...
@@ -435,7 +439,7 @@ time_t JL::CTime::GetTime(void)
 // Parameter : time_t tTime
 // Return    : 
 // Notes     : 
-JL::CTime::CTime(time_t tTime)
+vm::CTime::CTime(time_t tTime)
 {
 	mTime.time = tTime;
     memset( mszBuf, 0x00, sizeof(mszBuf)  );
@@ -450,7 +454,7 @@ JL::CTime::CTime(time_t tTime)
 // Parameter : const CTime& Obj
 // Return    : bool
 // Notes     : 
-bool JL::CTime::operator>(const CTime& Obj)
+bool vm::CTime::operator>(const CTime& Obj)
 {
     if ( mTime.time > Obj.mTime.time )
 	{
@@ -472,7 +476,7 @@ bool JL::CTime::operator>(const CTime& Obj)
 // Parameter : const CTime* Obj
 // Return    : bool
 // Notes     : 
-bool JL::CTime::operator<(const CTime& Obj)
+bool vm::CTime::operator<(const CTime& Obj)
 {
     if ( mTime.time < Obj.mTime.time )
 	{
@@ -494,7 +498,7 @@ bool JL::CTime::operator<(const CTime& Obj)
 // Parameter : const CTime& Obj
 // Return    : double
 // Notes     : 
-double JL::CTime::operator-(const CTime& Obj)
+double vm::CTime::operator-(const CTime& Obj)
 {
     double ldDiff = difftime( mTime.time, Obj.mTime.time );
     return ldDiff;

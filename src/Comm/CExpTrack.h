@@ -73,9 +73,9 @@ class CExpTrack : CSingleton< CExpTrack, CWinCS >
 /////////////////////////////////////////////////////////////////////////////////////
 // type define :
 public:
-    typedef std::list<JL::CException>                  tlist;
-    typedef std::list<JL::CException>::iterator        tItor;
-    typedef std::list<JL::CException>::const_iterator  ctItor;
+    typedef std::list<vm::CException>                  tlist;
+    typedef std::list<vm::CException>::iterator        tItor;
+    typedef std::list<vm::CException>::const_iterator  ctItor;
 /////////////////////////////////////////////////////////////////////////////////////
 // data members :
 private:
@@ -94,7 +94,7 @@ public:
     void SetDump( CAbsDumpImp* pDumpImp );      // 设置异常信息输出
 
 public:
-    void Add( const JL::CException& exp );          // 添加一个异常对象
+    void Add( const vm::CException& exp );      // 添加一个异常对象
     void Clear( void );                         // 清理跟踪的异常对象
 
 public:

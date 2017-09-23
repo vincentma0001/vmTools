@@ -32,7 +32,7 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Function implementation
 
-namespace JL {
+namespace vm {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CException
@@ -49,49 +49,49 @@ namespace JL {
 //              ...
 // Return    : 
 // Notes     : 
-// CException::CException( const char* szFormat, 
-//                         const char* szFunc, 
-//                         const unsigned long culLine, 
-//                         const char* szFile, 
-//                         const unsigned long culExpType /*= MAKEUSEREXP(ET_USER)*/, 
-//                         const unsigned long culExpCode /*= MAKEUSEREXP(ET_USER)*/, 
-//                         const char* szTime /*= NULL*/, 
-//                         ...)
-// {
-//     // 验证输入
-//     _VERIFY_3_(szFormat, szFunc, szFile);
-// 
-//     // 获取异常信息
-//     char szBuf[EX_MAX_BUF] = { 0 };
-//     va_list vp;
-//     va_start(vp, szTime);
-// #if defined (_MSC_VER) && (_MSC_VER<=1300)
-//     vsprintf(szBuf, szFormat, vp);
-// #else
-//     vsprintf_s(szBuf, EX_MAX_BUF, szFormat, vp);
-// #endif
-//     va_end(vp);
-//     mstrMsg = szBuf;
-// 
-//     // 设置异常类型
-//     mulExpType = culExpType;
-// 
-//     // 设置异常代码
-//     mulExpCode = culExpCode;
-// 
-//     // 设置异常位置
-//     mulLine = culLine;
-//     mstrFunc = szFunc;
-//     mstrFile = JL::CFile::GetFileBase( szFile );
-// 
-//     // 设置异常时间
-//     if ( szTime != NULL )
-//     {
-//         mstrTime = szTime;
-//     }
-//     
-// 
-// } // End of function CException(...
+CException::CException( const char* szFormat, 
+                        const char* szFunc, 
+                        const unsigned long culLine, 
+                        const char* szFile, 
+                        const unsigned long culExpType /*= MAKEUSEREXP(ET_USER)*/, 
+                        const unsigned long culExpCode /*= MAKEUSEREXP(ET_USER)*/, 
+                        const char* szTime /*= NULL*/, 
+                        ...)
+{
+    // 验证输入
+    _VERIFY_3_(szFormat, szFunc, szFile);
+
+    // 获取异常信息
+    char szBuf[EX_MAX_BUF] = { 0 };
+    va_list vp;
+    va_start(vp, szTime);
+#if defined (_MSC_VER) && (_MSC_VER<=1300)
+    vsprintf(szBuf, szFormat, vp);
+#else
+    vsprintf_s(szBuf, EX_MAX_BUF, szFormat, vp);
+#endif
+    va_end(vp);
+    mstrMsg = szBuf;
+
+    // 设置异常类型
+    mulExpType = culExpType;
+
+    // 设置异常代码
+    mulExpCode = culExpCode;
+
+    // 设置异常位置
+    mulLine = culLine;
+    mstrFunc = szFunc;
+    mstrFile = vm::CFile::GetFileBase( szFile );
+
+    // 设置异常时间
+    if ( szTime != NULL )
+    {
+        mstrTime = szTime;
+    }
+    
+
+} // End of function CException(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
 #if defined (_MSC_VER) && (_MSC_VER<=1300)
@@ -116,7 +116,8 @@ CException::CException(
     // 设置异常位置
     mulLine = culLine;
     mstrFunc = szFunc;
-    mstrFile = JL::CFile::GetFileBase( szFile );
+    vm::CFile loFile(szFile);
+    mstrFile = loFile.mstrFileBase.c_str();
     
 //     // 设置异常时间
 //     if ( szTime != NULL )
@@ -147,7 +148,7 @@ CException& CException::operator()( const char* szFormat, ... )
 // Parameter : const CException& ex, const char* szFunc/*= "func"*/, const unsigned long culLine /*= __LINE__*/, const char* szFile /*= __FILE__*/, const char* szTime /*= NULL */
 // Return    : 
 // Notes     : 
-CException::CException(const JL::CException& ex, 
+CException::CException(const vm::CException& ex, 
                        const char* szFunc,
                        const unsigned long culLine /*= __LINE__*/, 
                        const char* szFile /*= __FILE__*/, 
@@ -164,7 +165,7 @@ CException::CException(const JL::CException& ex,
     // 设置异常位置
     mulLine = culLine;
     mstrFunc = szFunc;
-    mstrFile = JL::CFile::GetFileBase(szFile);
+    mstrFile = vm::CFile::GetFileBase( szFile );
 
     // 设置异常时间
     if ( szTime != NULL )
@@ -183,7 +184,7 @@ CException::CException(const JL::CException& ex,
 // Parameter : const CException& ex
 // Return    : 
 // Notes     : 
-CException::CException(const JL::CException& ex)
+CException::CException(const vm::CException& ex)
 {
     mulExpType  = ex.mulExpType;             // 异常类型: 详见异常类型定义
 
@@ -215,7 +216,7 @@ CException::CException(const JL::CException& ex)
 //             %C                -- 异常代码
 //             %I                -- 异常信息
 //             %D                -- 异常产生的时间
-const char* CException::ToString(const char* szFormat)
+const char* CException::Format(const char* szFormat)
 {
     _VERIFY_( szFormat );
 

@@ -29,14 +29,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // macro define
 
-#define CEXP_SEH( wSeh )                                                    JL::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, NULL )
-#define CEXP_SEH_F( wSeh, szFunc )                                          JL::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, NULL )
-#define CEXP_SEH_T( wSeh, szTime )                                          JL::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, szTime )
-#define CEXP_SEH_FT( wSeh, szFunc, szTime )                                 JL::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, szTime )
+#define CEXP_SEH( wSeh )                                                    vm::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, NULL )
+#define CEXP_SEH_F( wSeh, szFunc )                                          vm::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, NULL )
+#define CEXP_SEH_T( wSeh, szTime )                                          vm::CWinSehExp( wSeh, __FUNCTION__, __LINE__,__FILE__, szTime )
+#define CEXP_SEH_FT( wSeh, szFunc, szTime )                                 vm::CWinSehExp( wSeh, szFunc, __LINE__,__FILE__, szTime )
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // namespace 
-namespace JL{
+namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -44,7 +44,7 @@ namespace JL{
 //        Notes : 此类将生成的SEH对象转换为自定义的异常对象
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-class CWinSehExp : public JL::CException
+class CWinSehExp : public CException
 {
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct & Destruct :

@@ -22,8 +22,6 @@
 #include "VerifyDef.h"
 #include "CExpTrack.h"
 
-#include "../Log.h"
-
 /////////////////////////////////////////////////////////////////////////////////////////
 
 CExpTrack* CSingleton<CExpTrack, CWinCS>::mptInstance = NULL;
@@ -93,8 +91,8 @@ void CExpTrack::Dump(void)
         tItor loItor = mlistExp.begin();
         for(;loItor != mlistExp.end(); loItor++ )
         {
-            JL::CException& loEx = (*loItor);
-            LOG_A( "%s",  loEx.ToString( "[%M:%L] %I" ) );
+            vm::CException& loEx = (*loItor);
+            std::cout << loEx.ToString( "[%M:%L] %I" ) << std::endl;
         }
     }
 } // End of function Dump(...
@@ -128,7 +126,7 @@ void CExpTrack::SetDump(CAbsDumpImp* pDumpImp)
 // Parameter : const CException& exp
 // Return    : void
 // Notes     : 
-void CExpTrack::Add(const JL::CException& exp)
+void CExpTrack::Add(const vm::CException& exp)
 {
     mlistExp.push_back( exp );
 } // End of function Add(...

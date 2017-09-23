@@ -39,11 +39,10 @@ CCppExp::CCppExp( std::exception& ex,
                   const unsigned long culLine /*= __LINE__*/, 
                   const char* szFile /*= __FILE__*/, 
                   const char* szTime /*= NULL */)
-                  :JL::CException( szFunc, culLine,szFile )
+                  :vm::CException( szFunc, culLine,szFile )
 {
 	mstrMsg  = ex.what();
 	mstrTime = szTime;
-
 } // End of function CException(...
 /////////////////////////////////////////////////////////////////////////////////////////
 

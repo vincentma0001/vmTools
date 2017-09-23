@@ -42,7 +42,7 @@
 #	error this file need #include <windows.h>
 #endif
 
-namespace JL{
+namespace vm{
 
 	///////////////////////////////////////////////////////////////////////////////
 	// CEvent
@@ -121,7 +121,7 @@ namespace JL{
 		CAutoResetEvent &operator=(const CAutoResetEvent &rhs);
 	};
 	
-} // End of namespace JL
+} // End of namespace vm
 
 ///////////////////////////////////////////////////////////////////////////////
 // Lint options
