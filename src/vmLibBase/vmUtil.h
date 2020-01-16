@@ -54,6 +54,15 @@ namespace vm{
 #   define vMemSet(szBuf, ciFlag) vm::v_memset(&szBuf,ciFlg,sizeof(szBuf))
 #endif // vMemSet
 
+#ifndef    vStrPosBegin
+#    define vStrPosBegin vMinsInt
+#endif  // vStrPosBegin
+
+#ifndef    vStrPosEnded
+#    define vStrPosEnded vMinsInt
+#endif  // vStrPosEnded
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 // --------------------------------------------------------------------------------------
@@ -779,6 +788,7 @@ inline size_t v_strtrim(const char* const pSrc, const size_t  sztSrcLen,
     return lsztNewDataLen;
 }
 
+
 inline size_t v_str_substr(char* const       pDst, const size_t csztDstSize,
                            const char* const pSrc, const size_t  csztSrcLen, 
                            const int      ciBFlag, const int      ciEFlag )
@@ -893,7 +903,7 @@ inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
 
     // 计算子字符串长度
     size_t lsztNewDataLen = lpEndPos - lpStartPos;
-    size_t lsztCopied     = v_memmove(pSrc,csztSrcLen,pSrc,lsztNewDataLen);
+    size_t lsztCopied     = v_memmove(pSrc,csztSrcLen, lpStartPos,lsztNewDataLen);
 
     // 将移动过后的多出的数据置零
     size_t lsztRemoved    = csztSrcLen - lsztNewDataLen;
@@ -901,7 +911,7 @@ inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
     return lsztCopied;
 }
 
-inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
+inline size_t v_str_substr_last( char* const    pSrc, const size_t  csztSrcLen,
                                  const int   ciBFlag, const int        ciEFlag)
 {
     // 获取整个字符串长度
@@ -934,11 +944,52 @@ inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
 
     // 计算子字符串长度
     size_t lsztNewDataLen = lpEndPos - lpStartPos;
-    size_t lsztCopied = v_memmove(pSrc, csztSrcLen, pSrc, lsztNewDataLen);
+    size_t lsztCopied = v_memmove(pSrc, csztSrcLen, lpStartPos, lsztNewDataLen);
 
     // 将移动过后的多出的数据置零
     size_t lsztRemoved = csztSrcLen - lsztNewDataLen;
     v_memset((pSrc + lsztNewDataLen), 0x00, lsztRemoved);
+    return lsztCopied;
+}
+
+inline size_t v_str_substr_last( tChar* const         pDst, const size_t  cszDstSize,
+                                 const tChar* const   pSrc, const size_t  csztSrcLen,
+                                 const int         ciBFlag, const int        ciEFlag)
+{
+    // 获取整个字符串长度
+    if (csztSrcLen == 0) return 0;
+
+    // 获取子字符串开头的位置
+    char* lpStartPos = const_cast<char*>(pSrc);
+    // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
+    if (ciBFlag != vMinsInt)
+    {
+        lpStartPos = v_strrchr((char*)pSrc, ciBFlag);
+        if (lpStartPos == nullptr) return 0;
+
+        lpStartPos += sizeof(tChar);
+    }
+    // End of if () ...
+
+    // 获取子字符串结尾的位置
+    char* lpEndPos = const_cast<char*>(pSrc) + csztSrcLen;
+    // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
+    if (ciEFlag != vMinsInt)
+    {
+        lpEndPos = v_strrchr((char*)pSrc, ciEFlag);
+        if (lpEndPos == nullptr) return 0;
+
+    } // End of if () ...
+
+    // 判断子字符串是否有效，解决类似“}{”问题
+    if (lpEndPos <= lpStartPos) return 0;
+
+    // 计算子字符串长度
+    size_t lsztNewDataLen = lpEndPos - lpStartPos;
+    size_t lsztCopied = v_memmove(pDst, cszDstSize, lpStartPos, lsztNewDataLen);
+
+    // 设置字符串结尾
+    *(pDst+lsztCopied) = 0x00;
     return lsztCopied;
 }
 

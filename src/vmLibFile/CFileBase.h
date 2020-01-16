@@ -24,14 +24,16 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#include <direct.h>
 
 // Config files included
-#include <vmCfg.h>
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>
+#endif // __VM_CFG_H__
 
 // Platform files included
 
 // Used files included
+#include <vmLibBase/vmUtil.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -39,6 +41,10 @@ namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macro define :
+
+#define _V_DIR_SPLITE_ vT('\\')
+#define _V_EXT_SPLITE_ vT('.')
+#define _V_DRV_SPLITE_ vT(':')
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -66,78 +72,69 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////
 // members
 protected:
-    // 文件路径
-    char mszPath  [ _V_FILE_MAX_PATH_];
-    // 驱动器名
-    char mszDriver[ _V_FILE_MAX_PATH_];
-    // 文件目录
-    char mszDir   [ _V_FILE_MAX_DIR_ ];
-    // 文件名
-    char mszFName [_V_FILE_MAX_FNAME_];
-    // 文件扩展名
-    char mszExt   [ _V_FILE_MAX_EXT_ ];
+    // File's path
+    tChar mszFilePath [  _V_FILE_MAX_PATH_ ];
+    // File's direct
+    tChar mszFileDir  [  _V_FILE_MAX_DIR_  ];
+    // File's base name
+    tChar mszFileBase [ _V_FILE_MAX_FNAME_ ];
+    // File's name
+    tChar mszFileName [ _V_FILE_MAX_FNAME_ ];
+    // File's ext name
+    tChar mszFileExt  [  _V_FILE_MAX_EXT_  ];
 
 protected:
-    // 错误代码
+    // Error code
     unsigned long mulErrCode;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    // 判断是否有错误发生
+    // Check has error lautch
     bool          HasError() { return (mulErrCode == 0) ? true : false; }
-    // 获取错误代码
-    unsigned long Errno() { return mulErrCode; };
+    // Get error code
+    unsigned long toErrCode() { return mulErrCode; };
 
 public:
-    // 获取文件路径信息
-    inline const char* cs_Path()  { return mszPath;  };
-    // 获取文件驱动器名
-    inline const char* cs_Driver(){ return mszDriver;}
-    // 获取文件目录信息
-    inline const char* cs_Dir()   { return mszDir;   };
-    // 获取文件名
-    inline const char* cs_Name()  { return mszFName; };
-    // 获取文件扩展名
-    inline const char* cs_Ext()   { return mszExt;  };
+    // Get file's path
+    inline const tChar* cs_Path() const      { return mszFilePath;  };
+    // Get file's direct
+    inline const tChar* cs_Dir() const       { return mszFileDir;   };
+    // Get file's base name
+    inline const tChar* cs_FileBase() const  { return mszFileBase; };
+    // Get file's name
+    inline const tChar* cs_FileName() const  { return mszFileName; };
+    // Get file's ext name
+    inline const tChar* cs_Ext() const       { return mszFileExt;   };
+
+public:
+    // Check the string has direct or not
+    static bool HasDir( _vIn_ const tChar* const cpPath );
+    // Check the string has ext or not
+    static bool HasExt(_vIn_ const tChar* const cpPath);
+
+    // Get file's direct
+    static size_t GetFileDir ( _vIn_ const tChar* const cpPath, _vIn_ const size_t    csztPathLen,
+                               _vOt_ tChar* const      pDirBuf, _vIn_ const size_t csztDirBufSize );
+    // Get file's name, include ext name
+    static size_t GetFileName( _vIn_ const tChar* const cpPath, _vIn_ const size_t    csztPathLen,
+                               _vOt_ tChar* const      pDirBuf, _vIn_ const size_t csztDirBufSize );
+    // Get file's base name, don't include ext name
+    static size_t GetFileBase( _vIn_ const tChar* const cpPath, _vIn_ const size_t    csztPathLen,
+                               _vOt_ tChar* const      pDirBuf, _vIn_ const size_t csztDirBufSize );
+    // Get file's ext name
+    static size_t GetFileExt ( _vIn_ const tChar* const cpPath, _vIn_ const size_t    csztPathLen,
+                               _vOt_ tChar* const      pDirBuf, _vIn_ const size_t csztDirBufSize );
+
+    // Get current execute file's direction
+    static size_t GetExecDir (_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize);
+    // Get current execute file's name
+    static size_t GetExecName(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize);
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Static functions :
 public:
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // Method    : GetExecDir(...)
-    // Brief     : Get current execute file's direction
-    // Return    : char*                                     - return current execute file dir
-    // Parameter : pOutputBuf                                - [O] the buffer for current execute file dir.
-    //           : csztBufSize                               - [I] the buffer's size
-    inline static char* GetExecDir( _vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize  )
-    {
-        // Get full path.
-        size_t lsztLenOfPath = ::GetModuleFileName( NULL, pOutputBuf, csztBufSize );
-        
-        // Get dir string ( from start to last '\\' )
-        size_t lsztSubstrLen = vm::v_str_substr( pOutputBuf, lsztLenOfPath, vMinsInt, '\\' );
-
-        // return the buffer's address
-        return pOutputBuf;
-    }
-    // End of function GetExecDir(...)
-    /////////////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////////
-    // Method    : GetExecName(...)
-    // Brief     : Get current execute file's name
-    // Return    : size_t                                    - the length of the string that is copied to the buffer.
-    //             0                                         - the function is failed, get error by GetLastError().  
-    // Parameter : pOutputBuf                                - [O] the buffer for the execute file's full path
-    //           : csztBufSize                               - [I] the buffer's size
-    inline static size_t GetExecName(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize )
-    {
-        size_t lsztRet = ::GetModuleFileName( NULL, pOutputBuf, csztBufSize );
-        return lsztRet;
-    }
-    // End of function GetExecName(...)
-    /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////    
 }; // End of class CFileBase

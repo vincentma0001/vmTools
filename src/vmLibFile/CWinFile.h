@@ -36,10 +36,13 @@
 // Platform files included
 
 // Used files included
-#include <vmLibBase/vmUtil.h>
-#include <vmLibBase/CStrPtr.h>
+#ifndef   __VM_UTIL_H__
+#	error this file need #include <vmLibBase/vmUtil.h>
+#endif // __VM_UTIL_H__
 
-#include <vmLibFile/CFileBase.h>
+#ifndef   __CFILEBASE_H__
+#	error this file need #include <vmLibFile/CFileBase.h>
+#endif // __CFILEBASE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -58,30 +61,8 @@ public:
     // Construct define
     explicit CWinFile(){};
     explicit CWinFile( const char* const cpFName )
-    {
-        if ( cpFName == nullptr )
-        {
-            CFileBase::GetCurrName( mszPath, sizeof(mszPath) );
-        }
-        else
-        {
-            char* lpPos = v_strchr(  const_cast<char*>(cpFName), '\\' );
-            if ( lpPos == nullptr )
-            {
-                char lsztFileDir[_V_FILE_MAX_DIR_] = {0x00};
-                char* lpDir = CFileBase::GetCurrDir( lsztFileDir, sizeof(lsztFileDir) );
-                if ( lpDir == nullptr ) { mulErrCode=GetLastError(); return;}
-
-                v_sprintf( mszPath, sizeof(mszPath), vT("%s\\%s"), lsztFileDir, cpFName );
-            }
-        }
-
-        errno_t loRet = _splitpath_s(mszPath, mszDriver, sizeof(mszDriver), mszDir, sizeof(mszDir), mszFName, sizeof(mszFName), mszExt, sizeof(mszExt));
-        if (loRet != 0)
-            mulErrCode = loRet;
-        
-    }
-    ;
+    {       
+    };
  
     // Destruct define
     virtual ~CWinFile();
@@ -98,7 +79,8 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions 
-private:
+public:
+
 
 
 }; // End of class CWinFile

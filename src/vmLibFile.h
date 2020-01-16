@@ -40,6 +40,7 @@
 #endif // _WINDOWS_
 
 // Used files included
+#include <vmLibFile/CFileBase.h>
 
 #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 #include <vmLibFile/CWinFile.h>

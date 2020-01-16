@@ -35,6 +35,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmLibExp", "prj\tst_vmLibExp\tst_vmLibExp.vcxproj", "{7143CC77-0A17-4750-B241-F8AEB5366C9E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmLibFile", "prj\tst_vmLibFile\tst_vmLibFile.vcxproj", "{2FAEFB6C-9710-4065-BFF6-5A5EA8035342}"
+	ProjectSection(ProjectDependencies) = postProject
+		{38919CD0-EC4B-4998-B470-6546621C5730} = {38919CD0-EC4B-4998-B470-6546621C5730}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmUtil", "prj\tst_vmUtil\tst_vmUtil.vcxproj", "{3EF33FD8-2979-4104-B458-67536B6B11F0}"
 EndProject
