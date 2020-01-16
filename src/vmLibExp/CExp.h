@@ -24,9 +24,9 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
 
-#ifndef   __VM_CFG_DLL_H__
-#	error this file need #include <vmCfgDll.h>
-#endif // __VM_CFG_DLL_H__
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>_
+#endif // __VM_CFG_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -83,12 +83,12 @@ typedef enum emExpLevel
 public:
     // Construct define
     explicit CExp();
-    explicit CExp( const tChar* const   cpFile,
-                   const unsigned long culLine,
+    explicit CExp( const tChar* const      cpFile,
+                   const unsigned long    culLine,
                    const tChar* const   cpTimeFmt);
-    explicit CExp( const CExp&         oExp,
-                   const tChar* const   cpFile, 
-                   const unsigned long culLine,
+    explicit CExp( const CExp&               oExp,
+                   const tChar* const      cpFile, 
+                   const unsigned long    culLine,
                    const tChar* const   cpTimeFmt);
     // Destruct define
     virtual ~CExp();
@@ -102,9 +102,9 @@ public:
 public:
     // ()操作
     CExp& operator()(const tChar* const cpFunc,
-                     const tChar* const cpFmt, ...);
+                     const tChar* const cpFmt , ...);
     CExp& operator()(const tChar* const cpFunc,
-                     const tChar* const cpFmt, va_list vList);
+                     const tChar* const cpFmt , va_list vList);
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // members
@@ -139,12 +139,12 @@ private:
 // Functions :
 public:
     // 格式化输出异常信息
-    // FMT : %Fn                        - 函数名
-    //       %Fi                        - 文件名
-    //       %L                         - 文件函数
-    //       %M                         - 异常信息
-    //       %T                         - 异常触发的时间
-    tChar* Fmt( const tChar* const cpFmt, ... );
+    // FMT : %M(Method)                      - 函数名
+    //       %F(File)                        - 文件名
+    //       %L(Line)                        - 文件函数
+    //       %N(Notification)                - 异常信息
+    //       %T(Time)                        - 异常触发的时间
+    tChar* Fmt( const tChar* const cpFmt );
 
 public:
     // 获取下上一级异常信息

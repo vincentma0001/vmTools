@@ -23,15 +23,15 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // include file
-#ifndef _EXCEPTION_
+#ifndef   _EXCEPTION_
 #	error this file need #include <exception>
 #endif // _EXCEPTION_
 
-#ifndef   __VM_CFG_DLL_H__
-#	error this file need #include <vmCfgDll.h>
-#endif // __VM_CFG_DLL_H__
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>_
+#endif // __VM_CFG_H__
 
-#ifndef __CEXP_H__
+#ifndef   __CEXP_H__
 #	error this file need #include <vmExpLib/CExp.h>
 #endif // __CEXP_H__
 

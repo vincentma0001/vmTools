@@ -148,7 +148,7 @@ tChar* CErrBase::Fmt(const tChar* const cpFmt /*= "%EC:%EM" */)
 
     // 初始化缓存区数据
     vm::CParser::CPattern loPatternErrCode(vT("%EC"), vm::CAny<128>(mulErrCode).s_ulong());
-    vm::CParser::CPattern loPatternErrMsg(vT("%EM"), lpCodeStr);
+    vm::CParser::CPattern loPatternErrMsg(vT("%EM"),  lpCodeStr);
 
     vm::CParser loParser(vT('%'), cpFmt);
     loParser.Regist(loPatternErrCode);

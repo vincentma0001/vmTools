@@ -117,11 +117,11 @@ public:
     inline unsigned short millitm();
 
     // 设置时间对象
-    inline void SetTime( unsigned int   uiHour, unsigned int   uiMin,
-                         unsigned int   uiSec,  unsigned short usMill = 0);
+    inline void SetTime( unsigned int   uiHour,  unsigned int   uiMin,
+                         unsigned int    uiSec,  unsigned short usMill = 0);
     // 设置时间对象
-    inline void SetTime( unsigned int  uiYear,  unsigned int  uiMonth, unsigned int  uiDay,
-                         unsigned int  uiHour,  unsigned int  uiMin,   unsigned int  uiSec, 
+    inline void SetTime( unsigned int   uiYear,  unsigned int uiMonth, unsigned int  uiDay,
+                         unsigned int   uiHour,  unsigned int uiMin,   unsigned int  uiSec, 
                          unsigned short usMill = 0 );
 
     // 根据格式化字符串（YYYY/MM/DD HH:MM:SS.MS）解析Time对象
@@ -137,6 +137,169 @@ public:
     inline const tChar* ToStrMillitm();
     // 获取时间字符串，格式""%Y/%m/%d %H:%M:%S:%Mill"
     inline const tChar* ToStrFull();
+
+    // 格式化结构
+    // FMT : 
+    //      %Y4  (Year                           e.g.                     2009)  = %Y
+    //      %Y2  (Year, last two digits          e.g.                    00-99)  = %y
+    //      %MM  (Month as a decimal number      e.g.                    01-12)  = %m
+    //      %DD  (Day of month, zero padded      e.g,                    01-31)  = %d
+    //      %dd  (Day of month, space padded     e.g,                     1-31)  = %e
+    //      %hh  (Hour in 24h                    e.g.                    01-24)  = %H
+    //      %II  (Hour in 12h                    e.g.                    01-12)  = %I
+    //      %mm  (Minute                         e.g.                    00-59)  = %M
+    //      %ss  (Second                         e.g.                    00-61)  = %S
+    //      %ms  (millisecond                    e.g.                  000-999)
+    //      %WY  (Week based year                e.g.                    00-99)  = %g
+    //      %WW  (ISO 8601 weekday as number with Monday          e.g.     1-7)  = %u
+    //      %ww  (Weekday as a decimal number with Sunday as 0    e.g.     0-6)  = %w
+    //      %WN  (ISO 8601 week number           e.g.                    00-53)  = %V
+    //      %WS  (Week number with the first Sunday as the first day of week one  e.g. 00-53 ) = %U
+    //      %WM  (Week number with the first Monday as the first day of week one  e.g. 00-53 ) = %W
+    //      %DY  (Day of the year                e.g.                  001-366)  = %j
+    //      %AP  (AM or PM designation           e.g.                 AM or PM)  = %p
+    //      %AM  (Abbreviated month              e.g.                   August)  = %B
+    //      %am  (Abbreviated month              e.g.                      Aug)  = %b
+    //      %AW  (Abbreviated weekday            e.g.                   Friday)  = %A
+    //      %aw  (Abbreviated weekday            e.g.                      Fri)  = %a
+    //      %CD  (date and time representation   e.g. Thu Aug 23 14:55:02 2001)  = %c
+    //      %SD  (Short MM/DD/YY date            e.g.                 08/23/01)  = %D
+    //      %sd  (Short YY/MM/DD date            e.g.                 01/08/23)  = %y/%m/%d
+    //      %FD  (Short YYYY-MM-DD date          e.g.               2001-08-23)  = %F
+    //      %fd  (Short YYYY-MM-DD date          e.g.               08-23-2001)  = %m-%d-%Y
+    //      %RT  (24 - hour HH:MM time           e.g.                    14:55)  = %R
+    //      %rt  (12 - hour clock time           e.g.              02:55:02 pm)  = %r
+    //      %TT  (ISO 8601 time format           e.g.                 14:55:02)  = %T
+    //      %tt  (ISO 8601 time format 12 hour   e.g.                 02:55:02)  = %I:%M:%S
+    //      %TZ  (Timezone name                  e.g.                      CDT)  = %Z
+    //      %ZZ  (ISO 8601 offset from UTC in timezone(1 minute = 1,             = %z
+    //            1 hour = 100) If timezone cannot be determined, 
+    //            no characters)
+    //      %n   (New        - line character('\n')  
+    //      %t   (Horizontal - tab  character('\t')  
+    //      %%   ( A % sign	- %
+    inline tChar* Fmt( const tChar* const pFmt )
+    {
+        // 初始化缓存区数据
+        vm::CParser loParser(vT('%'), cpFmt);
+        //      %Y4  (Year                           e.g.                     2009)  = %Y
+        vm::CParser::CPattern loPatternDTForY4( vT("%Y4"), vT("%Y") );
+        loParser.Regist(loPatternDTForY4);
+        //      %Y2  (Year, last two digits          e.g.                    00-99)  = %y
+        vm::CParser::CPattern loPatternDTForY2( vT("%Y2"), vT("%y") );
+        loParser.Regist(loPatternDTForY2);
+        //      %MM  (Month as a decimal number      e.g.                    01-12)  = %m
+        vm::CParser::CPattern loPatternDTForMM( vT("%MM"), vT("%m") );
+        loParser.Regist(loPatternDTForMM);
+        //      %DD  (Day of month, zero padded      e.g,                    01-31)  = %d
+        vm::CParser::CPattern loPatternDTForDD( vT("%DD"), vT("%d") );
+        loParser.Regist(loPatternDTForDD);
+        //      %dd  (Day of month, space padded     e.g,                     1-31)  = %e
+        vm::CParser::CPattern loPatternDTFordd( vT("%dd"), vT("%e") );
+        loParser.Regist(loPatternDTFordd);
+        //      %hh  (Hour in 24h                    e.g.                    01-24)  = %H
+        vm::CParser::CPattern loPatternDTForhh( vT("%hh"), vT("%H") );
+        loParser.Regist(loPatternDTForhh);
+        //      %II  (Hour in 12h                    e.g.                    01-12)  = %I
+        vm::CParser::CPattern loPatternDTForII( vT("%II"), vT("%I") );
+        loParser.Regist(loPatternDTForII);
+        //      %mm  (Minute                         e.g.                    00-59)  = %M
+        vm::CParser::CPattern loPatternDTFormm( vT("%mm"), vT("%M") );
+        loParser.Regist(loPatternDTFormm);
+        //      %ss  (Second                         e.g.                    00-61)  = %S
+        vm::CParser::CPattern loPatternDTForss( vT("%ss"), vT("%S") );
+        loParser.Regist(loPatternDTForss);
+        //      %ms  (millisecond                    e.g.                  000-999)
+        vm::CParser::CPattern loPatternDTForms( vT("%ms"), vm::CAny<128>(mstTime.millitm).s_ushort() );
+        loParser.Regist(loPatternDTForms);
+        //      %WY  (Week based year                e.g.                    00-99)  = %g
+        vm::CParser::CPattern loPatternDTForWY( vT("%WY"), vT("%g") );
+        loParser.Regist(loPatternDTForWY);
+        //      %WW  (ISO 8601 weekday as number with Monday          e.g.     1-7)  = %u
+        vm::CParser::CPattern loPatternDTForWW( vT("%WW"), vT("%u") );
+        loParser.Regist(loPatternDTForWW);
+        //      %ww  (Weekday as a decimal number with Sunday as 0    e.g.     0-6)  = %w
+        vm::CParser::CPattern loPatternDTForww( vT("%ww"), vT("%w") );
+        loParser.Regist(loPatternDTForww);
+        //      %WN  (ISO 8601 week number           e.g.                    00-53)  = %V
+        vm::CParser::CPattern loPatternDTForWN( vT("%WN"), vT("%V") );
+        loParser.Regist(loPatternDTForWN);
+        //      %WS  (Week number with the first Sunday as the first day of week one  e.g. 00-53 ) = %U
+        vm::CParser::CPattern loPatternDTForWS( vT("%WS"), vT("%U") );
+        loParser.Regist(loPatternDTForWS);
+        //      %WM  (Week number with the first Monday as the first day of week one  e.g. 00-53 ) = %W
+        vm::CParser::CPattern loPatternDTForWM( vT("%WM"), vT("%W") );
+        loParser.Regist(loPatternDTForWM);
+        //      %DY  (Day of the year                e.g.                  001-366)  = %j
+        vm::CParser::CPattern loPatternDTForDY( vT("%DY"), vT("%j") );
+        loParser.Regist(loPatternDTForDY);
+        //      %AP  (AM or PM designation           e.g.                 AM or PM)  = %p
+        vm::CParser::CPattern loPatternDTForAP( vT("%AP"), vT("%p") );
+        loParser.Regist(loPatternDTForAP);
+        //      %AM  (Abbreviated month              e.g.                   August)  = %B
+        vm::CParser::CPattern loPatternDTForAM( vT("%AM"), vT("%b") );
+        loParser.Regist(loPatternDTForAM);
+        //      %am  (Abbreviated month              e.g.                      Aug)  = %b
+        vm::CParser::CPattern loPatternDTForam( vT("%am"), vT("%b") );
+        loParser.Regist(loPatternDTForam);
+        //      %AW  (Abbreviated weekday            e.g.                   Friday)  = %A
+        vm::CParser::CPattern loPatternDTForAW( vT("%AW"), vT("%A") );
+        loParser.Regist(loPatternDTForAW);
+        //      %aw  (Abbreviated weekday            e.g.                      Fri)  = %a
+        vm::CParser::CPattern loPatternDTForaw( vT("%aw"), vT("%a") );
+        loParser.Regist(loPatternDTForaw);
+        //      %CD  (date and time representation   e.g. Thu Aug 23 14:55:02 2001)  = %c
+        vm::CParser::CPattern loPatternDTForCD( vT("%CD"), vT("%c") );
+        loParser.Regist(loPatternDTForCD);
+        //      %SD  (Short MM/DD/YY date            e.g.                 08/23/01)  = %D
+        vm::CParser::CPattern loPatternDTForSD( vT("%SD"), vT("%D") );
+        loParser.Regist(loPatternDTForSD);
+        //      %sd  (Short YY/MM/DD date            e.g.                 01/08/23)  = %y/%m/%d
+        vm::CParser::CPattern loPatternDTForsd( vT("%sd"), vT("%y/%m/%d") );
+        loParser.Regist(loPatternDTForsd);
+        //      %FD  (Short YYYY-MM-DD date          e.g.               2001-08-23)  = %F
+        vm::CParser::CPattern loPatternDTForFD( vT("%FD"), vT("%F") );
+        loParser.Regist(loPatternDTForFD);
+        //      %fd  (Short YYYY-MM-DD date          e.g.               08-23-2001)  = %m-%d-%Y
+        vm::CParser::CPattern loPatternDTForfd( vT("%fd"), vT("%m-%d-%Y") );
+        loParser.Regist(loPatternDTForfd);
+        //      %RT  (24 - hour HH:MM time           e.g.                    14:55)  = %R
+        vm::CParser::CPattern loPatternDTForRT( vT("%RT"), vT("%R") );
+        loParser.Regist(loPatternDTForRT);
+        //      %rt  (12 - hour clock time           e.g.              02:55:02 pm)  = %r
+        vm::CParser::CPattern loPatternDTForrt( vT("%rt"), vT("%r") );
+        loParser.Regist(loPatternDTForrt);
+        //      %TT  (ISO 8601 time format           e.g.                 14:55:02)  = %T
+        vm::CParser::CPattern loPatternDTForTT( vT("%TT"), vT("%T") );
+        loParser.Regist(loPatternDTForTT);
+        //      %tt  (ISO 8601 time format 12 hour   e.g.                 02:55:02)  = %I:%M:%S
+        vm::CParser::CPattern loPatternDTFortt( vT("%tt"), vT("%I:%M:%S") );
+        loParser.Regist(loPatternDTFortt);
+        //      %TZ  (Timezone name                  e.g.                      CDT)  = %Z
+        vm::CParser::CPattern loPatternDTForTZ( vT("%TZ"), vT("%Z") );
+        loParser.Regist(loPatternDTForTZ);
+        //      %ZZ  (ISO 8601 offset from UTC in timezone(1 minute = 1,             = %z
+        //            1 hour = 100) If timezone cannot be determined, 
+        //            no characters)
+        vm::CParser::CPattern loPatternDTForZZ( vT("%ZZ"), vT("%z") );
+        loParser.Regist(loPatternDTForZZ);
+        //      %n   (New        - line character('\n')  
+        //vm::CParser::CPattern loPatternDTForNL( vT("%n"), vT("%n") );
+        //loParser.Regist(loPatternErrCode);
+        //      %t   (Horizontal - tab  character('\t')  
+        //vm::CParser::CPattern loPatternDTForTC( vT("%t"), vT("%t") );
+        //loParser.Regist(loPatternErrCode);
+        //      %%   ( A % sign	- %
+        //vm::CParser::CPattern loPatternDTForY4( vT("%Y4"), vT("%%") );
+        //loParser.Regist(loPatternErrCode);
+
+        tChar lszNewFmt[_V_CDATETIME_MAX_BUF_] = {0x00};
+        loParser.Parse(lszNewFmt, sizeof(lszNewFmt));
+
+
+        tChar lpTimeStr = toTimeStr( lszNewFmt );
+        return lpTimeStr;
+    };
 
     // 格式化时间结构
     //     ==================================================================================
@@ -193,7 +356,7 @@ public:
     //     %%        | A % sign	                                 | %
     // --------------------------------------------------------------------------------------
     //     %k        | 毫秒值
-    inline const tChar* Fmt(const tChar* const cpFmt);
+    inline const tChar* toTimeStr(const tChar* const cpFmt);
     // 格式化时间结构中的毫秒值
     inline void  s_millisecond(tChar* const       pBuf,
                          const size_t      csztBufSize,
@@ -622,22 +785,17 @@ inline void CDateTime<sztBufSize>::SetTime( unsigned int  uiYear, unsigned int  
 // --------------------------------------------------------------------------------------
 //     %k        | 毫秒值
 template <size_t sztBufSize>
-inline const tChar* CDateTime<sztBufSize>::Fmt(const tChar* const cpFmt)
+inline const tChar* CDateTime<sztBufSize>::toTimeStr(const tChar* const cpFmt)
 {
-    // 将格式化字符串中“%Mill”替换为毫秒值字符串
-    tChar lszBuf[_V_CDATETIME_MAX_BUF_] = {0}; 
-    s_millisecond( lszBuf, sizeof(lszBuf), cpFmt );
-
-
     // 格式化字符串中其他标识符
     memset(&mszBuf, 0x00, sztBufSize);
 #if defined ( _MSC_VER ) && ( _MSC_VER >=1200 )
     struct tm loTm;
     errno_t loErr = localtime_s(&loTm, &mstTime.time);
-    strftime(mszBuf, sztBufSize, lszBuf, &loTm);
+    strftime(mszBuf, sztBufSize, cpFmt, &loTm);
 #else
     struct tm* lpTm = localtime(&mstTime.time);
-    strftime(mszBuf, sztBufSize, lszBuf, lpTm);
+    strftime(mszBuf, sztBufSize, cpFmt, lpTm);
 #endif
 
     return mszBuf;
@@ -673,7 +831,7 @@ inline void  CDateTime<sztBufSize>::s_millisecond( tChar* const       pBuf,
 template <size_t sztBufSize>
 const tChar* CDateTime<sztBufSize>::ToStrDay1()
 {
-    return Fmt("%Y/%m/%d");
+    return toTimeStr("%Y/%m/%d");
 }
 // End of function ToStrDay1()
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -686,7 +844,7 @@ const tChar* CDateTime<sztBufSize>::ToStrDay1()
 template <size_t sztBufSize>
 inline const tChar* CDateTime<sztBufSize>::ToStrDay2()
 {
-    return Fmt("%y%m%d");
+    return toTimeStr("%y%m%d");
 }
 // End of function ToStrDay2()
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -699,7 +857,7 @@ inline const tChar* CDateTime<sztBufSize>::ToStrDay2()
 template <size_t sztBufSize>
 inline const tChar* CDateTime<sztBufSize>::ToStrTime()
 {
-    return Fmt("%H:%M:%S");
+    return toTimeStr("%H:%M:%S");
 }
 // End of function ToStrTime()
 /////////////////////////////////////////////////////////////////////////////////////////

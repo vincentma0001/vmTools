@@ -193,12 +193,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\vmExpMcr.h" />
     <ClInclude Include="..\..\src\vmLibExp.h" />
     <ClInclude Include="..\..\src\vmLibExp\CExp.h" />
     <ClInclude Include="..\..\src\vmLibExp\CStdExp.h" />
     <ClInclude Include="..\..\src\vmLibExp\CWinSeh.h" />
     <ClInclude Include="..\..\src\vmLibExp\CWinSehExp.h" />
+    <ClInclude Include="..\..\src\vmLibExp\vmExpMcr.h" />
     <ClInclude Include="..\..\src\vmVerify.h" />
   </ItemGroup>
   <ItemGroup>

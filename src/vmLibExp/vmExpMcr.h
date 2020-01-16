@@ -36,11 +36,11 @@
 #	error this file need #include <vmLibExp/CStdExp.h>
 #endif // __CSTDEXP_H__
 
-#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PLATFORM_WIN_ ) && !defined(__CWINSEHEXP_H__)
+#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ ) && !defined(__CWINSEHEXP_H__)
 #	error this file need #include <vmLibExp/CWinSeh.h>
 #endif // __CWINSEH_H__
 
-#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PLATFORM_WIN_ ) && !defined(__CWINSEHEXP_H__)
+#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ ) && !defined(__CWINSEHEXP_H__)
 #	error this file need #include <vmLibExp/CWinSehExp.h>
 #endif // __CWINSEHEXP_H__
 
@@ -49,7 +49,7 @@
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PLATFORM_WIN_ )
+#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 // --------------------------------------------------------------------------------------
 
 #   define CEXP  ( szFunc, szFmt, ...)         vm::CExp      (       __FILE__, __LINE__, _VM_CEXP_TIMEFMT_ )( szFunc, szFmt, __VA_ARGS__)

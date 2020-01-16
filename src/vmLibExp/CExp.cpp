@@ -71,7 +71,7 @@ CExp::CExp(): mExpLevel(emExp),mpExpNext(nullptr)
 CExp::~CExp()
 {
     if ( mpExpNext != nullptr )
-        delete [] mpExpNext;
+        delete mpExpNext;
     
     mpExpNext = nullptr;
 }
@@ -88,7 +88,7 @@ CExp::CExp( const tChar* const   cpFile,
             const unsigned long culLine,
             const tChar* const   cpTimeFmt ):mExpLevel(emExp),mpExpNext(nullptr)
 {
-    vCStrPtr(mszFile)     = vm::CFile(cpFile).cs_Name();
+    vCStrPtr(mszFile)     = vm::CFileBase(cpFile).cs_FileName();
     muiLine               = culLine;
     vCStrPtr(mszDateTime) = vm::CDateTime<_V_CDATETIME_MAX_BUF_>::GetCurrTime().Fmt(cpTimeFmt);
 }
@@ -102,15 +102,16 @@ CExp::CExp( const tChar* const   cpFile,
 // Parameter : const CExp & oExp
 // Parameter : const tChar * const cpFile
 // Parameter : const unsigned int cuiLine
-CExp::CExp( const CExp&         oExp, 
-            const tChar* const   cpFile , 
-            const unsigned long culLine,
-            const tChar* const   cpTimeFmt):mExpLevel(emExp), mpExpNext(nullptr)
+CExp::CExp( const CExp&               oExp, 
+            const tChar* const      cpFile, 
+            const unsigned long    culLine,
+            const tChar* const   cpTimeFmt)
+           :mExpLevel(emExp), mpExpNext(nullptr)
 {
     mpExpNext       = new CExp();
     *mpExpNext      = oExp;
 
-    vCStrPtr(mszFile)         = vm::CFile(cpFile).cs_Name();
+    vm::CFileBase::GetFileName( cpFile, vStrLen(cpFile), mszFile, sizeof(mszFile) ); 
     muiLine                   = culLine;
     vCStrPtr(mszDateTime)     = vm::CDateTime<_V_CDATETIME_MAX_BUF_>::GetCurrTime().Fmt(cpTimeFmt);
 }
@@ -202,95 +203,27 @@ CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, va_l
 // Brief     :
 // Return    : int
 // Parameter : const tChar * const cpFmt
-// Parameter : ...
-tChar* CExp::Fmt(const tChar* const cpFmt, ...)
+tChar* CExp::Fmt(const tChar* const cpFmt)
 {
     // 验证格式代码是否正确
     _VERIFY_(cpFmt);
 
-    // 初始化格式化字符串对象
-    size_t lsztFmtStrLen = strlen(cpFmt);
-    size_t lsztFmtStrOffset = 0;
-    vm::CStrPtr loFmtStr(const_cast<tChar*>(cpFmt), lsztFmtStrLen);
-    tChar*  lpFmtStrOffset = (tChar*)cpFmt;
-
     // 初始化缓存区数据
-    size_t lsztBufOffset = 0;
-    vm::CMemPtr loBuf(mszBuf,sizeof(mszBuf));
-    loBuf.Set(0x00);
+    vm::CParser::CPattern loPatternExpFunc(vT("%M"), mszFunc);
+    vm::CParser::CPattern loPatternExpFile(vT("%F"), mszFile);
+    vm::CParser::CPattern loPatternExpLine(vT("%L"), vm::CAny<128>(muiLine).s_ulong());
+    vm::CParser::CPattern loPatternExpTime(vT("%T"), mszDateTime);
+    vm::CParser::CPattern loPatternExpMsgs(vT("%N"), mszMsg);
 
-    // 根据输入的参数格式化错误信息
-    tChar* lpFmtFlagPos = loFmtStr.Find('%');
-    while (lpFmtFlagPos != nullptr)
-    {
-        // 获取格式化字符串中%标识符之间的数据信息，并添加其偏移量
-        size_t loFmtStrDataLen = lpFmtFlagPos - lpFmtStrOffset;
-        lsztFmtStrOffset += (loFmtStrDataLen);
+    vm::CParser loParser(vT('%'), cpFmt);
+    loParser.Regist(loPatternExpFunc);
+    loParser.Regist(loPatternExpFile);
+    loParser.Regist(loPatternExpLine);
+    loParser.Regist(loPatternExpTime);
+    loParser.Regist(loPatternExpMsgs);
 
-        // 将格式化中的数据拷贝到缓存区中，并添加缓存区偏移量
-        size_t loCopyedLen = loBuf.CopyFm(lsztBufOffset, lpFmtStrOffset, loFmtStrDataLen);
-        lsztBufOffset += loCopyedLen;
-
-        // 根据标识符将异常信息添加到缓存区中
-        // 处理所在函数名信息
-        if (loFmtStr.Cmp("%Fn", 3, lsztBufOffset) == true)
-        {
-            // 将错误代码转换为字符串并添加到缓存区中
-            size_t lsztOffset = loBuf.CopyFm(lsztBufOffset, mszFunc, strlen(mszFunc));
-            // 缓存区偏移错误代码所转换的字符串长度
-            lsztBufOffset += lsztOffset;
-            // 格式化字符串偏移两个字符（%Fn）
-            lsztFmtStrOffset += 3;
-        }
-        // 处理所在文件名信息
-        else if (loFmtStr.Cmp("%Fi", 3, lsztBufOffset) == true)
-        {
-            // 将错误代码代表的错误信息添加到缓存区中
-            size_t lsztOffset = loBuf.CopyFm(lsztBufOffset, mszFile, strlen(mszFile));
-            // 缓存区偏移错误信息的长度
-            lsztBufOffset += lsztOffset;
-            // 格式化字符串偏移两个字符（%Fi）
-            lsztFmtStrOffset += 3;
-        }
-        // 处理时间信息
-        else if (loFmtStr.Cmp("%L", 2, lsztBufOffset) == true)
-        {
-            // 将错误代码代表的错误信息添加到缓存区中
-            size_t lsztOffset = loBuf.Fmt2(lsztBufOffset, "%04d", muiLine);;
-            // 缓存区偏移错误信息的长度
-            lsztBufOffset += lsztOffset;
-            // 格式化字符串偏移两个字符（%L）
-            lsztFmtStrOffset += 2;
-        }
-        // 处理时间信息
-        else if (loFmtStr.Cmp("%T", 2, lsztBufOffset) == true)
-        {
-            // 将错误代码代表的错误信息添加到缓存区中
-            size_t lsztOffset = loBuf.CopyFm(lsztBufOffset, mszDateTime, strlen(mszDateTime));
-            // 缓存区偏移错误信息的长度
-            lsztBufOffset += lsztOffset;
-            // 格式化字符串偏移两个字符（%T）
-            lsztFmtStrOffset += 2;
-        }
-        // 处理异常信息
-        else if (loFmtStr.Cmp("%M", 2, lsztBufOffset) == true)
-        {
-            // 将错误代码代表的错误信息添加到缓存区中
-            size_t lsztOffset = loBuf.CopyFm(lsztBufOffset, mszFile, strlen(mszFile));
-            // 缓存区偏移错误信息的长度
-            lsztBufOffset += lsztOffset;
-            // 格式化字符串偏移两个字符（%M）
-            lsztFmtStrOffset += 2;
-        }
-
-        // 计算剩余的格式化字符串长度，若剩余量小于0，则跳出循环
-        size_t lszFmtStrLeft = lsztFmtStrLen - lsztFmtStrOffset;
-        if (lszFmtStrLeft < 0)
-            break;
-
-        // 重新定位下一个格式化字符串中标识符的位置
-        lpFmtFlagPos = loFmtStr.Find(lsztFmtStrOffset, '%');
-    }
+    vMemZero(mszBuf);
+    loParser.Parse(mszBuf, sizeof(mszBuf));
 
     return mszBuf;
 }
