@@ -332,8 +332,10 @@ typedef unsigned tChar tByte;
 
 #define vT(x) x
 namespace vStd {
-#define vString         std::string
-}
+#define vStdStr         std::string
+#define vStdCout        std::cout
+#define vStdEndl        std::endl
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // String functions redefines :
@@ -376,7 +378,9 @@ namespace vStd {
 
 #define vT(x) L##x
 namespace vStd {
-#define vString         std::wstring
+#define vStdStr         std::wstring
+#define vStdCout        std::wcout
+#define vStdEndl        std::endl
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

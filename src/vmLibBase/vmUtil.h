@@ -288,7 +288,7 @@ inline size_t v_strncpy(tChar* const pDst, const size_t csztDstSize, const tChar
 
     return csztDataLen;
 #else
-    tChar* lpEnd = memcpy(pDst, cpSrc, lsztDatalen)
+    tChar* lpEnd = vmemcpy(pDst, cpSrc, lsztDatalen)
     if ( lpEnd == nullptr ){ return 0; }
 
     size_t lsztCopied= lpEnd -pDst;
