@@ -22,12 +22,16 @@
 #define __CFILEBASE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// include file
-
+// Include files :
+// Standard c/c++ files included
 #include <direct.h>
 
-
+// Config files included
 #include <vmCfg.h>
+
+// Platform files included
+
+// Used files included
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -100,27 +104,42 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Static functions :
 public:
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // Method    : GetExecDir(...)
+    // Brief     : Get current execute file's direction
+    // Return    : char*                                     - return current execute file dir
+    // Parameter : pOutputBuf                                - [O] the buffer for current execute file dir.
+    //           : csztBufSize                               - [I] the buffer's size
     inline static char* GetExecDir( _vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize  )
     {
-        //DWORD ldwRet = ::GetCurrentDirectory(csztBufSize, pOutputBuf);
-        //return pOutputBuf;
-        char lszBuf[_V_FILE_MAX_PATH_] = {0x00};
-        size_t lszRet = ::GetModuleFileName( NULL, lszBuf, csztBufSize );
+        // Get full path.
+        size_t lsztLenOfPath = ::GetModuleFileName( NULL, pOutputBuf, csztBufSize );
         
-        vm::v_str_substr( pOutputBuf, csztBufSize, lszBuf, lszRet+1, vMinsInt, '\\' );
+        // Get dir string ( from start to last '\\' )
+        size_t lsztSubstrLen = vm::v_str_substr( pOutputBuf, lsztLenOfPath, vMinsInt, '\\' );
 
-        return ::_getcwd(pOutputBuf, csztBufSize );
+        // return the buffer's address
+        return pOutputBuf;
     }
+    // End of function GetExecDir(...)
+    /////////////////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+    // Method    : GetExecName(...)
+    // Brief     : Get current execute file's name
+    // Return    : size_t                                    - the length of the string that is copied to the buffer.
+    //             0                                         - the function is failed, get error by GetLastError().  
+    // Parameter : pOutputBuf                                - [O] the buffer for the execute file's full path
+    //           : csztBufSize                               - [I] the buffer's size
     inline static size_t GetExecName(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize )
     {
         size_t lsztRet = ::GetModuleFileName( NULL, pOutputBuf, csztBufSize );
-        if  (  lsztRet > 0  )
-            return lsztRet;
-
-        return 0;
+        return lsztRet;
     }
-    
+    // End of function GetExecName(...)
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////    
 }; // End of class CFileBase
 /////////////////////////////////////////////////////////////////////////////////////////
 

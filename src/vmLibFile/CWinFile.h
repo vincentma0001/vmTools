@@ -24,12 +24,18 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// Include files :
+// Standard c/c++ files included
 
+// Config files included
 #ifndef   __VM_CFG_H__
 #	error this file need #include <vmCfg.h>
 #endif // __VM_CFG_H__
-#include <vmCfg.h>
 
+// Platform files included
+
+// Used files included
 #include <vmLibBase/vmUtil.h>
 #include <vmLibBase/CStrPtr.h>
 
