@@ -23,8 +23,13 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
-#   include <time.h>
-#   include <stdlib.h>
+#ifndef   _INC_TIME
+#	error this file need #include <time.h>
+#endif // _INC_TIME
+
+#ifndef   _INC_STDLIB
+#	error this file need #include <stdlib.h>
+#endif // _INC_STDLIB
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
