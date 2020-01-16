@@ -27,10 +27,14 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#include <stdlib.h>
+#ifndef   _INC_STDLIB
+#	error this file need #include <stdlib.h>
+#endif // _INC_STDLIB
 
 // Config files included
-#include <vmCfg.h>
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>
+#endif // __VM_CFG_H__
 
 // Platform files included
 
