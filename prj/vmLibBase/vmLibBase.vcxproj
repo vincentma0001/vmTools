@@ -130,6 +130,7 @@
     <IntDir>$(SolutionDir)tmp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(SolutionDir)src\;$(IncludePath)</IncludePath>
@@ -137,6 +138,7 @@
     <IntDir>$(SolutionDir)tmp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
     <ReferencePath>$(ReferencePath)</ReferencePath>
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -156,9 +158,7 @@ copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"
 copy "$(SolutionDir)bin\vmLibBase.lib" "$(SolutionDir)lib\vmLibBase.lib"
 copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Command>
     </PostBuildEvent>
-    <Link>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
-    </Link>
+    <Link />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -176,7 +176,6 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
     </PostBuildEvent>
     <Link>
       <GenerateMapFile>false</GenerateMapFile>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -193,7 +192,6 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
@@ -216,7 +214,6 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateMapFile>false</GenerateMapFile>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
