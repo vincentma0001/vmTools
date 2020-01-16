@@ -33,9 +33,7 @@
 #include <vmCfg.h>
 
 // platform files included
-#if defined( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 #include <windows.h>
-#endif // #if defined(...)
 
 // Used files included
 #include <vmLibBase/vmUtil.h>
@@ -240,7 +238,7 @@ char* CWinErr::GetErrStr(char* pBufAddr, const size_t csztBufSzie, size_t& sztSt
             mulErrCode,
             MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), // Default language
             (LPSTR)&pBufAddr,
-            csztBufSzie,
+            (DWORD)csztBufSzie,
             NULL);
 
         // 将获得的信息

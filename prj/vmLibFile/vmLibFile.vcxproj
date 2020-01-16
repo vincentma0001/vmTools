@@ -71,16 +71,18 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)src\;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ReferencePath>D:\MyWork\MyGitHubs\vmTools\src;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)src\;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)\$(Platform)\$(Configuration)\</IntDir>
-    <LibraryPath>$(SolutionDir)bin\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <ReferencePath>D:\MyWork\MyGitHubs\vmTools\src;$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

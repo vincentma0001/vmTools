@@ -82,7 +82,7 @@ public:
     // Construct define
     CStdPars( vString strFmt, tChar cFlag ):mstrFmt(strFmt), mszSpecifier(cFlag),mpPatterns(nullptr){};
     // Destruct define
-    virtual ~CStdPars(){if ((mpPatterns!=nullptr)) delete [] mpPatterns; }
+    virtual ~CStdPars(){if (mpPatterns!=nullptr) mpPatterns=nullptr; }
     
 private:
     // No Copy

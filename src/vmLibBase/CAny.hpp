@@ -25,14 +25,9 @@
 // Include files :
 
 #ifndef   __VM_UTIL_H__
-#	error this file need #include <vmUtil.h>
+#	error this file need #include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
-#ifndef   _DEBUG
-#	error this file need #include <vmLibBase/vmUtil.h>
-#endif // _DEBUG
-
-#include <vmLibErr/CErrno.h>
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
@@ -182,6 +177,13 @@ private:
     // 转义后字符串缓存
     char            mszBuf[sztBufSize];
 
+    // 错误代码
+    unsigned long   mulErrCode;
+
+public:
+    bool HasError(){ return mulErrCode==0?true:false; };
+    unsigned long toErrCode(){ return mulErrCode; };
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
@@ -290,8 +292,12 @@ float CAny<sztBufSize>::toFloat(const char* const cpValue)
 {
     char* lpEnd = 0;
     float lfRet = strtof(cpValue, &lpEnd);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return lfRet;
+    // #  TODO : Add condition brife here ##
+    if ( errno == 0 )
+        return lfRet;
+
+    mulErrCode = errno;
+    return vMaxFloat;
 }
 // End of function toFloat(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -305,8 +311,11 @@ long CAny<sztBufSize>::toLong(const char* const cpValue)
 {
     char* lpEnd = 0;
     long llRet = strtol(cpValue, &lpEnd, 0);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return llRet;
+    if (errno == 0)
+        return llRet;
+
+    mulErrCode = errno;
+    return vMaxsLong;
 }
 // End of function toLong(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -320,8 +329,11 @@ unsigned long CAny<sztBufSize>::toULong(const char* const cpValue)
 {
     char* lpEnd = 0;
     unsigned long lulRet = strtoul(cpValue, &lpEnd, 0);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return lulRet;
+    if (errno == 0)
+        return lulRet;
+
+    mulErrCode = errno;
+    return vMaxuLong;
 }
 // End of function toULong(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -335,8 +347,11 @@ long long CAny<sztBufSize>::toLLong(const char* const cpValue)
 {
     char* lpEnd = 0;
     long long lllRet = strtoll(cpValue, &lpEnd, 0);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return lllRet;
+    if (errno == 0)
+        return lllRet;
+
+    mulErrCode = errno;
+    return vMaxsLLong;
 }
 // End of function toLLong(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -350,8 +365,11 @@ unsigned long long CAny<sztBufSize>::toULLong(const char* const cpValue)
 {
     char* lpEnd = 0;
     unsigned long long lullRet = strtoull(cpValue, &lpEnd, 0);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return lullRet;
+    if (errno == 0)
+        return lullRet;
+
+    mulErrCode = errno;
+    return vMaxuLLong;
 }
 // End of function toULLong(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -365,8 +383,11 @@ double CAny<sztBufSize>::toDouble(const char* const cpValue)
 {
     char* lpEnd = 0;
     double ldRet = strtod(cpValue, &lpEnd);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return ldRet;
+    if (errno == 0)
+        return ldRet;
+
+    mulErrCode = errno;
+    return vMaxDouble;
 }
 // End of function toDouble(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -380,8 +401,11 @@ long double CAny<sztBufSize>::toLDouble(const char* const cpValue)
 {
     char* lpEnd = 0;
     long double lldRet = strtold(cpValue, &lpEnd);
-    if (CErrno::HasErrno()) {/* TODO 添加异常处理*/ };
-    return lldRet;
+    if (errno == 0)
+        return lldRet;
+
+    mulErrCode = errno;
+    return vMaxDouble;
 }
 // End of function toLDouble(...)
 /////////////////////////////////////////////////////////////////////////////////////////

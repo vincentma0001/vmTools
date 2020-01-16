@@ -32,8 +32,7 @@
 #ifndef   __VM_UTIL_H__
 #	error this file need #include <vmUtil.h>
 #endif // __VM_UTIL_H__
-#include <vmcfg.h>
-#include <vmLibBase/vmUtil.h>
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macro define
 

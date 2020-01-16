@@ -299,6 +299,12 @@ typedef unsigned char tByte;
 // Maximum value for an object of type unsigned long long int,	        18446744073709551615 (264-1) or greater*
 #define vMaxuLLong     ULLONG_MAX
 
+#define vMinFloat      FLT_MIN
+#define vMaxFloat      FLT_MAX
+
+#define vMinDouble     DBL_MIN
+#define vMaxDouble     DBL_MAX
+
 /////////////////////////////////////////////////////////////////////////////////////////
 #if         defined( _V_USE_WCHAR_ ) && ( _V_USE_WCHAR_ == 0 )
 // --------------------------------------------------------------------------------------

@@ -44,7 +44,9 @@
 // Platform files included
 
 // Used files included
-// #include <vmLibBase/vmUitil.h>
+//#include <vmLibBase/vmUtil.h>
+//#include <vmLibBase/CString.hpp>
+#include <vmLibIPC/CWinConsole.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -52,21 +54,38 @@ namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Output function :
+// TODO : the functions of here will be in other files.
 void utLog(const char* const cpFmt, ...)
 {
+    vm::CWinConsole loConsole;
+
     va_list vList;
     va_start(vList, cpFmt);
-    vprintf(cpFmt, vList);
+    loConsole.Write( vm::CWinConsole::emColor::vfLightWhite, cpFmt, vList );
     va_end(vList);
 }
-void utLogLine(const char* const cpFmt, ...)
+
+void utLog( const short csTxtColor,  const char* const cpFmt, ...)
 {
-    char lszNewFmt[ 2048 ] = { 0x00 };
-    sprintf(lszNewFmt, "// %s%s", cpFmt, "\n");
+    vm::CWinConsole loConsole;
+    
     va_list vList;
     va_start(vList, cpFmt);
-    vprintf(lszNewFmt, vList);
+    loConsole.Write( csTxtColor, cpFmt, vList );
     va_end(vList);
+    
+}
+
+void utLogLine(const char* const cpFmt, ...)
+{
+    vm::CWinConsole loConsole;
+
+    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, "// " );
+    va_list vList;
+    va_start(vList, cpFmt);
+    loConsole.Write(vm::CWinConsole::emColor::vfLightWhite, cpFmt, vList);
+    va_end(vList);
+    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, "\n" );
 }
 
 
@@ -173,12 +192,19 @@ public:
         {
             CUnit* lpFunc = (*loIter);
             utLog( "\n" );
-            utLog( "/////////////////////////////////////////////////////////////////////////////////////////\n" );
-            utLog( "// %s is running ... \n", lpFunc->mszName );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, "/////////////////////////////////////////////////////////////////////////////////////////\n" );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, "// ");
+            utLog( vm::CWinConsole::emColor::vfLightYellow,"%s is running ... \n", lpFunc->mszName );
             bool lbRet = lpFunc->toDo( );
-            utLog( "// %s is %s\n", lpFunc->mszName, lbRet==true?"Succeed":"Failed" );
-            utLog( "/////////////////////////////////////////////////////////////////////////////////////////\n" );
-            utLog( "\n" );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, "// ");
+            // #  TODO : Add condition brife here ##
+            if  ( lbRet == TRUE )
+            { utLog(vm::CWinConsole::emColor::vfLightGreen, "%s is %s\n", lpFunc->mszName, "Succeed" ); }
+            else
+            { utLog(vm::CWinConsole::emColor::vfLightRed,   "%s is %s\n", lpFunc->mszName, "Failed"); }
+             // End of if () ...
+            utLog( vm::CWinConsole::emColor::vfDarkYellow,  "/////////////////////////////////////////////////////////////////////////////////////////\n" );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow,  "\n" );
             
         }
 
