@@ -198,7 +198,7 @@ public:
         mulErrCode = ::GetLastError();
         return false;
     }
-    char* GetTitile(  )
+    tChar* GetTitile(  )
     {
         vMemZero(mszBuf);
         DWORD ldwRet = ::GetConsoleTitle(mszBuf, sizeof(mszBuf));
