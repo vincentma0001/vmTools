@@ -50,13 +50,13 @@ namespace vm{
 // Brief     :
 // Return    : 
 // Parameter : const CWinSeh & coExp
-// Parameter : const char * const cpFile
+// Parameter : const tChar * const cpFile
 // Parameter : const unsigned long culLine
-// Parameter : const char * const cpTimeFmt
+// Parameter : const tChar * const cpTimeFmt
 CWinSehExp::CWinSehExp(const CWinSeh&       coExp, 
-                       const char* const    cpFile, 
+                       const tChar* const    cpFile, 
                        const unsigned long  culLine,
-                       const char* const    cpTimeFmt) :CExp(cpFile, culLine, cpTimeFmt)
+                       const tChar* const    cpTimeFmt) :CExp(cpFile, culLine, cpTimeFmt)
 {
     vCStrPtr(mszMsg).Fmt("%d%s", coExp.code(), coExp.cs_Msg());
 }

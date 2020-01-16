@@ -69,7 +69,7 @@ public:
 // Functions :
 private:
     // Get error message by system
-    virtual char* GetErrStr(char* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen);
+    virtual tChar* GetErrStr(tChar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen);
 
 }; // End of class CWinErr
 /////////////////////////////////////////////////////////////////////////////////////////

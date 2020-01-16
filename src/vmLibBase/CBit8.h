@@ -92,8 +92,8 @@ class CBit8
 // Construct && Destruct
 public:
     // Construct define
-    inline explicit CBit8(char          cVal) :mBit(cVal) {};
-    inline explicit CBit8(unsigned char cVal) :mBit(cVal) {};
+    inline explicit CBit8(tChar          cVal) :mBit(cVal) {};
+    inline explicit CBit8(unsigned tChar cVal) :mBit(cVal) {};
     // Destruct define
     inline virtual ~CBit8(){};
     
@@ -106,34 +106,34 @@ public:
 public:
     // 位与运算符(&) [00000011 & 00000101 = 00000001]
     inline CBit8& operator&(const CBit8& obj) { mBit = mBit&obj.mBit; return *this; };
-    inline CBit8& operator&(const char  cVal) { mBit = mBit&cVal;      return *this; };
+    inline CBit8& operator&(const tChar  cVal) { mBit = mBit&cVal;      return *this; };
     // 位或运算符(|) [00000011 | 00000101 = 00000111]
     inline CBit8& operator|(const CBit8& obj) { mBit = mBit|obj.mBit; return *this; };
-    inline CBit8& operator|(const char  cVal) { mBit = mBit|cVal;      return *this; };
+    inline CBit8& operator|(const tChar  cVal) { mBit = mBit|cVal;      return *this; };
     // 位异或运算符(^) [00000011 | 00000101 = 00000110]
     inline CBit8& operator^(const CBit8& obj) { mBit = mBit^obj.mBit; return *this; };
-    inline CBit8& operator^(const char  cVal) { mBit = mBit^cVal;      return *this; };
+    inline CBit8& operator^(const tChar  cVal) { mBit = mBit^cVal;      return *this; };
     // 位取反运算符(~) [~00000101 = 11111010]
     inline CBit8& operator~() { mBit = ~mBit; return *this; };
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members
 private:
-    unsigned char  mBit;
-    char           mszBuf[_V_CBIT8_MAX_BUF_];
+    unsigned tChar  mBit;
+    tChar           mszBuf[_V_CBIT8_MAX_BUF_];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     // 返回当前值
-    inline char          toChar () { return mBit; };
-    inline unsigned char toUChar() { return mBit; };
+    inline tChar          toChar () { return mBit; };
+    inline unsigned tChar toUChar() { return mBit; };
     
     inline void clear(){ mBit=0;vMemZero(mszBuf); };
 
     // 设置bit值
-    inline void Set(const char          cVal) {mBit=cVal;};
-    inline void Set(const unsigned char cVal) {mBit=cVal;};
+    inline void Set(const tChar          cVal) {mBit=cVal;};
+    inline void Set(const unsigned tChar cVal) {mBit=cVal;};
 
     inline void Set01() { ((PSTBIT8)&mBit)->bit00 = 1; };
     inline void Set02() { ((PSTBIT8)&mBit)->bit01 = 1; };
@@ -145,8 +145,8 @@ public:
     inline void Set08() { ((PSTBIT8)&mBit)->bit07 = 1; };
 
     // 取消bit值设置
-    inline void unSet(const char          cVal) { mBit = cVal; };
-    inline void unSet(const unsigned char cVal) { mBit = cVal; };
+    inline void unSet(const tChar          cVal) { mBit = cVal; };
+    inline void unSet(const unsigned tChar cVal) { mBit = cVal; };
 
     inline void unSet01() { ((PSTBIT8)&mBit)->bit00 = 0; };
     inline void unSet02() { ((PSTBIT8)&mBit)->bit01 = 0; };
@@ -158,7 +158,7 @@ public:
     inline void unSet08() { ((PSTBIT8)&mBit)->bit07 = 0; };
 
     // 判断Bit位是非被设置
-    inline bool isSet(const char cVal)   { mBit&cVal?true:false; };
+    inline bool isSet(const tChar cVal)   { mBit&cVal?true:false; };
 
     inline bool isSet01() { return (((PSTBIT8)&mBit)->bit00&1)?true:false; };
     inline bool isSet02() { return (((PSTBIT8)&mBit)->bit01&1)?true:false; };
@@ -170,10 +170,10 @@ public:
     inline bool isSet08() { return (((PSTBIT8)&mBit)->bit07&1)?true:false; };
 
     // 以二进制方式返回bit值字符串
-    inline char* toBin( )
+    inline tChar* toBin( )
     {
         vMemZero(mszBuf);
-        char* lpPos = mszBuf;
+        tChar* lpPos = mszBuf;
         for (int i = 7; i >= 0; i--)
         {
             (*lpPos) = ((mBit >> i) & 1) ? '1' : '0';;
@@ -182,27 +182,27 @@ public:
         return mszBuf;
     };
     // 以八进制方式返回bit值字符串
-    inline char* toOct( )
+    inline tChar* toOct( )
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf( mszBuf, sizeof(mszBuf), "%04o", mBit);
         return mszBuf;
     };
     // 以十进制方式返回bit值字符串
-    inline char* toDec( )
+    inline tChar* toDec( )
     {
         vMemZero(mszBuf);
-        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04d", (char)mBit);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04d", (tChar)mBit);
         return mszBuf;
     };
-    inline char* toUDec()
+    inline tChar* toUDec()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04u", mBit);
         return mszBuf;
     };
     // 以十六进制方式返回bit值字符串
-    inline char* toHex( )
+    inline tChar* toHex( )
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%02X", mBit);
@@ -223,10 +223,10 @@ class CBit8Ptr
 // Construct && Destruct
 public:
     // Construct define
-    inline explicit CBit8Ptr(char* const cpVal) :mpBit((unsigned char*)cpVal) {};
-    inline explicit CBit8Ptr(unsigned char* const cpVal) :mpBit(cpVal) {};
-    inline explicit CBit8Ptr(char& cVal) :mpBit((unsigned char*)&cVal) {};
-    inline explicit CBit8Ptr(unsigned char& cVal) :mpBit(&cVal) {};
+    inline explicit CBit8Ptr(tChar* const cpVal) :mpBit((unsigned tChar*)cpVal) {};
+    inline explicit CBit8Ptr(unsigned tChar* const cpVal) :mpBit(cpVal) {};
+    inline explicit CBit8Ptr(tChar& cVal) :mpBit((unsigned tChar*)&cVal) {};
+    inline explicit CBit8Ptr(unsigned tChar& cVal) :mpBit(&cVal) {};
     // Destruct define
     inline virtual ~CBit8Ptr() {};
 
@@ -239,34 +239,34 @@ public:
 public:
     // 位与运算符(&) [00000011 & 00000101 = 00000001]
     inline CBit8Ptr& operator&(const CBit8Ptr& obj) { *mpBit = *mpBit & *obj.mpBit; return *this; };
-    inline CBit8Ptr& operator&(const char  cVal)    { *mpBit = *mpBit & cVal;       return *this; };
+    inline CBit8Ptr& operator&(const tChar  cVal)    { *mpBit = *mpBit & cVal;       return *this; };
     // 位或运算符(|) [00000011 | 00000101 = 00000111]
     inline CBit8Ptr& operator|(const CBit8Ptr& obj) { *mpBit = *mpBit | *obj.mpBit; return *this; };
-    inline CBit8Ptr& operator|(const char  cVal)    { *mpBit = *mpBit | cVal;       return *this; };
+    inline CBit8Ptr& operator|(const tChar  cVal)    { *mpBit = *mpBit | cVal;       return *this; };
     // 位异或运算符(^) [00000011 | 00000101 = 00000110]
     inline CBit8Ptr& operator^(const CBit8Ptr& obj) { *mpBit = *mpBit ^ *obj.mpBit; return *this; };
-    inline CBit8Ptr& operator^(const char  cVal)    { *mpBit = *mpBit ^ cVal;       return *this; };
+    inline CBit8Ptr& operator^(const tChar  cVal)    { *mpBit = *mpBit ^ cVal;       return *this; };
     // 位取反运算符(~) [~00000101 = 11111010]
     inline CBit8Ptr& operator~()                    { *mpBit = ~*mpBit; return *this; };
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members
 private:
-    unsigned char*  mpBit;
-    char            mszBuf[_V_CBIT8_MAX_BUF_];
+    unsigned tChar*  mpBit;
+    tChar            mszBuf[_V_CBIT8_MAX_BUF_];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     // 返回当前值
-    inline char          toChar()  { return *mpBit; };
-    inline unsigned char toUChar() { return *mpBit; };
+    inline tChar          toChar()  { return *mpBit; };
+    inline unsigned tChar toUChar() { return *mpBit; };
 
     inline void clear() { *mpBit = 0; vMemZero(mszBuf); };
 
     // 设置bit值
-    inline void Set(const char          cVal) { *mpBit = cVal; };
-    inline void Set(const unsigned char cVal) { *mpBit = cVal; };
+    inline void Set(const tChar          cVal) { *mpBit = cVal; };
+    inline void Set(const unsigned tChar cVal) { *mpBit = cVal; };
 
     inline void Set01() { ((PSTBIT8)mpBit)->bit00 = 1; };
     inline void Set02() { ((PSTBIT8)mpBit)->bit01 = 1; };
@@ -278,8 +278,8 @@ public:
     inline void Set08() { ((PSTBIT8)mpBit)->bit07 = 1; };
 
     // 取消bit值设置
-    inline void unSet(const char          cVal) { *mpBit = cVal; };
-    inline void unSet(const unsigned char cVal) { *mpBit = cVal; };
+    inline void unSet(const tChar          cVal) { *mpBit = cVal; };
+    inline void unSet(const unsigned tChar cVal) { *mpBit = cVal; };
 
     inline void unSet01() { ((PSTBIT8)mpBit)->bit00 = 0; };
     inline void unSet02() { ((PSTBIT8)mpBit)->bit01 = 0; };
@@ -291,7 +291,7 @@ public:
     inline void unSet08() { ((PSTBIT8)mpBit)->bit07 = 0; };
 
     // 判断Bit位是非被设置
-    inline bool isSet(const char cVal) { (*mpBit)&cVal ? true : false; };
+    inline bool isSet(const tChar cVal) { (*mpBit)&cVal ? true : false; };
 
     inline bool isSet01() { return (((PSTBIT8)mpBit)->bit00 & 1) ? true : false; };
     inline bool isSet02() { return (((PSTBIT8)mpBit)->bit01 & 1) ? true : false; };
@@ -303,10 +303,10 @@ public:
     inline bool isSet08() { return (((PSTBIT8)mpBit)->bit07 & 1) ? true : false; };
 
     // 以二进制方式返回bit值字符串
-    inline char* toBin()
+    inline tChar* toBin()
     {
         vMemZero(mszBuf);
-        char* lpPos = mszBuf;
+        tChar* lpPos = mszBuf;
         for (int i = 7; i >= 0; i--)
         {
             (*lpPos) = ((*mpBit >> i) & 1) ? '1' : '0';;
@@ -315,21 +315,21 @@ public:
         return mszBuf;
     };
     // 以八进制方式返回bit值字符串
-    inline char* toOct()
+    inline tChar* toOct()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04o", *mpBit);
         return mszBuf;
     };
     // 以十进制方式返回bit值字符串
-    inline char* toDec()
+    inline tChar* toDec()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04d", *mpBit);
         return mszBuf;
     };
     // 以十六进制方式返回bit值字符串
-    inline char* toHex()
+    inline tChar* toHex()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%02X", *mpBit);

@@ -103,7 +103,7 @@ private:
 	// 时间存储结构， 如果定义_USE_32BIT_TIME_T宏使用32bit版本，否则使用64bit版本
 	_timeb  mstTime;
     // 数据缓存，用于存储时间字符串
-    char    mszBuf[sztBufSize];
+    tChar    mszBuf[sztBufSize];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -128,15 +128,15 @@ public:
     inline void SetTimeFmFull(const void* szFmtStr);
 
     // 获取时间字符串，格式"YYYY/MM/DD"
-    inline const char* ToStrDay1();
+    inline const tChar* ToStrDay1();
     // 获取时间字符串，格式"YYMMDD"
-    inline const char* ToStrDay2();
+    inline const tChar* ToStrDay2();
     // 获取时间字符串，格式"HH:MM:SS"
-    inline const char* ToStrTime();
+    inline const tChar* ToStrTime();
     // 获取时间字符串，格式"MS"
-    inline const char* ToStrMillitm();
+    inline const tChar* ToStrMillitm();
     // 获取时间字符串，格式""%Y/%m/%d %H:%M:%S:%Mill"
-    inline const char* ToStrFull();
+    inline const tChar* ToStrFull();
 
     // 格式化时间结构
     //     ==================================================================================
@@ -193,11 +193,11 @@ public:
     //     %%        | A % sign	                                 | %
     // --------------------------------------------------------------------------------------
     //     %k        | 毫秒值
-    inline const char* Fmt(const char* const cpFmt);
+    inline const tChar* Fmt(const tChar* const cpFmt);
     // 格式化时间结构中的毫秒值
-    inline void  s_millisecond(char* const       pBuf,
+    inline void  s_millisecond(tChar* const       pBuf,
                          const size_t      csztBufSize,
-                         const char* const cpFmt);
+                         const tChar* const cpFmt);
 
 }; // End of class CDateTime
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -463,10 +463,10 @@ inline unsigned short CDateTime<sztBufSize>::millitm()
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Method    : SetTimeFmFull(const char* szFmtStr)
+// Method    : SetTimeFmFull(const tChar* szFmtStr)
 // Brief     : 根据格式化字符串（YYYY/MM/DD HH:MM:SS.MS）解析Time对象
 // Return    : void
-// Parameter : const char* szFmtStr         - 格式化的字符串
+// Parameter : const tChar* szFmtStr         - 格式化的字符串
 template <size_t sztBufSize>
 inline void CDateTime<sztBufSize>::SetTimeFmFull(const void* szFmtStr)
 {
@@ -491,7 +491,7 @@ inline void CDateTime<sztBufSize>::SetTimeFmFull(const void* szFmtStr)
 
     SetTime(luiYear, luiMonth, luiDay, luiHour, luiMin, luiSec);
 };
-// End of function SetTimeFmFull(const char* szFmtStr)
+// End of function SetTimeFmFull(const tChar* szFmtStr)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -564,8 +564,8 @@ inline void CDateTime<sztBufSize>::SetTime( unsigned int  uiYear, unsigned int  
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化输出时间
-// Return    : char*                            - 格式化后的字符串
-// Parameter : const char* szFormat             - 字符串格式
+// Return    : tChar*                            - 格式化后的字符串
+// Parameter : const tChar* szFormat             - 字符串格式
 // Note      :
 //     ==================================================================================
 //     specifier | Replaced by                               | Example
@@ -622,10 +622,10 @@ inline void CDateTime<sztBufSize>::SetTime( unsigned int  uiYear, unsigned int  
 // --------------------------------------------------------------------------------------
 //     %k        | 毫秒值
 template <size_t sztBufSize>
-inline const char* CDateTime<sztBufSize>::Fmt(const char* const cpFmt)
+inline const tChar* CDateTime<sztBufSize>::Fmt(const tChar* const cpFmt)
 {
     // 将格式化字符串中“%Mill”替换为毫秒值字符串
-    char lszBuf[_V_CDATETIME_MAX_BUF_] = {0}; 
+    tChar lszBuf[_V_CDATETIME_MAX_BUF_] = {0}; 
     s_millisecond( lszBuf, sizeof(lszBuf), cpFmt );
 
 
@@ -646,13 +646,13 @@ inline const char* CDateTime<sztBufSize>::Fmt(const char* const cpFmt)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template <size_t sztBufSize>
-inline void  CDateTime<sztBufSize>::s_millisecond( char* const       pBuf,
+inline void  CDateTime<sztBufSize>::s_millisecond( tChar* const       pBuf,
                                                    const size_t      csztBufSize, 
-                                                   const char* const cpFmt )
+                                                   const tChar* const cpFmt )
 {
     CMemPtr loBuf(pBuf, csztBufSize);
     size_t  lsztBufOffset = 0;
-    CStrPtr loFmt(const_cast<char*>(cpFmt), strlen(cpFmt));
+    CStrPtr loFmt(const_cast<tChar*>(cpFmt), strlen(cpFmt));
     size_t  lsztFmtOffset = 0;
     
     // 将cpFmt指向字符串中的“%K”字符串替换为时间毫秒值
@@ -668,10 +668,10 @@ inline void  CDateTime<sztBufSize>::s_millisecond( char* const       pBuf,
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ToStrDay1()
 // Brief     : 获取时间字符串，格式"YYYY/MM/DD"
-// Return    : char*                            - 格式化后的字符串
+// Return    : tChar*                            - 格式化后的字符串
 // Parameter : null
 template <size_t sztBufSize>
-const char* CDateTime<sztBufSize>::ToStrDay1()
+const tChar* CDateTime<sztBufSize>::ToStrDay1()
 {
     return Fmt("%Y/%m/%d");
 }
@@ -681,10 +681,10 @@ const char* CDateTime<sztBufSize>::ToStrDay1()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ToStrDay2()
 // Brief     : 获取时间字符串，格式"YYMMDD"
-// Return    : char*                            - 格式化后的字符串
+// Return    : tChar*                            - 格式化后的字符串
 // Parameter : null
 template <size_t sztBufSize>
-inline const char* CDateTime<sztBufSize>::ToStrDay2()
+inline const tChar* CDateTime<sztBufSize>::ToStrDay2()
 {
     return Fmt("%y%m%d");
 }
@@ -694,10 +694,10 @@ inline const char* CDateTime<sztBufSize>::ToStrDay2()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ToStrTime()
 // Brief     : 获取时间字符串，格式"HH:MM:SS"
-// Return    : char*                            - 格式化后的字符串
+// Return    : tChar*                            - 格式化后的字符串
 // Parameter : null
 template <size_t sztBufSize>
-inline const char* CDateTime<sztBufSize>::ToStrTime()
+inline const tChar* CDateTime<sztBufSize>::ToStrTime()
 {
     return Fmt("%H:%M:%S");
 }
@@ -707,10 +707,10 @@ inline const char* CDateTime<sztBufSize>::ToStrTime()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ToStrMillitm()
 // Brief     : 获取时间字符串，格式"%Mill"
-// Return    : char*                            - 格式化后的字符串
+// Return    : tChar*                            - 格式化后的字符串
 // Parameter : null
 template <size_t sztBufSize>
-inline const char* CDateTime<sztBufSize>::ToStrMillitm()
+inline const tChar* CDateTime<sztBufSize>::ToStrMillitm()
 {
     memset(&mszBuf, 0x00, sztBufSize);
     v_sprintf( mszBuf, sztBufSize, "%03d", mstTime.millitm );
@@ -722,13 +722,13 @@ inline const char* CDateTime<sztBufSize>::ToStrMillitm()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ToStrFull()
 // Brief     : 获取时间字符串，格式""%Y/%m/%d %H:%M:%S:%Mill"
-// Return    : char*                            - 格式化后的字符串
+// Return    : tChar*                            - 格式化后的字符串
 // Parameter : null
 template <size_t sztBufSize>
-inline const char* CDateTime<sztBufSize>::ToStrFull()
+inline const tChar* CDateTime<sztBufSize>::ToStrFull()
 {
     memset(&mszBuf, 0x00, sztBufSize);
-    char lszBuf[sztBufSize] = { 0 };
+    tChar lszBuf[sztBufSize] = { 0 };
 
 #if defined ( _MSC_VER ) && ( _MSC_VER >=1200 )
     struct tm loTm;

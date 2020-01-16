@@ -41,115 +41,115 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // windows seh 异常描述：
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_ZERO_EN                  = "The exception code is zero.";
-const char* GCP_EXCEPTION_ZERO_CN                  = "异常代码为零";
+const tChar* GCP_EXCEPTION_ZERO_EN                  = "The exception code is zero.";
+const tChar* GCP_EXCEPTION_ZERO_CN                  = "异常代码为零";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_UNDEFINED_EN             = "The exception code is undefined.";
-const char* GCP_EXCEPTION_UNDEFINED_CN             = "未定义异常";
+const tChar* GCP_EXCEPTION_UNDEFINED_EN             = "The exception code is undefined.";
+const tChar* GCP_EXCEPTION_UNDEFINED_CN             = "未定义异常";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_ACCESS_VIOLATION_EN      = "The thread tried to read from or write to a "
+const tChar* GCP_EXCEPTION_ACCESS_VIOLATION_EN      = "The thread tried to read from or write to a "
                                                      "virtual address for which it does not have the "
                                                      "appropriate access.";
-const char* GCP_EXCEPTION_ACCESS_VIOLATION_CN      = "线程违规读写没有适当权限的虚拟地址。";
+const tChar* GCP_EXCEPTION_ACCESS_VIOLATION_CN      = "线程违规读写没有适当权限的虚拟地址。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_ARRAY_BOUNDS_EXCEEDED_EN = "The thread tried to access an array element "
+const tChar* GCP_EXCEPTION_ARRAY_BOUNDS_EXCEEDED_EN = "The thread tried to access an array element "
                                                      "that is out of bounds and the underlying hardware "
                                                      "supports bounds checking.";
-const char* GCP_EXCEPTION_ARRAY_BOUNDS_EXCEEDED_CN = "线程在底层硬件支持的边界检查下访问数组越界。";
+const tChar* GCP_EXCEPTION_ARRAY_BOUNDS_EXCEEDED_CN = "线程在底层硬件支持的边界检查下访问数组越界。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_BREAKPOINT_EN            = "A breakpoint was encountered.";
-const char* GCP_EXCEPTION_BREAKPOINT_CN            = "遇到一个断点。";
+const tChar* GCP_EXCEPTION_BREAKPOINT_EN            = "A breakpoint was encountered.";
+const tChar* GCP_EXCEPTION_BREAKPOINT_CN            = "遇到一个断点。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_DATATYPE_MISALIGNMENT_EN = "The thread tried to read or write data that "
+const tChar* GCP_EXCEPTION_DATATYPE_MISALIGNMENT_EN = "The thread tried to read or write data that "
                                                      "is misaligned on hardware that does not provide "
                                                      "alignment.For example, 16-bit values must be "
                                                      "aligned on 2-byte boundaries; 32-bit values on "
                                                      "4-byte boundaries, and so on.";
-const char* GCP_EXCEPTION_DATATYPE_MISALIGNMENT_CN = "线程试图在不支持对齐的硬件上读写未对齐的数据。"
+const tChar* GCP_EXCEPTION_DATATYPE_MISALIGNMENT_CN = "线程试图在不支持对齐的硬件上读写未对齐的数据。"
                                                      "例如，16位值必须2字节对齐，32位值必须4字节对齐，"
                                                      "以此类推。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_DENORMAL_OPERAND_EN = "One of the operands in a floating-point operation "
+const tChar* GCP_EXCEPTION_FLT_DENORMAL_OPERAND_EN = "One of the operands in a floating-point operation "
                                                     "is denormal. A denormal value is one that is too "
                                                     "small to represent as a standard floating-point "
                                                     "value.";
-const char* GCP_EXCEPTION_FLT_DENORMAL_OPERAND_CN = "浮点操作的一个操作数不正规。不正规的值表示太"
+const tChar* GCP_EXCEPTION_FLT_DENORMAL_OPERAND_CN = "浮点操作的一个操作数不正规。不正规的值表示太"
                                                     "小而不能表示一个标准的浮点值。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_DIVIDE_BY_ZERO_EN   = "The thread tried to divide a floating-point "
+const tChar* GCP_EXCEPTION_FLT_DIVIDE_BY_ZERO_EN   = "The thread tried to divide a floating-point "
                                                     "value by a floating-point divisor of zero.";
-const char* GCP_EXCEPTION_FLT_DIVIDE_BY_ZERO_CN   = "线程浮点除零操作。";
+const tChar* GCP_EXCEPTION_FLT_DIVIDE_BY_ZERO_CN   = "线程浮点除零操作。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_INEXACT_RESULT_EN   = "The result of a floating-point operation can "
+const tChar* GCP_EXCEPTION_FLT_INEXACT_RESULT_EN   = "The result of a floating-point operation can "
                                                     "not be represented exactly as a decimal fraction.";
-const char* GCP_EXCEPTION_FLT_INEXACT_RESULT_CN   = "浮点结果的操作不能准确的代替小数。";
+const tChar* GCP_EXCEPTION_FLT_INEXACT_RESULT_CN   = "浮点结果的操作不能准确的代替小数。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_INVALID_OPERATION_EN = "This exception represents any floating-point "
+const tChar* GCP_EXCEPTION_FLT_INVALID_OPERATION_EN = "This exception represents any floating-point "
                                                      "exception not included in this list.";
-const char* GCP_EXCEPTION_FLT_INVALID_OPERATION_CN = "这个异常代表了这个列表里没有列出的其他浮点异常。";
+const tChar* GCP_EXCEPTION_FLT_INVALID_OPERATION_CN = "这个异常代表了这个列表里没有列出的其他浮点异常。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_OVERFLOW_EN         = "The exponent of a floating-point operation "
+const tChar* GCP_EXCEPTION_FLT_OVERFLOW_EN         = "The exponent of a floating-point operation "
                                                     "is greater than the magnitude allowed by the "
                                                     "corresponding type.";
-const char* GCP_EXCEPTION_FLT_OVERFLOW_CN         = "浮点操作的指数超过了相应类型的最大值。";
+const tChar* GCP_EXCEPTION_FLT_OVERFLOW_CN         = "浮点操作的指数超过了相应类型的最大值。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_STACK_CHECK_EN      = "The stack overflowed or underflowed as the "
+const tChar* GCP_EXCEPTION_FLT_STACK_CHECK_EN      = "The stack overflowed or underflowed as the "
                                                     "result of a floating-point operation.";
-const char* GCP_EXCEPTION_FLT_STACK_CHECK_CN      = "浮点操作的栈越界或下溢出。";
+const tChar* GCP_EXCEPTION_FLT_STACK_CHECK_CN      = "浮点操作的栈越界或下溢出。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_FLT_UNDERFLOW_EN        = "The exponent of a floating-point operation "
+const tChar* GCP_EXCEPTION_FLT_UNDERFLOW_EN        = "The exponent of a floating-point operation "
                                                     "is less than the magnitude allowed by the "
                                                     "corresponding type.";
-const char* GCP_EXCEPTION_FLT_UNDERFLOW_CN        = "浮点操作的指数没有超过相应类型的最大值。";
+const tChar* GCP_EXCEPTION_FLT_UNDERFLOW_CN        = "浮点操作的指数没有超过相应类型的最大值。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_ILLEGAL_INSTRUCTION_EN  = "The thread tried to execute an invalid instruction.";
-const char* GCP_EXCEPTION_ILLEGAL_INSTRUCTION_CN  = "线程试图执行无效指令。";
+const tChar* GCP_EXCEPTION_ILLEGAL_INSTRUCTION_EN  = "The thread tried to execute an invalid instruction.";
+const tChar* GCP_EXCEPTION_ILLEGAL_INSTRUCTION_CN  = "线程试图执行无效指令。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_IN_PAGE_ERROR_EN        = "The thread tried to access a page that was "
+const tChar* GCP_EXCEPTION_IN_PAGE_ERROR_EN        = "The thread tried to access a page that was "
                                                     "not present, and the system was unable to load "
                                                     "the page. For example, this exception might occur "
                                                     "if a network connection is lost while running a "
                                                     "program over the network.";
-const char* GCP_EXCEPTION_IN_PAGE_ERROR_CN        = "线程试图访问一个不存在的页或者无法加载的页。"
+const tChar* GCP_EXCEPTION_IN_PAGE_ERROR_CN        = "线程试图访问一个不存在的页或者无法加载的页。"
                                                     "例如，异常可能在运行的网络程序丢失连接的时候发生。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_INT_DIVIDE_BY_ZERO_EN   = "The thread tried to divide an integer value "
+const tChar* GCP_EXCEPTION_INT_DIVIDE_BY_ZERO_EN   = "The thread tried to divide an integer value "
                                                     "by an integer divisor of zero.";
-const char* GCP_EXCEPTION_INT_DIVIDE_BY_ZERO_CN   = "线程试图整数除零。";
+const tChar* GCP_EXCEPTION_INT_DIVIDE_BY_ZERO_CN   = "线程试图整数除零。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_INT_OVERFLOW_EN         = "The result of an integer operation caused a "
+const tChar* GCP_EXCEPTION_INT_OVERFLOW_EN         = "The result of an integer operation caused a "
                                                     "carry out of the most significant bit of the result.";
-const char* GCP_EXCEPTION_INT_OVERFLOW_CN         = "整数操作的结果占用了结果的最大符号位。";
+const tChar* GCP_EXCEPTION_INT_OVERFLOW_CN         = "整数操作的结果占用了结果的最大符号位。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_INVALID_DISPOSITION_EN  = "An exception handler returned an invalid "
+const tChar* GCP_EXCEPTION_INVALID_DISPOSITION_EN  = "An exception handler returned an invalid "
                                                     "disposition to the exception dispatcher. Programmers "
                                                     "using a high-level language such as C should never "
                                                     "encounter this exception.";
-const char* GCP_EXCEPTION_INVALID_DISPOSITION_CN = "异常处理程序给异常调度器返回了一个无效配置。使用"
+const tChar* GCP_EXCEPTION_INVALID_DISPOSITION_CN = "异常处理程序给异常调度器返回了一个无效配置。使用"
                                                    "高级语言（例如C语言）的程序永远不会遇到这个异常。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_NONCONTINUABLE_EXCEPTION_EN = "The thread tried to continue execution after a "
+const tChar* GCP_EXCEPTION_NONCONTINUABLE_EXCEPTION_EN = "The thread tried to continue execution after a "
                                                         "noncontinuable exception occurred.";
-const char* GCP_EXCEPTION_NONCONTINUABLE_EXCEPTION_CN = "线程试图在一个不可继续执行的异常发生后继续执行。";
+const tChar* GCP_EXCEPTION_NONCONTINUABLE_EXCEPTION_CN = "线程试图在一个不可继续执行的异常发生后继续执行。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_PRIV_INSTRUCTION_EN    = "The thread tried to execute an instruction whose "
+const tChar* GCP_EXCEPTION_PRIV_INSTRUCTION_EN    = "The thread tried to execute an instruction whose "
                                                    "operation is not allowed in the current machine mode.";
-const char* GCP_EXCEPTION_PRIV_INSTRUCTION_CN    = "线程试图执行当前机器模式不支持的指令。";
+const tChar* GCP_EXCEPTION_PRIV_INSTRUCTION_CN    = "线程试图执行当前机器模式不支持的指令。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_SINGLE_STEP_EN         = "A trace trap or other single-instruction mechanism "
+const tChar* GCP_EXCEPTION_SINGLE_STEP_EN         = "A trace trap or other single-instruction mechanism "
                                                    "signaled that one instruction has been executed.";
-const char* GCP_EXCEPTION_SINGLE_STEP_CN         = "（简单的说是）单步。";
+const tChar* GCP_EXCEPTION_SINGLE_STEP_CN         = "（简单的说是）单步。";
 // --------------------------------------------------------------------------------------
-const char* GCP_EXCEPTION_STACK_OVERFLOW_EN      = "The thread used up its stack.";
-const char* GCP_EXCEPTION_STACK_OVERFLOW_CN      = "（简单的说是）栈溢出。";
+const tChar* GCP_EXCEPTION_STACK_OVERFLOW_EN      = "The thread used up its stack.";
+const tChar* GCP_EXCEPTION_STACK_OVERFLOW_CN      = "（简单的说是）栈溢出。";
 // --------------------------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetExpDesEN
 // Brief     : 获取异常描述(英文)
-// Return    : const char*                                      -- 异常描术
+// Return    : const tChar*                                      -- 异常描术
 // Parameter : const DWORD dwExpCode                            -- 异常代码
-const char* v_GetExpDesEN(const DWORD dwExpCode)
+const tChar* v_GetExpDesEN(const DWORD dwExpCode)
 {
     switch (dwExpCode)
     {
@@ -206,9 +206,9 @@ const char* v_GetExpDesEN(const DWORD dwExpCode)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetExpDesCN
 // Brief     : 获取异常描述(中文)
-// Return    : const char*                                              -- 异常描述
+// Return    : const tChar*                                              -- 异常描述
 // Parameter : const DWORD dwExpCode                                    -- 异常代码
-const char* v_GetExpDesCN(const DWORD dwExpCode)
+const tChar* v_GetExpDesCN(const DWORD dwExpCode)
 {
     switch (dwExpCode)
     {
@@ -262,7 +262,7 @@ const char* v_GetExpDesCN(const DWORD dwExpCode)
 } // End of function GetExpDesCN(...
 /////////////////////////////////////////////////////////////////////////////////////////
 
-const char* v_GetExpDes(const DWORD dwExpCode, const DWORD dwLanguage)
+const tChar* v_GetExpDes(const DWORD dwExpCode, const DWORD dwLanguage)
 {
     if (dwLanguage == LANG_ENGLISH )
     {   
@@ -347,8 +347,8 @@ vm::CWinSeh& CWinSeh::operator=(const CWinSeh& obj)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetExpDes(...)
 // Brief     :
-// Return    : const char*
-const char* CWinSeh::cs_Msg(const DWORD dwLanguage /*= LANG_ENGLISH*/) const
+// Return    : const tChar*
+const tChar* CWinSeh::cs_Msg(const DWORD dwLanguage /*= LANG_ENGLISH*/) const
 {
     return v_GetExpDes(mEr.ExceptionCode, dwLanguage);
 }

@@ -123,7 +123,7 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Type redefines :
 
-typedef unsigned char tByte;
+typedef unsigned tChar tByte;
 
 #define tVoid         void
 #define tBool         bool
@@ -259,7 +259,7 @@ typedef unsigned char tByte;
 #define vBitChar       CHAR_BIT
 // Maximum number of bytes in a multibyte character, for any locale,    1 or greater *
 #define vMaxMBLen      MB_LEN_MAX
-// Minimum value for an object of type char,	                        either SCHAR_MIN or 0
+// Minimum value for an object of type tChar,	                        either SCHAR_MIN or 0
 #define vMinChar       CHAR_MIN
 // Maximum value for an object of type char,	                        either SCHAR_MAX or UCHAR_MAX
 #define vMaxChar       CHAR_MAX

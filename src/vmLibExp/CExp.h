@@ -83,13 +83,13 @@ typedef enum emExpLevel
 public:
     // Construct define
     explicit CExp();
-    explicit CExp( const char* const   cpFile,
+    explicit CExp( const tChar* const   cpFile,
                    const unsigned long culLine,
-                   const char* const   cpTimeFmt);
+                   const tChar* const   cpTimeFmt);
     explicit CExp( const CExp&         oExp,
-                   const char* const   cpFile, 
+                   const tChar* const   cpFile, 
                    const unsigned long culLine,
-                   const char* const   cpTimeFmt);
+                   const tChar* const   cpTimeFmt);
     // Destruct define
     virtual ~CExp();
     
@@ -101,33 +101,33 @@ public:
 
 public:
     // ()操作
-    CExp& operator()(const char* const cpFunc,
-                     const char* const cpFmt, ...);
-    CExp& operator()(const char* const cpFunc,
-                     const char* const cpFmt, va_list vList);
+    CExp& operator()(const tChar* const cpFunc,
+                     const tChar* const cpFmt, ...);
+    CExp& operator()(const tChar* const cpFunc,
+                     const tChar* const cpFmt, va_list vList);
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // members
 protected:
     // where
     // 异常发生时所在的函数名
-    char   mszFunc[_V_CEXP_MAX_FUNC_];
+    tChar   mszFunc[_V_CEXP_MAX_FUNC_];
     // 异常发生时所在的文件名
-    char   mszFile[_V_CEXP_MAX_FILE_];
+    tChar   mszFile[_V_CEXP_MAX_FILE_];
     // 异常发生时说咋的文件行数
     unsigned int    muiLine;
 
     // when
     // 异常发生的时间
-    char   mszDateTime[_V_CEXP_TIME_BUF_];
+    tChar   mszDateTime[_V_CEXP_TIME_BUF_];
     
     // what
     // 异常信息
-    char   mszMsg[_V_CEXP_MAX_MSG_];
+    tChar   mszMsg[_V_CEXP_MAX_MSG_];
 
     // format msg buffer
     // 格式化缓存
-    char   mszBuf[_V_CEXP_MAX_BUF_];
+    tChar   mszBuf[_V_CEXP_MAX_BUF_];
 
 private:
     // 异常等级
@@ -144,7 +144,7 @@ public:
     //       %L                         - 文件函数
     //       %M                         - 异常信息
     //       %T                         - 异常触发的时间
-    char* Fmt( const char* const cpFmt, ... );
+    tChar* Fmt( const tChar* const cpFmt, ... );
 
 public:
     // 获取下上一级异常信息

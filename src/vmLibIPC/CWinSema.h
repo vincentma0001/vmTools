@@ -68,13 +68,13 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    long Create( const vChar* const cpName, const long clInitialCount, const long clMaxmumCount, void* pSamephoneAttributes = nullptr )
+    long Create( const tChar* const cpName, const long clInitialCount, const long clMaxmumCount, void* pSamephoneAttributes = nullptr )
     {
         mhHandle = ::CreateSemaphore( &mstSecurityAttributes,clInitialCount, clMaxmumCount, cpName );
         return CheckHandle();
     }
 
-    long Open( const vChar* const cpName, const unsigned long culDesiredAccess, const bool cbInheritHandle = false )
+    long Open( const tChar* const cpName, const unsigned long culDesiredAccess, const bool cbInheritHandle = false )
     {
         mhHandle = ::OpenSemaphore( culDesiredAccess, cbInheritHandle, cpName );
         return CheckHandle();

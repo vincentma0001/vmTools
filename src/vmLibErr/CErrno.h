@@ -71,7 +71,7 @@ public:
     static errno_t  moErrCode;
     
     // 错误信息
-    static char     mszErrMsg[_V_ERRNO_MAX_BUF_];
+    static tChar     mszErrMsg[_V_ERRNO_MAX_BUF_];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -84,8 +84,8 @@ public:
     static bool HasErrno();
 
     // 输出错误信息
-    static char* MsgErrno();
-    static char* MsgErrno(const errno_t oErrCode);
+    static tChar* MsgErrno();
+    static tChar* MsgErrno(const errno_t oErrCode);
 
 }; // End of class CErrno
 /////////////////////////////////////////////////////////////////////////////////////////

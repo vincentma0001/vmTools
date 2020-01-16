@@ -59,7 +59,7 @@ class DLL_API CFileBase
 public:
     // Construct define
     explicit CFileBase();
-    explicit CFileBase( const char* cpFName );
+    explicit CFileBase( const tChar* cpFName );
     // Destruct define
     virtual ~CFileBase();
     
@@ -127,9 +127,9 @@ public:
                                _vOt_ tChar* const      pDirBuf, _vIn_ const size_t csztDirBufSize );
 
     // Get current execute file's direction
-    static size_t GetExecDir (_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize);
+    static size_t GetExecDir (_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize);
     // Get current execute file's name
-    static size_t GetExecName(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize);
+    static size_t GetExecName(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize);
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

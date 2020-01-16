@@ -87,7 +87,7 @@ public:
     inline void* operator [] (const size_t csztPos)
     {
         // TODO 修改位置
-        void* lpPos = ((char*)mpBuf + csztPos);
+        void* lpPos = ((tChar*)mpBuf + csztPos);
         return lpPos;
     }
     // 获取缓存区字符串
@@ -102,21 +102,21 @@ public:
 
 public:
     // 获取字符串中子字符串地址
-    inline void* At(const size_t csztBufOffset) { return ((char*)mpBuf+csztBufOffset); };
+    inline void* At(const size_t csztBufOffset) { return ((tChar*)mpBuf+csztBufOffset); };
 
     // 格式化字符串
-    inline void* Fmt(const char* const   cpFmt, ...);
+    inline void* Fmt(const tChar* const   cpFmt, ...);
     // 格式化字符串
     inline void* Fmt(const size_t        csztBufOffset,
-                     const char* const   cpFmt, 
+                     const tChar* const   cpFmt, 
                      ...);
     // 格式化字符串
-    inline void* Fmt(const char* const   cpFmt, va_list vp);
+    inline void* Fmt(const tChar* const   cpFmt, va_list vp);
     // 格式化字符串
     inline void* Fmt(const size_t        csztBufOffset, 
-                     const char* const   cpFmt, 
+                     const tChar* const   cpFmt, 
                      va_list             vp );
-    inline int Fmt2(const char* const cpFmt, ...)
+    inline int Fmt2(const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -125,7 +125,7 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const size_t csztBufOffset, const char* const cpFmt, ...)
+    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -134,13 +134,13 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const char* const cpFmt, va_list vList)
+    inline int Fmt2(const tChar* const cpFmt, va_list vList)
     {
         return Fmt2(0, cpFmt, vList);
     };
-    inline int Fmt2(const size_t csztBufOffset, const char* const cpFmt, va_list vList)
+    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
     {
-        char* lpPos = (char*)mpBuf + csztBufOffset;
+        tChar* lpPos = (tChar*)mpBuf + csztBufOffset;
         size_t lsztBufLeft = msztBufSize-csztBufOffset;
         return v_vsprintf(lpPos, lsztBufLeft, cpFmt, vList);
     };
@@ -307,7 +307,7 @@ inline const void*  CMemPtr::c_str()
 // Parameter : null
 inline size_t CMemPtr::len()
 {
-    return strlen((char*)mpBuf);
+    return strlen((tChar*)mpBuf);
 };
 // End of function Len()
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -315,10 +315,10 @@ inline size_t CMemPtr::len()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : char*                            - 生成的字符串地址
+// Return    : tChar*                            - 生成的字符串地址
 // Parameter : cpFmtStr                         - 数据格式
 //           : ...                              - 可变数据参数
-inline void* CMemPtr::Fmt( const char* const cpFmt, ... )
+inline void* CMemPtr::Fmt( const tChar* const cpFmt, ... )
 {
     va_list vp;
     va_start(vp, cpFmt);
@@ -333,11 +333,11 @@ inline void* CMemPtr::Fmt( const char* const cpFmt, ... )
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : char*                            - 生成的字符串地址
+// Return    : tChar*                            - 生成的字符串地址
 // Parameter : csztBufOffset                    - 缓存区数据偏移量
 //             cpFmtStr                         - 数据格式
 //           : ...                              - 可变数据参数
-inline void* CMemPtr::Fmt(const size_t csztBufOffset, const char* const cpFmt, ...)
+inline void* CMemPtr::Fmt(const size_t csztBufOffset, const tChar* const cpFmt, ...)
 {
     va_list vp;
     va_start(vp, cpFmt);
@@ -352,10 +352,10 @@ inline void* CMemPtr::Fmt(const size_t csztBufOffset, const char* const cpFmt, .
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : char*                            - 生成的字符串地址
+// Return    : tChar*                            - 生成的字符串地址
 // Parameter : cpFmtStr                         - 数据格式
 //           : va_list vList                       - 可变数据参数
-inline void* CMemPtr::Fmt(const char* const cpFmt, va_list vp)
+inline void* CMemPtr::Fmt(const tChar* const cpFmt, va_list vp)
 {
     return Fmt( 0, cpFmt, vp );
 }
@@ -365,15 +365,15 @@ inline void* CMemPtr::Fmt(const char* const cpFmt, va_list vp)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : char*                            - 生成的字符串地址
+// Return    : tChar*                            - 生成的字符串地址
 // Parameter : csztBufOffset                    - 缓存区数据偏移量
 //             cpFmtStr                         - 数据格式
 //           : va_list vList                       - 可变数据参数
-inline void* CMemPtr::Fmt(const size_t csztBufOffset, const char* const cpFmt, va_list vList)
+inline void* CMemPtr::Fmt(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
 {
-    char* lpPos = (char*)mpBuf + csztBufOffset;
+    tChar* lpPos = (tChar*)mpBuf + csztBufOffset;
     int liBufLeft   = msztBufSize-csztBufOffset;
-    int liRet = v_vsprintf(lpPos, liBufLeft, (char*)cpFmt, vList);
+    int liRet = v_vsprintf(lpPos, liBufLeft, (tChar*)cpFmt, vList);
     return lpPos;
 }
 // End of function Fmt(...)

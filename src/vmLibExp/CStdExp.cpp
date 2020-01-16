@@ -54,13 +54,13 @@ namespace vm{
 // Brief     :
 // Return    : 
 // Parameter : const std::exception & coExp
-// Parameter : const char * const cpFile
+// Parameter : const tChar * const cpFile
 // Parameter : const unsigned long culLine
-// Parameter : const char * const cpTimeFmt
+// Parameter : const tChar * const cpTimeFmt
 CStdExp::CStdExp( const std::exception& coExp, 
-                  const char* const     cpFile, 
+                  const tChar* const     cpFile, 
                   const unsigned long   culLine, 
-                  const char* const     cpTimeFmt) :CExp(cpFile, culLine, cpTimeFmt)
+                  const tChar* const     cpTimeFmt) :CExp(cpFile, culLine, cpTimeFmt)
 {
     vCStrPtr(mszMsg) = coExp.what();
 }

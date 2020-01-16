@@ -60,7 +60,7 @@ class DLL_API CWinFile : public CFileBase
 public:
     // Construct define
     explicit CWinFile(){};
-    explicit CWinFile( const char* const cpFName )
+    explicit CWinFile( const tChar* const cpFName )
     {       
     };
  
@@ -97,7 +97,7 @@ class DLL_API CFile : public CWinFile
 // Construct && Destruct
 public:
     // Construct define
-    CFile(const char* cpFName = nullptr);
+    CFile(const tChar* cpFName = nullptr);
     // Destruct define
     virtual ~CFile();
 

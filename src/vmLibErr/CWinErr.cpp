@@ -109,11 +109,11 @@ vm::CWinErr& CWinErr::operator=(const CWinErr& obj)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetErrStr(...)
 // Brief     :
-// Return    : char*
-// Parameter : char * pBufAddr
+// Return    : tChar*
+// Parameter : tChar * pBufAddr
 // Parameter : const size_t csztBufSzie
 // Parameter : size_t & sztStrLen
-char* CWinErr::GetErrStr(char* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
+tChar* CWinErr::GetErrStr(tChar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
 {
     try
     {

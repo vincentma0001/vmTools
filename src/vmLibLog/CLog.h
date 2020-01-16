@@ -90,14 +90,14 @@ private:
     CLog& operator = ( const CLog& obj ){};
 
 public:
-    void WriteLine( const char* const cpFmt, va_list vList )
+    void WriteLine( const tChar* const cpFmt, va_list vList )
     {
         if ( mpLogImp == nullptr )
             return;
 
         mpLogImp->WriteLine(cpFmt,vList);
     }
-    void WriteLine( const char* const cpFmt, ... )
+    void WriteLine( const tChar* const cpFmt, ... )
     {
         if ( mpLogImp == nullptr )
             return;
@@ -110,24 +110,24 @@ public:
         va_end(vList);
     }
     
-    void MakeMsg(const char* const cpFmt, va_list vList)
+    void MakeMsg(const tChar* const cpFmt, va_list vList)
     {
         
     }
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 private:
-    char    mcLogFlag;
+    tChar    mcLogFlag;
 
     CLogImp* mpLogImp;
     
-    char  mszDateTime[_V_CLOG_MAX_TIME_];
-    char  mszLogType[_V_CLOG_MAX_TYPE_];
+    tChar  mszDateTime[_V_CLOG_MAX_TIME_];
+    tChar  mszLogType[_V_CLOG_MAX_TYPE_];
 
-    char  mszDateTimeFmt[_V_CLOG_MAX_TIME_];
-    char  mszLogFmt[]
+    tChar  mszDateTimeFmt[_V_CLOG_MAX_TIME_];
+    tChar  mszLogFmt[]
 
-    char  mszLogMsg[]
+    tChar  mszLogMsg[]
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -144,7 +144,7 @@ public:
         }        
     }
     
-    void SetDateTimeFmt( const char* const cpTimeFmt )
+    void SetDateTimeFmt( const tChar* const cpTimeFmt )
     {
         vCStrPtr(mszDateTimeFmt) = cpTimeFmt;
     }
@@ -152,7 +152,7 @@ public:
     // %D -- log 产生时间
     // %T -- log 类型
     // %M -- log 内容
-    void SetLogFmt(const char* const cpLogFmt )
+    void SetLogFmt(const tChar* const cpLogFmt )
     {
         vCStrPtr(mszLogFmt) = cpLogFmt;
     }
@@ -160,12 +160,12 @@ public:
     void unSet( emLogFlag emFlag )
     {
         vm::CBit8Ptr loBit(mcLogFlag);
-        loBit.unSet( (char)emFlag );
+        loBit.unSet( (tChar)emFlag );
     }
     void Set( emLogFlag emFlag )
     {
         vm::CBit8Ptr loBit(mcLogFlag);
-        loBit.Set( (char)emFlag );
+        loBit.Set( (tChar)emFlag );
     }
     bool isSet( emLogFlag emFlag )
     {

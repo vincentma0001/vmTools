@@ -82,11 +82,11 @@ CExp::~CExp()
 // Name      : CExp(...)
 // Brief     :
 // Return    : 
-// Parameter : const char * const cpFile
+// Parameter : const tChar * const cpFile
 // Parameter : const unsigned int cuiLine
-CExp::CExp( const char* const   cpFile, 
+CExp::CExp( const tChar* const   cpFile, 
             const unsigned long culLine,
-            const char* const   cpTimeFmt ):mExpLevel(emExp),mpExpNext(nullptr)
+            const tChar* const   cpTimeFmt ):mExpLevel(emExp),mpExpNext(nullptr)
 {
     vCStrPtr(mszFile)     = vm::CFile(cpFile).cs_Name();
     muiLine               = culLine;
@@ -100,12 +100,12 @@ CExp::CExp( const char* const   cpFile,
 // Brief     :
 // Return    : 
 // Parameter : const CExp & oExp
-// Parameter : const char * const cpFile
+// Parameter : const tChar * const cpFile
 // Parameter : const unsigned int cuiLine
 CExp::CExp( const CExp&         oExp, 
-            const char* const   cpFile , 
+            const tChar* const   cpFile , 
             const unsigned long culLine,
-            const char* const   cpTimeFmt):mExpLevel(emExp), mpExpNext(nullptr)
+            const tChar* const   cpTimeFmt):mExpLevel(emExp), mpExpNext(nullptr)
 {
     mpExpNext       = new CExp();
     *mpExpNext      = oExp;
@@ -163,10 +163,10 @@ vm::CExp& CExp::operator=(const CExp& obj)
 // Name      : operator()(...)
 // Brief     :
 // Return    : void
-// Parameter : const char * const cpFunc
-// Parameter : const char * const cpFmt
+// Parameter : const tChar * const cpFunc
+// Parameter : const tChar * const cpFmt
 // Parameter : ...
-CExp& CExp::operator()(const char* const cpFunc, const char* const cpFmt, ...)
+CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, ...)
 {
     vCStrPtr(mszFunc) = cpFunc;
 
@@ -184,10 +184,10 @@ CExp& CExp::operator()(const char* const cpFunc, const char* const cpFmt, ...)
 // Name      : operator()(...)
 // Brief     :
 // Return    : void
-// Parameter : const char * const cpFunc
-// Parameter : const char * const cpFmt
+// Parameter : const tChar * const cpFunc
+// Parameter : const tChar * const cpFmt
 // Parameter : va_list vList
-CExp& CExp::operator()(const char* const cpFunc, const char* const cpFmt, va_list vList)
+CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, va_list vList)
 {
     vCStrPtr(mszFunc) = cpFunc;
     vCStrPtr(mszMsg).Fmt(cpFmt, vList);
@@ -201,9 +201,9 @@ CExp& CExp::operator()(const char* const cpFunc, const char* const cpFmt, va_lis
 // Name      : Fmt(...)
 // Brief     :
 // Return    : int
-// Parameter : const char * const cpFmt
+// Parameter : const tChar * const cpFmt
 // Parameter : ...
-char* CExp::Fmt(const char* const cpFmt, ...)
+tChar* CExp::Fmt(const tChar* const cpFmt, ...)
 {
     // 验证格式代码是否正确
     _VERIFY_(cpFmt);
@@ -211,8 +211,8 @@ char* CExp::Fmt(const char* const cpFmt, ...)
     // 初始化格式化字符串对象
     size_t lsztFmtStrLen = strlen(cpFmt);
     size_t lsztFmtStrOffset = 0;
-    vm::CStrPtr loFmtStr(const_cast<char*>(cpFmt), lsztFmtStrLen);
-    char*  lpFmtStrOffset = (char*)cpFmt;
+    vm::CStrPtr loFmtStr(const_cast<tChar*>(cpFmt), lsztFmtStrLen);
+    tChar*  lpFmtStrOffset = (tChar*)cpFmt;
 
     // 初始化缓存区数据
     size_t lsztBufOffset = 0;
@@ -220,7 +220,7 @@ char* CExp::Fmt(const char* const cpFmt, ...)
     loBuf.Set(0x00);
 
     // 根据输入的参数格式化错误信息
-    char* lpFmtFlagPos = loFmtStr.Find('%');
+    tChar* lpFmtFlagPos = loFmtStr.Find('%');
     while (lpFmtFlagPos != nullptr)
     {
         // 获取格式化字符串中%标识符之间的数据信息，并添加其偏移量

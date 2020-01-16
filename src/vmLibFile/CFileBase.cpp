@@ -66,7 +66,7 @@ CFileBase::CFileBase() : mulErrCode(0)
 // Brief     : 构建函数
 // Return    : null
 // Parameter : cpFName                      - 文件名，若为NULL则为获取当前进程的文件名
-CFileBase::CFileBase(const char* const cpFName ) : mulErrCode(0)
+CFileBase::CFileBase(const tChar* const cpFName ) : mulErrCode(0)
 {
     vMemZero(mszFilePath);
     size_t lsztExecNameLen = 0;
@@ -309,10 +309,10 @@ size_t CFileBase::GetFileExt(_vIn_ const tChar* const cpPath, _vIn_ const size_t
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : GetExecDir(...)
 // Brief     : Get current execute file's direction
-// Return    : char*                                     - return current execute file dir
+// Return    : tChar*                                     - return current execute file dir
 // Parameter : pOutputBuf                                - [O] the buffer for current execute file direct.
 //           : csztBufSize                               - [I] the buffer's size
-size_t CFileBase::GetExecDir(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize)
+size_t CFileBase::GetExecDir(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize)
 {
     // Get full path.
     size_t lsztLenOfPath = ::GetModuleFileName(NULL, pOutputBuf, csztBufSize);
@@ -331,7 +331,7 @@ size_t CFileBase::GetExecDir(_vOt_ char* const pOutputBuf, _vIn_ const size_t cs
 //             0                                         - the function is failed, get error by GetLastError().  
 // Parameter : pOutputBuf                                - [O] the buffer for the execute file's full path
 //           : csztBufSize                               - [I] the buffer's size
-size_t CFileBase::GetExecName(_vOt_ char* const pOutputBuf, _vIn_ const size_t csztBufSize)
+size_t CFileBase::GetExecName(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize)
 {
     size_t lsztRet = ::GetModuleFileName(NULL, pOutputBuf, csztBufSize);
     return lsztRet;

@@ -51,9 +51,9 @@ class DLL_API CStdExp : public CExp
 public:
     // Construct define
     explicit CStdExp( const std::exception& coExp,
-                      const char* const     cpFile, 
+                      const tChar* const     cpFile, 
                       const unsigned long   culLine,
-                      const char* const     cpTimeFmt );
+                      const tChar* const     cpTimeFmt );
     // Destruct define
     virtual ~CStdExp();
     

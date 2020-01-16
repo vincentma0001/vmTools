@@ -86,7 +86,7 @@ public:
         return CheckHandle();
     }
 
-    long Open( const vChar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle )
+    long Open( const tChar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle )
     {
         mhHandle = ::OpenWaitableTimer(cdwDesiredAccess, cbInheritHandle, cpName );
         return CheckHandle();

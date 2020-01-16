@@ -52,7 +52,7 @@ namespace vm{
 // Global variable initialize
 
 errno_t CErrno::moErrCode = 0;
-char    CErrno::mszErrMsg[_V_ERRNO_MAX_BUF_] = {0x00};
+tChar    CErrno::mszErrMsg[_V_ERRNO_MAX_BUF_] = {0x00};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : toErrCode(...)
@@ -100,9 +100,9 @@ inline bool CErrno::isError(const errno_t oErrCode)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : MsgErrno(...)
 // Brief     : 输出错误信息
-// Return    : char*                        - 返回错误信息
+// Return    : tChar*                        - 返回错误信息
 // Parameter : null
-inline char* CErrno::MsgErrno()
+inline tChar* CErrno::MsgErrno()
 {
     vMemZero(mszErrMsg);
 
@@ -115,8 +115,8 @@ inline char* CErrno::MsgErrno()
     }
 
 #else 
-    char* lpErr = strerror(moErrCode);
-    char* lpRet = strcpy(mszErrMsg, lpErr);
+    tChar* lpErr = strerror(moErrCode);
+    tChar* lpRet = strcpy(mszErrMsg, lpErr);
 #endif
     return  mszErrMsg;
 }
@@ -126,9 +126,9 @@ inline char* CErrno::MsgErrno()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : MsgErrno(...)
 // Brief     : 输出错误信息
-// Return    : char*                        - 返回错误信息
+// Return    : tChar*                        - 返回错误信息
 // Parameter : null
-inline char* CErrno::MsgErrno(const errno_t oErrCode)
+inline tChar* CErrno::MsgErrno(const errno_t oErrCode)
 {
     vMemZero(mszErrMsg);
 
@@ -141,8 +141,8 @@ inline char* CErrno::MsgErrno(const errno_t oErrCode)
     }
 
 #else 
-    char* lpErr = strerror(oErrCode);
-    char* lpRet = strcpy(mszErrMsg, lpErr);
+    tChar* lpErr = strerror(oErrCode);
+    tChar* lpRet = strcpy(mszErrMsg, lpErr);
 #endif
     return  mszErrMsg;
 }
