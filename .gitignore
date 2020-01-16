@@ -1,0 +1,11 @@
+tmp
+/bin/*.ilk
+/bin/*.pdb
+.vs
+*.lib
+/bin/*.exp
+*.un~
+/bin/*.exe
+/bin/*.dll
+/lib/*.dll
+tmp_

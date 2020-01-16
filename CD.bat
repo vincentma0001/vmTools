@@ -1,0 +1,1 @@
+mkdir .\prj .\bin .\lib .\src .\tmp .\tst .\doc .\shr .\cfg

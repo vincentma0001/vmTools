@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="inc">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="inc\vmLibBase">
+      <UniqueIdentifier>{e7d7209a-0cbe-4ddf-adb0-1042847114df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmLibBase\cfg">
+      <UniqueIdentifier>{e44be5d0-9987-422a-8401-c1a27f89f42f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmLibBase\std">
+      <UniqueIdentifier>{9777af58-b609-4c59-93c0-06954b64a817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmLibBase\CJson">
+      <UniqueIdentifier>{6db899f9-21e3-4074-af27-a2fe82707ff6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmCfg">
+      <UniqueIdentifier>{70724cbb-a913-4bb3-b033-cfedcbc016f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmLibBase\CBit">
+      <UniqueIdentifier>{7f3e9c8d-f0e4-4d01-a9bf-df2b7c93ef7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="inc\vmLibBase\String">
+      <UniqueIdentifier>{4411e15f-15a5-4149-90a1-754de3252d16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\vmLibBase.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CAny.hpp">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CDateTime.hpp">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CUseCom.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStdList.h">
+      <Filter>inc\vmLibBase\std</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStdMap.hpp">
+      <Filter>inc\vmLibBase\std</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CWinIni.h">
+      <Filter>inc\vmLibBase\cfg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CXml.h">
+      <Filter>inc\vmLibBase\cfg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmVerify.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CJValue.h">
+      <Filter>inc\vmLibBase\CJson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CJson.h">
+      <Filter>inc\vmLibBase\CJson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStdPars.h">
+      <Filter>inc\vmLibBase\std</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CParser.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStdRand.h">
+      <Filter>inc\vmLibBase\std</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CRand.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmCfg.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CWinCounter.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit8.h">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit16.h">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit32.h">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit64.h">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CMemPtr.h">
+      <Filter>inc\vmLibBase\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CMem.hpp">
+      <Filter>inc\vmLibBase\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CString.hpp">
+      <Filter>inc\vmLibBase\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStrPtr.h">
+      <Filter>inc\vmLibBase\String</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgDll.h">
+      <Filter>inc\vmCfg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgPlatform.h">
+      <Filter>inc\vmCfg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgType.h">
+      <Filter>inc\vmCfg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CSmartPtr.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CLocale.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\vmMatch.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\vmStdUtil.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\vmUtil.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CArgs.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CSingleton.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CWinApis.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CUnitTestFrame.h">
+      <Filter>inc\vmLibBase</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\vmLibBase\CUseCom.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,120 @@
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// File name    : CWinProc.h
+// Version      : 0.0.0.0
+// Brief        : 
+// Author       : v.m.
+// Create time  : 2020/01/10 13:05:05
+// Modify time  : 2020/01/10 13:05:05
+// Note         :
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright : this file is copyright by v.m.'s tools lib
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+// compile macro definition
+#if defined (_MSC_VER) && (_MSC_VER >= 1300)
+#pragma once
+#endif
+
+#ifndef __CWINPROC_H__
+#define __CWINPROC_H__
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Include libs  :
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Include files :
+// Standard c/c++ files included
+
+// Config files included
+#include <vmCfg.h>
+
+// Platform files included
+#include <windows.h>
+
+// Used files included
+#include <vmLibBase/vmUtil.h>
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// using namespace
+namespace vm{
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// class CWinProc : ## add class brief here ##
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+class CWinProc
+{
+////////////////////////////////////////////////////////////////////////////////////////
+// Construct && Destruct
+public:
+    // Construct define
+    explicit CWinProc():mulErrCode(0){};
+    // Destruct define
+    virtual ~CWinProc(){};
+    
+private:
+    // No Copy
+    CWinProc(const CWinProc& obj){};
+    // No Assignment
+    CWinProc& operator = ( const CWinProc& obj ){};
+
+public:
+    void* operator*(){ return mProcessInfo.hProcess; }
+    
+/////////////////////////////////////////////////////////////////////////////////////////
+// Members :
+private:
+    STARTUPINFO			mStartupInfo;
+    PROCESS_INFORMATION mProcessInfo;
+    unsigned long       mulErrCode;
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Functions :
+public:
+     void* ProcHandler(){ return mProcessInfo.hProcess; };
+     void* ThrdHandler(){ return mProcessInfo.hThread; };
+     unsigned long ProcID() { return mProcessInfo.dwProcessId; }
+     unsigned long ThrdID() { return mProcessInfo.dwThreadId; };
+
+public:
+    bool	Start(const tChar* const pAppName, const tChar* const pCmdLine)
+    {
+        vMemZero(mStartupInfo);
+        vMemZero(mProcessInfo);
+
+        mStartupInfo.cb = sizeof(mStartupInfo);
+        BOOL lbRet = CreateProcess((LPCSTR)pAppName, (LPSTR)pCmdLine, NULL, NULL, false, CREATE_NEW_CONSOLE, 
+                                   NULL, NULL, &mStartupInfo, &mProcessInfo);
+        if (lbRet == FALSE)
+        {
+            mulErrCode == GetLastError(); 
+            return false;
+        }
+        
+        return true;
+    };
+    void	Close()
+    {
+        CloseHandle(mProcessInfo.hThread);
+        CloseHandle(mProcessInfo.hProcess);
+    };
+
+}; // End of class CWinProc
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+} // End of namespace vm
+/////////////////////////////////////////////////////////////////////////////////////////
+#endif // __CWINPROC_H__
+/////////////////////////////////////////////////////////////////////////////////////////
+// usage :
+/*
+
+//*/
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CWinProc.h
+/////////////////////////////////////////////////////////////////////////////////////////
