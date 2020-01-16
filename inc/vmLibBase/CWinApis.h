@@ -31,7 +31,9 @@
 // Config files included
 
 // Platform files included
-#include <windows.h>
+#ifndef   _WINDOWS_
+#	error this file need #include <windows.h>
+#endif // _WINDOWS_
 
 // Used files included
 

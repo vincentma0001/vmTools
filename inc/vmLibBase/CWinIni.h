@@ -29,14 +29,23 @@
 // Standard c/c++ files included
 
 // Config files included
-#include <vmCfg.h>
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>
+#endif // __VM_CFG_H__
 
 // Platform files included
-#include <windows.h>
+#ifndef   _WINDOWS_
+#	error this file need #include <windows.h>
+#endif // _WINDOWS_
 
 // Used files included
-#include <vmLibBase/CStrPtr.h>
-#include <vmLibFile/CWinFile.h>
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmLibBase/CStrPtr.h>
+#endif // __VM_CFG_H__
+
+#ifndef   __CWINFILE_H__
+#	error this file need #include <vmLibFile/CWinFile.h>
+#endif // __CWINFILE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace

@@ -33,7 +33,9 @@
 // Platform files included
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#ifndef   __CLOCKER_HPP__
+#	error this file need #include <vmLibIPC/CLocker.hpp>
+#endif // __CLOCKER_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace

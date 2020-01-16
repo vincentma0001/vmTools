@@ -26,6 +26,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmLibErr", "prj\tst_vmLibErr\tst_vmLibErr.vcxproj", "{F2BA1829-EF0A-458B-A6B9-E8E92DF956D8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmLibBase", "prj\tst_vmLibBase\tst_vmLibBase.vcxproj", "{AA6D3237-3FBA-427B-BEDB-13C607FF34B4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03D22D18-15E5-4E95-AAE9-89CEC8159775} = {03D22D18-15E5-4E95-AAE9-89CEC8159775}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tst_vmLibIPC", "prj\tst_vmLibIPC\tst_vmLibIPC.vcxproj", "{9AE107E9-1FC2-436C-BEF1-183E08705C95}"
 EndProject

@@ -29,11 +29,16 @@
 // Standard c/c++ files included
 
 // Config files included
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>
+#endif // __VM_CFG_H__
 
 // Platform files included
 
 // Used files included
-#include <vmUtil.h>
+#ifndef   __VM_UTIL_H__
+#	error this file need #include <vmLibBase/vmUtil.h>
+#endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
