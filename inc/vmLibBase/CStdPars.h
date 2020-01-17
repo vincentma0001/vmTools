@@ -84,7 +84,7 @@ public:
 // Construct && Destruct
 public:
     // Construct define
-    CStdPars( vString strFmt, tChar cFlag ):mstrFmt(strFmt), mszSpecifier(cFlag),mpPatterns(nullptr){};
+    CStdPars( vString strFmt, tchar cFlag ):mstrFmt(strFmt), mszSpecifier(cFlag),mpPatterns(nullptr){};
     // Destruct define
     virtual ~CStdPars(){if (mpPatterns!=nullptr) mpPatterns=nullptr; }
     
@@ -97,7 +97,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 private:
-    tChar       mszSpecifier;
+    tchar       mszSpecifier;
     vString     mstrFmt;
     CPattern*   mpPatterns;
 

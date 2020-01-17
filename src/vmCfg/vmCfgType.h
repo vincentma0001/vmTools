@@ -259,7 +259,7 @@ typedef unsigned char tByte;
 #define vBitChar       CHAR_BIT
 // Maximum number of bytes in a multibyte character, for any locale,    1 or greater *
 #define vMaxMBLen      MB_LEN_MAX
-// Minimum value for an object of type tChar,	                        either SCHAR_MIN or 0
+// Minimum value for an object of type tchar,	                        either SCHAR_MIN or 0
 #define vMinChar       CHAR_MIN
 // Maximum value for an object of type char,	                        either SCHAR_MAX or UCHAR_MAX
 #define vMaxChar       CHAR_MAX
@@ -306,29 +306,9 @@ typedef unsigned char tByte;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // String redefines :
-#define tChar         char
-#define tsChar        signed char
-#define tuChar        unsigned char
-
-#define ctChar        const char
-#define ctsChar       const signed char
-#define ctuChar       const unsigned char
-
-#define ptChar        char*
-#define ptsChar       signed char*
-#define ptuChar       unsigned char*
-
-#define cptChar       const char* 
-#define cptsChar      const signed char*
-#define cptuChar      const unsigned char*
-
-#define pctChar       char* const
-#define pctsChar      signed char* const
-#define pctuChar      unsigned char* const
-
-#define cpctChar      const char* const
-#define cpctsChar     const signed char* const
-#define cpctuChar     const unsigned char* const
+#define tchar         char
+#define tschar        signed char
+#define tuchar        unsigned char
 
 #define vT(x) x
 namespace vStd {
@@ -352,7 +332,7 @@ namespace vStd {
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // String redefine :
-#define tChar         wchar_t
+#define tchar         wchar_t
 #define tsChar        signed wchar_t
 #define tuChar        unsigned wchar_t
 

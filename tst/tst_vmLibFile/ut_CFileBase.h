@@ -87,7 +87,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t1 )
     vm::utLogLine("");
 
     // #Add test content here#
-    tChar lszBuf[1024] = {0x00};
+    tchar lszBuf[1024] = {0x00};
     vm::CFileBase::GetExecDir( lszBuf, sizeof(lszBuf) );
     vm::utLogLine("%s", lszBuf);
    
@@ -110,23 +110,23 @@ TEST_FUNC_BEGIN( ut_CFileBase_t2 )
     vm::utLogLine("");
 
     // #Add test content here#
-    tChar lszBuf[ _V_FILE_MAX_PATH_ ] = { 0x00 };
+    tchar lszBuf[ _V_FILE_MAX_PATH_ ] = { 0x00 };
     vm::CFileBase::GetExecName(lszBuf, sizeof(mszName));
     vm::utLogLine("Execute name path : %s", lszBuf);
 
-    tChar lszBufForDir[_V_FILE_MAX_DIR_] = {0x00};
+    tchar lszBufForDir[_V_FILE_MAX_DIR_] = {0x00};
     vm::CFileBase::GetFileDir( lszBuf, vStrLen(lszBuf), lszBufForDir, sizeof(lszBufForDir) );
     vm::utLogLine("FileDir is  : %s", lszBufForDir);
 
-    tChar lszBufForFileName[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
+    tchar lszBufForFileName[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
     vm::CFileBase::GetFileName(lszBuf, vStrLen(lszBuf), lszBufForFileName, sizeof(lszBufForFileName));
     vm::utLogLine("FileName is : %s", lszBufForFileName);
 
-    tChar lszBufForFileBase[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
+    tchar lszBufForFileBase[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
     vm::CFileBase::GetFileBase(lszBuf, vStrLen(lszBuf), lszBufForFileBase, sizeof(lszBufForFileBase));
     vm::utLogLine("FileBase is : %s", lszBufForFileBase);
 
-    tChar lszBufForExt[_V_FILE_MAX_EXT_] = {0x00};
+    tchar lszBufForExt[_V_FILE_MAX_EXT_] = {0x00};
     vm::CFileBase::GetFileExt( lszBuf, vStrLen(lszBuf), lszBufForExt, sizeof(lszBufForExt) );
     vm::utLogLine("FileExt is  : %s", lszBufForExt);
 
@@ -145,7 +145,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t3 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT("D:\\MyWork\\MyGitHubs\\vmTools\\bin\\tst_vmLibFile.exe");
+    const tchar* lpPath = vT("D:\\MyWork\\MyGitHubs\\vmTools\\bin\\tst_vmLibFile.exe");
     vm::utLogLine( "The string is %s", lpPath );
     lbRet = vm::CFileBase::HasDir( lpPath );
   	vm::utLogLine( "Check string has direct is %s!", lbRet ==true?vT("true"):vT("false") );
@@ -165,7 +165,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t4 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT("tst_vmLibFile.exe");
+    const tchar* lpPath = vT("tst_vmLibFile.exe");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasDir(lpPath);
     vm::utLogLine("Check string has direct is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -185,7 +185,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t5 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT("tst_vmLibFile.exe");
+    const tchar* lpPath = vT("tst_vmLibFile.exe");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -206,7 +206,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t6 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT("tst_vmLibFile");
+    const tchar* lpPath = vT("tst_vmLibFile");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -227,7 +227,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t7 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT(".\\tst_vmLibFile.exe");
+    const tchar* lpPath = vT(".\\tst_vmLibFile.exe");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -248,7 +248,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t8 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT(".\\tst_vmLibFile");
+    const tchar* lpPath = vT(".\\tst_vmLibFile");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -269,7 +269,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t9 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT(".\\..\\tst_vmLibFile.exe");
+    const tchar* lpPath = vT(".\\..\\tst_vmLibFile.exe");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -290,7 +290,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t10 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lpPath = vT(".\\..\\tst_vmLibFile");
+    const tchar* lpPath = vT(".\\..\\tst_vmLibFile");
     vm::utLogLine("The string is %s", lpPath);
     lbRet = vm::CFileBase::HasExt(lpPath);
     vm::utLogLine("Check string has ext is %s!", lbRet == true ? vT("true") : vT("false"));
@@ -311,7 +311,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t11 )
     vm::utLogLine("");
     // #Add test content here#
     //     [Q 0001] - file path string : D:\\XXX\\XXX\\XXX\\filename.ext
-    const tChar* lpPath = vT("D:\\XXX\\XXX\\XXX\\filename.ext");
+    const tchar* lpPath = vT("D:\\XXX\\XXX\\XXX\\filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase( loFile );
@@ -332,7 +332,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t12 )
 
     // #Add test content here#
     //     [Q 0002] - file path string : D:\\XXX\\XXX\\XXX\\filename
-    const tChar* lpPath = vT("D:\\XXX\\XXX\\XXX\\filename");
+    const tchar* lpPath = vT("D:\\XXX\\XXX\\XXX\\filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -354,7 +354,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t13 )
 
     // #Add test content here#
     //     [Q 0003] - file path string : filename.ext
-    const tChar* lpPath = vT("filename.ext");
+    const tchar* lpPath = vT("filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -376,7 +376,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t14 )
 
     // #Add test content here#
     //     [Q 0004] - file path string : filename
-    const tChar* lpPath = vT("filename");
+    const tchar* lpPath = vT("filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -398,7 +398,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t15 )
 
     // #Add test content here#
     //     [Q 0005] - file path string : .\\filename.ext
-    const tChar* lpPath = vT(".\\filename.ext");
+    const tchar* lpPath = vT(".\\filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -420,7 +420,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t16 )
 
     // #Add test content here#
     //     [Q 0006] - file path string : .\\filename
-    const tChar* lpPath = vT(".\\filename");
+    const tchar* lpPath = vT(".\\filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -442,7 +442,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t17 )
 
     // #Add test content here#
     //     [Q 0007] - file path string : .\\..\\filename.ext
-    const tChar* lpPath = vT(".\\..\\filename.ext");
+    const tchar* lpPath = vT(".\\..\\filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -464,7 +464,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t18 )
 
     // #Add test content here#
     //     [Q 0008] - file path string : .\\..\\filename
-    const tChar* lpPath = vT(".\\..\\filename");
+    const tchar* lpPath = vT(".\\..\\filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -486,7 +486,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t19 )
 
     // #Add test content here#
     //     [Q 0009] - file path string : .\\..\\..\\filename.ext
-    const tChar* lpPath = vT(".\\..\\..\\filename.ext");
+    const tchar* lpPath = vT(".\\..\\..\\filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -508,7 +508,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t20 )
 
     // #Add test content here#
     //     [Q 0010] - file path string : .\\..\\..\\filename
-    const tChar* lpPath = vT(".\\..\\..\\filename");
+    const tchar* lpPath = vT(".\\..\\..\\filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -530,7 +530,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t21 )
 
     // #Add test content here#
     //     [Q 0011] - file path string : D:\\XXX\\XXX\\.\\..\\..\\filename.ext
-    const tChar* lpPath = vT("D:\\XXX\\XXX\\.\\..\\..\\filename.ext");
+    const tchar* lpPath = vT("D:\\XXX\\XXX\\.\\..\\..\\filename.ext");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);
@@ -552,7 +552,7 @@ TEST_FUNC_BEGIN( ut_CFileBase_t22 )
 
     // #Add test content here#
     //     [Q 0012] - file path string : D:\\XXX\\XXX\\.\\..\\..\\filename
-    const tChar* lpPath = vT("D:\\XXX\\XXX\\.\\..\\..\\filename");
+    const tchar* lpPath = vT("D:\\XXX\\XXX\\.\\..\\..\\filename");
     vm::utLogLine("The string is %s", lpPath);
     vm::CFileBase loFile(lpPath);
     Print_CFileBase(loFile);

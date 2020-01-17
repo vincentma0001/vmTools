@@ -92,15 +92,15 @@ public:
     size_t Write( const void* const cpSrc, const size_t csztDataLen, const size_t csztOffset=0 )
     {
         size_t lsztBufLeft = msztSize-csztOffset;
-        void* lpPos = (tChar*)mpFileView+csztOffset;
+        void* lpPos = (tchar*)mpFileView+csztOffset;
         return v_memcpy( lpPos, lsztBufLeft, cpSrc, csztDataLen );
     }
     size_t Read( void* const pBuf, const size_t csztBufSize, const size_t csztDataLen, const size_t csztOffset=0 )
     {
-        void* lpPos = (tChar*)mpFileView+csztOffset;
+        void* lpPos = (tchar*)mpFileView+csztOffset;
         return v_memcpy( pBuf, csztBufSize, lpPos, csztDataLen );        
     }
-    long Initialize( const tChar* const cpName, const size_t csztSize )
+    long Initialize( const tchar* const cpName, const size_t csztSize )
     {
         msztSize = csztSize;
 
@@ -112,7 +112,7 @@ public:
         return llRetForMapping;
     }
     
-    long Create( const tChar* const  cpName,         const unsigned long cdwProtect, 
+    long Create( const tchar* const  cpName,         const unsigned long cdwProtect, 
                  const unsigned long cdwMaxSizeHigh, const unsigned long cdwMaxSizeLow  )
     {
         mhHandle = ::CreateFileMapping( 
@@ -126,7 +126,7 @@ public:
         return CheckHandle();
     }
 
-    long Open(const tChar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle = false)
+    long Open(const tchar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle = false)
     {
         mhHandle = ::OpenFileMapping(
                                       cdwDesiredAccess,

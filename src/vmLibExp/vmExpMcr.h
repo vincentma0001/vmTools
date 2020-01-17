@@ -61,7 +61,7 @@ namespace vm{
 // --------------------------------------------------------------------------------------
 #   define  vTry try{
 
-#   define  vCatch_Str( szFunc, szFmt, ... ) }catch(const char* const pExp){throw CEXP(szFunc, "%s", pExp);
+#   define  vCatch_Str( szFunc, szFmt, ... ) }catch(const tchar* const pExp){throw CEXP(szFunc, "%s", pExp);
 #   define  vCatch_Seh( szFunc, szFmt, ... ) }catch(CWinSeh& eSeh){throw CSEHEXP(eSeh, szFunc, szFmt, __VA_ARGS__);
 #   define  vCatch_Std( szFunc, szFmt, ... ) }catch(std::exception& eStdExp){throw CSTDEXP(oSeh,szFunc,szFmt,__VA_ARGS__);
 #   define  vCatch_Exp( szFunc, szFmt, ... ) }catch(CExp& eExp){ if ( eExp.mExpLevel==emExp ){throw CEXP_E(oExp, szFunc, szFmt, __VA_ARGS__);}else{ /* TODO vm::CWRN( eExp, szExpFmt ).Out() */ };
@@ -87,7 +87,7 @@ namespace vm{
 // --------------------------------------------------------------------------------------
 #   define  vTry try{
 
-#   define  vCatch_Str( szFunc, szFmt, ... ) }catch(const char* const pExp){throw CEXP(szFunc, "%s", pExp);
+#   define  vCatch_Str( szFunc, szFmt, ... ) }catch(const tchar* const pExp){throw CEXP(szFunc, "%s", pExp);
 #   define  vCatch_Std( szFunc, szFmt, ... ) }catch(std::exception& eStdExp){throw CSTDEXP(oSeh,szFunc,szFmt,__VA_ARGS__);
 #   define  vCatch_Exp( szFunc, szFmt, ... ) }catch(CExp& eExp){ if ( eExp.mExpLevel==emExp ){throw CEXP_E(oExp, szFunc, szFmt, __VA_ARGS__);}else{ /* TODO vm::CWRN( eExp, szExpFmt ).Out() */ };
 #   define  vCatch_Oth( szFunc, szFmt, ... ) }catch(...){ throw CEXP( szFunc,"Get an unknown exception!" );

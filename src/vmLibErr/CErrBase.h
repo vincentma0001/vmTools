@@ -65,7 +65,7 @@ public:
 public:
     // 错误代码
     unsigned long       mulErrCode;
-    tChar               mszBuf[ _V_ERR_MAX_BUF_ ];
+    tchar               mszBuf[ _V_ERR_MAX_BUF_ ];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -73,13 +73,13 @@ public:
     // Output error code 
     unsigned long    toErrCode();
     // Output error message
-    tChar*           toErrStr();
+    tchar*           toErrStr();
     // Format error message
-    tChar*           Fmt(const tChar* const cpFmt = "%EC:%EM" );
+    tchar*           Fmt(const tchar* const cpFmt = "%EC:%EM" );
 
 protected:
     // 获取错误代码信息
-    virtual tChar*   GetErrStr( tChar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen );
+    virtual tchar*   GetErrStr( tchar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen );
 
 }; // End of class CError
 /////////////////////////////////////////////////////////////////////////////////////////

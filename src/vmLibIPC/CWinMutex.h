@@ -83,12 +83,12 @@ public:
         vModifyState = MUTEX_MODIFY_STATE
     };
    
-    long Open( const tChar* const pName, unsigned long dwDesiredAccess, bool bInheritHandle )
+    long Open( const tchar* const pName, unsigned long dwDesiredAccess, bool bInheritHandle )
     {
         mhHandle = OpenMutex(dwDesiredAccess,bInheritHandle,pName);
         return CheckHandle();
     }
-    long Create( const tChar* const cpName, bool bInitialOwner )
+    long Create( const tchar* const cpName, bool bInitialOwner )
     {
         mhHandle = CreateMutex( &mstSecurityAttributes, bInitialOwner, cpName );
         return CheckHandle();

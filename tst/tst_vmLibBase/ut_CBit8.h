@@ -76,7 +76,7 @@ TEST_FUNC_BEGIN( ut_CBit8_t1 )
     vm::utLogLine("");
 
     // #Add test content here#
-    tChar liVal = CHAR_MIN;
+    tchar liVal = CHAR_MIN;
     vm::CBit8 loBit(liVal);
     print(loBit);
 
@@ -85,7 +85,7 @@ TEST_FUNC_BEGIN( ut_CBit8_t1 )
     vm::CBit8 loBit2(liVal);
     print(loBit2);
 
-    unsigned tChar liVal2 = 0;
+    unsigned tchar liVal2 = 0;
     vm::CBit8 loBit3(liVal2);
     print(loBit3);
 
@@ -109,7 +109,7 @@ TEST_FUNC_BEGIN( ut_CBit8_t2 )
     vm::utLogLine("");
 
     // #Add test content here#
-    vm::CBit8 loBit5((tChar)0);
+    vm::CBit8 loBit5((tchar)0);
     print(loBit5);
 
     loBit5.Set01();
@@ -167,7 +167,7 @@ TEST_FUNC_BEGIN( ut_CBit8_t3 )
     vm::utLogLine("");
 
     // #Add test content here#
-    vm::CBit8 loBit6((tChar)0);
+    vm::CBit8 loBit6((tchar)0);
 
     loBit6.Set01();
     print(loBit6);

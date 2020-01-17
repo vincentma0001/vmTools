@@ -68,7 +68,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members
 private:
-    tChar mszBuf[sztBufSize];
+    tchar mszBuf[sztBufSize];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -97,18 +97,18 @@ public:
     inline void* At(const size_t csztBufOffset) {};
 
     // 格式化字符串
-    inline void* Fmt(const tChar* const   cpFmtStr, ...);
+    inline void* Fmt(const tchar* const   cpFmtStr, ...);
     // 格式化字符串
     inline void* Fmt(const size_t        csztBufOffset,
-                     const tChar* const   cpFmtStr,
+                     const tchar* const   cpFmtStr,
                      ...);
     // 格式化字符串
-    inline void* Fmt(const tChar* const   cpFmtStr, va_list vp);
+    inline void* Fmt(const tchar* const   cpFmtStr, va_list vp);
     // 格式化字符串
     inline void* Fmt(const size_t        csztBufOffset,
-                     const tChar* const   cpFmtStr,
+                     const tchar* const   cpFmtStr,
                      va_list             vp);
-    inline int Fmt2(const tChar* const cpFmt, ...)
+    inline int Fmt2(const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -117,7 +117,7 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, ...)
+    inline int Fmt2(const size_t csztBufOffset, const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -126,13 +126,13 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const tChar* const cpFmt, va_list vList)
+    inline int Fmt2(const tchar* const cpFmt, va_list vList)
     {
         return Fmt2(0, cpFmt, vList);
     };
-    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
+    inline int Fmt2(const size_t csztBufOffset, const tchar* const cpFmt, va_list vList)
     {
-        tChar* lpPos = mszBuf + csztBufOffset;
+        tchar* lpPos = mszBuf + csztBufOffset;
         size_t lsztBufLeft = sztBufSize-csztBufOffset;
         return v_vsprintf(lpPos, lsztBufLeft, cpFmt, vList);
     };
@@ -325,11 +325,11 @@ inline size_t CMem<sztBufSize>::len()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : tChar*                            - 生成的字符串地址
+// Return    : tchar*                            - 生成的字符串地址
 // Parameter : const void* const cpFmtStr       - 数据格式
 //           : ...                              - 可变数据参数
 template <size_t sztBufSize>
-inline void* CMem<sztBufSize>::Fmt(const tChar* const cpFmt, ...)
+inline void* CMem<sztBufSize>::Fmt(const tchar* const cpFmt, ...)
 {
     va_list vList;
     va_start(vList, cpFmt);
@@ -343,12 +343,12 @@ inline void* CMem<sztBufSize>::Fmt(const tChar* const cpFmt, ...)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : tChar*                            - 生成的字符串地址
+// Return    : tchar*                            - 生成的字符串地址
 // Parameter : csztBufOffset                    - 缓存区数据偏移量
 //             const void* const cpFmtStr       - 数据格式
 //           : ...                              - 可变数据参数
 template <size_t sztBufSize>
-inline void* CMem<sztBufSize>::Fmt(const size_t csztBufOffset, const tChar* const cpFmt, ...)
+inline void* CMem<sztBufSize>::Fmt(const size_t csztBufOffset, const tchar* const cpFmt, ...)
 {
     va_list vList;
     va_start(vList, cpFmt);
@@ -362,11 +362,11 @@ inline void* CMem<sztBufSize>::Fmt(const size_t csztBufOffset, const tChar* cons
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : tChar*                            - 生成的字符串地址
+// Return    : tchar*                            - 生成的字符串地址
 // Parameter : cpFmtStr                         - 数据格式
 //           : va_list vp                       - 可变数据参数
 template <size_t sztBufSize>
-inline void* CMem<sztBufSize>::Fmt(const tChar* const cpFmt, va_list vp)
+inline void* CMem<sztBufSize>::Fmt(const tchar* const cpFmt, va_list vp)
 {
     return Fmt(0, cpFmt, vp);
 }
@@ -376,12 +376,12 @@ inline void* CMem<sztBufSize>::Fmt(const tChar* const cpFmt, va_list vp)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : Fmt(...)
 // Brief     : 格式化字符串
-// Return    : tChar*                            - 生成的字符串地址
+// Return    : tchar*                            - 生成的字符串地址
 // Parameter : csztBufOffset                    - 缓存区数据偏移量
 //             cpFmtStr                         - 数据格式
 //           : va_list vp                       - 可变数据参数
 template <size_t sztBufSize>
-inline void* CMem<sztBufSize>::Fmt(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
+inline void* CMem<sztBufSize>::Fmt(const size_t csztBufOffset, const tchar* const cpFmt, va_list vList)
 {
     void* lpPos         = mszBuf+csztBufOffset;
     size_t lsztBufLeft  = sztBufSize - csztBufOffset;

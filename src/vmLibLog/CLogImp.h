@@ -67,8 +67,8 @@ private:
     CLogImp& operator = ( const CLogImp& obj ){};
 
 public:
-    virtual tChar* WriteLine( const tChar* const cpFmt, va_list vList ) = 0;
-    virtual bool  WriteNext( const tChar* const cpFmt, va_list vList )
+    virtual tchar* WriteLine( const tchar* const cpFmt, va_list vList ) = 0;
+    virtual bool  WriteNext( const tchar* const cpFmt, va_list vList )
     {
         CLogImp* lpLogNext = mpImpNext;
         while ( lpLogNext != nullptr )

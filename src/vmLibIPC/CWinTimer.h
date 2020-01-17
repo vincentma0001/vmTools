@@ -80,13 +80,13 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    long Create( const tChar* const cpName, bool bManualReset )
+    long Create( const tchar* const cpName, bool bManualReset )
     {
         mhHandle = ::CreateWaitableTimer( &mstSecurityAttributes, bManualReset, cpName );
         return CheckHandle();
     }
 
-    long Open( const tChar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle )
+    long Open( const tchar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle )
     {
         mhHandle = ::OpenWaitableTimer(cdwDesiredAccess, cbInheritHandle, cpName );
         return CheckHandle();

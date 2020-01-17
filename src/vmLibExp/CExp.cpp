@@ -82,11 +82,11 @@ CExp::~CExp()
 // Name      : CExp(...)
 // Brief     :
 // Return    : 
-// Parameter : const tChar * const cpFile
+// Parameter : const tchar * const cpFile
 // Parameter : const unsigned int cuiLine
-CExp::CExp( const tChar* const   cpFile, 
+CExp::CExp( const tchar* const   cpFile, 
             const unsigned long culLine,
-            const tChar* const   cpTimeFmt ):mExpLevel(emExp),mpExpNext(nullptr)
+            const tchar* const   cpTimeFmt ):mExpLevel(emExp),mpExpNext(nullptr)
 {
     vCStrPtr(mszFile)     = vm::CFileBase(cpFile).cs_FileName();
     muiLine               = culLine;
@@ -100,12 +100,12 @@ CExp::CExp( const tChar* const   cpFile,
 // Brief     :
 // Return    : 
 // Parameter : const CExp & oExp
-// Parameter : const tChar * const cpFile
+// Parameter : const tchar * const cpFile
 // Parameter : const unsigned int cuiLine
 CExp::CExp( const CExp&               oExp, 
-            const tChar* const      cpFile, 
+            const tchar* const      cpFile, 
             const unsigned long    culLine,
-            const tChar* const   cpTimeFmt)
+            const tchar* const   cpTimeFmt)
            :mExpLevel(emExp), mpExpNext(nullptr)
 {
     mpExpNext       = new CExp();
@@ -164,10 +164,10 @@ vm::CExp& CExp::operator=(const CExp& obj)
 // Name      : operator()(...)
 // Brief     :
 // Return    : void
-// Parameter : const tChar * const cpFunc
-// Parameter : const tChar * const cpFmt
+// Parameter : const tchar * const cpFunc
+// Parameter : const tchar * const cpFmt
 // Parameter : ...
-CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, ...)
+CExp& CExp::operator()(const tchar* const cpFunc, const tchar* const cpFmt, ...)
 {
     vCStrPtr(mszFunc) = cpFunc;
 
@@ -185,10 +185,10 @@ CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, ...)
 // Name      : operator()(...)
 // Brief     :
 // Return    : void
-// Parameter : const tChar * const cpFunc
-// Parameter : const tChar * const cpFmt
+// Parameter : const tchar * const cpFunc
+// Parameter : const tchar * const cpFmt
 // Parameter : va_list vList
-CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, va_list vList)
+CExp& CExp::operator()(const tchar* const cpFunc, const tchar* const cpFmt, va_list vList)
 {
     vCStrPtr(mszFunc) = cpFunc;
     vCStrPtr(mszMsg).Fmt(cpFmt, vList);
@@ -202,8 +202,8 @@ CExp& CExp::operator()(const tChar* const cpFunc, const tChar* const cpFmt, va_l
 // Name      : Fmt(...)
 // Brief     :
 // Return    : int
-// Parameter : const tChar * const cpFmt
-tChar* CExp::Fmt(const tChar* const cpFmt)
+// Parameter : const tchar * const cpFmt
+tchar* CExp::Fmt(const tchar* const cpFmt)
 {
     // 验证格式代码是否正确
     _VERIFY_(cpFmt);

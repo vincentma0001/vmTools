@@ -69,13 +69,13 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    long Create( const tChar* const cpName, bool bManualRest=false, bool bInitialize=false )
+    long Create( const tchar* const cpName, bool bManualRest=false, bool bInitialize=false )
     {
         mhHandle = ::CreateEvent( &mstSecurityAttributes, bManualRest, bInitialize, cpName );
         return CheckHandle();
     }
 
-    long Open( const tChar* const cpName, unsigned long dwDesiredAccess, bool bInheritHandle = false )
+    long Open( const tchar* const cpName, unsigned long dwDesiredAccess, bool bInheritHandle = false )
     {
         mhHandle = ::OpenEvent( dwDesiredAccess, bInheritHandle, cpName );
         return CheckHandle();

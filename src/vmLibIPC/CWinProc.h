@@ -81,7 +81,7 @@ public:
      unsigned long ThrdID() { return mProcessInfo.dwThreadId; };
 
 public:
-    bool	Start(const tChar* const pAppName, const tChar* const pCmdLine)
+    bool	Start(const tchar* const pAppName, const tchar* const pCmdLine)
     {
         vMemZero(mStartupInfo);
         vMemZero(mProcessInfo);

@@ -125,8 +125,8 @@ unsigned long CErrBase::toErrCode()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : toErrStr(...)
 // Brief     :
-// Return    : tChar*
-tChar* CErrBase::toErrStr()
+// Return    : tchar*
+tchar* CErrBase::toErrStr()
 {
     size_t lsztStrLen = 0;
     return GetErrStr(mszBuf, sizeof(mszBuf), lsztStrLen);
@@ -137,14 +137,14 @@ tChar* CErrBase::toErrStr()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Fmt(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : const tChar * const cpFmt
-tChar* CErrBase::Fmt(const tChar* const cpFmt /*= "%EC:%EM" */)
+// Return    : tchar*
+// Parameter : const tchar * const cpFmt
+tchar* CErrBase::Fmt(const tchar* const cpFmt /*= "%EC:%EM" */)
 {
     // 获取错误代码所包含的错误信息
-    tChar lszCodeStrBuf[ _V_ERR_MAX_BUF_ ] = { 0x00 };
+    tchar lszCodeStrBuf[ _V_ERR_MAX_BUF_ ] = { 0x00 };
     size_t lsztCodeStrLen = 0;
-    tChar* lpCodeStr = GetErrStr(lszCodeStrBuf, sizeof(lszCodeStrBuf), lsztCodeStrLen);
+    tchar* lpCodeStr = GetErrStr(lszCodeStrBuf, sizeof(lszCodeStrBuf), lsztCodeStrLen);
 
     // 初始化缓存区数据
     vm::CParser::CPattern loPatternErrCode(vT("%EC"), vm::CAny<128>(mulErrCode).s_ulong());
@@ -164,11 +164,11 @@ tChar* CErrBase::Fmt(const tChar* const cpFmt /*= "%EC:%EM" */)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetErrStr(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : tChar * pBufAddr
+// Return    : tchar*
+// Parameter : tchar * pBufAddr
 // Parameter : const size_t csztBufSzie
 // Parameter : size_t & sztStrLen
-tChar* CErrBase::GetErrStr(tChar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
+tchar* CErrBase::GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
 {
     return pBufAddr;
 }

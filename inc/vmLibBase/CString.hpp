@@ -60,7 +60,7 @@ class CString
 public:
     // Construct define
     CString():mszBuf{0x00}{};
-    CString(const tChar* const cpStr):mszBuf{0x00}{ v_strcpy(mszBuf, sizeof(mszBuf), cpStr); };
+    CString(const tchar* const cpStr):mszBuf{0x00}{ v_strcpy(mszBuf, sizeof(mszBuf), cpStr); };
     // Destruct define
     virtual ~CString(){};
     
@@ -79,36 +79,36 @@ public:
 
 public:
     // 加法操作
-    void* operator +  (const tChar* cpSrc){};
+    void* operator +  (const tchar* cpSrc){};
     void* operator +  (const CString& cStr) 
     {
         return v_strcat(mszBuf, sizeof(mszBuf), cStr.c_str());
     };
     // 赋值操作
-    tChar* operator =  (const tChar* const cpSrc)
+    tchar* operator =  (const tchar* const cpSrc)
     {
         v_memcpy(mszBuf, sizeof(mszBuf), cpSrc, strlen(cpSrc));
         return mszBuf;
     };
     // 小于操作
-    bool  operator <  (const tChar* cpSrc){};
+    bool  operator <  (const tchar* cpSrc){};
     // 大于操作
-    bool  operator >  (const tChar* cpSrc){};
+    bool  operator >  (const tchar* cpSrc){};
     // 对比操作
-    bool  operator == (const tChar* cpSrc){};
+    bool  operator == (const tchar* cpSrc){};
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // members
 private:
-    tChar   mszBuf[sztBufSize];
+    tchar   mszBuf[sztBufSize];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     // 获取字符串基地址
-    tChar* operator *() { return mszBuf; };
+    tchar* operator *() { return mszBuf; };
     // 获取字符串中子字符串地址
-    tChar* operator [] (const size_t csztPos) { return (mszBuf+csztPos); };
+    tchar* operator [] (const size_t csztPos) { return (mszBuf+csztPos); };
     // 获取字符串基地址
     const void* c_str() {};
 
@@ -124,35 +124,35 @@ public:
     void* At(const size_t csztBufOffset) {};
 
     // 格式化字符串
-    tChar* Fmt(const tChar* const cpFmt, ...)
+    tchar* Fmt(const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
-        tChar* lpRet = Fmt(0, cpFmt, vList);
+        tchar* lpRet = Fmt(0, cpFmt, vList);
         va_end(vList);
 
         return lpRet;
     };
-    tChar* Fmt(const size_t csztBufOffset, const tChar* const cpFmt, ...) 
+    tchar* Fmt(const size_t csztBufOffset, const tchar* const cpFmt, ...) 
     { 
         va_list vList;
         va_start( vList, cpFmt );
-        tChar* lpRet = Fmt(csztBufOffset,cpFmt,vList);
+        tchar* lpRet = Fmt(csztBufOffset,cpFmt,vList);
         va_end(vList);
 
         return lpRet;
     };
-    tChar* Fmt(const tChar* const cpFmt, va_list vList) 
+    tchar* Fmt(const tchar* const cpFmt, va_list vList) 
     {
         return Fmt(0, cpFmt,vList);
     };
-    tChar* Fmt( const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
+    tchar* Fmt( const size_t csztBufOffset, const tchar* const cpFmt, va_list vList)
     {
-        tChar* lpPos = mszBuf+csztBufOffset;
+        tchar* lpPos = mszBuf+csztBufOffset;
         int liRet = v_vsprintf(lpPos, sizeof(mszBuf), cpFmt, vList);
         return lpPos;
     };
-    int Fmt2(const tChar* const cpFmt, ...)
+    int Fmt2(const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -161,7 +161,7 @@ public:
 
         return liRet;
     };
-    int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, ...)
+    int Fmt2(const size_t csztBufOffset, const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -170,13 +170,13 @@ public:
 
         return liRet;
     };
-    int Fmt2(const tChar* const cpFmt, va_list vList)
+    int Fmt2(const tchar* const cpFmt, va_list vList)
     {
         return Fmt2(0, cpFmt, vList);
     };
-    int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
+    int Fmt2(const size_t csztBufOffset, const tchar* const cpFmt, va_list vList)
     {
-        tChar* lpPos = mszBuf + csztBufOffset;
+        tchar* lpPos = mszBuf + csztBufOffset;
         size_t lsztBufLeft = sztBufSize-csztBufOffset;
         return v_vsprintf(lpPos, lsztBufLeft, cpFmt, vList);
     };

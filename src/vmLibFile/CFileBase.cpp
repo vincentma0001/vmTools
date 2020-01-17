@@ -66,11 +66,11 @@ CFileBase::CFileBase() : mulErrCode(0)
 // Brief     : 构建函数
 // Return    : null
 // Parameter : cpFName                      - 文件名，若为NULL则为获取当前进程的文件名
-CFileBase::CFileBase(const tChar* const cpFName ) : mulErrCode(0)
+CFileBase::CFileBase(const tchar* const cpFName ) : mulErrCode(0)
 {
     vMemZero(mszFilePath);
     size_t lsztExecNameLen = 0;
-    tChar* lpFName = const_cast<tChar*>(cpFName); 
+    tchar* lpFName = const_cast<tchar*>(cpFName); 
 
     // if the string address is null, get current execute file's path
     if (cpFName == nullptr)
@@ -193,11 +193,11 @@ vm::CFileBase& CFileBase::operator=(const CFileBase& obj)
 // Name      : HasDir(...)
 // Brief     :
 // Return    : bool
-// Parameter : _vIn_ const tChar * const cpPath
-bool CFileBase::HasDir(_vIn_ const tChar* const cpPath)
+// Parameter : _vIn_ const tchar * const cpPath
+bool CFileBase::HasDir(_vIn_ const tchar* const cpPath)
 {
     // 根据目录分割符判断输入的字符串是否为带有目录的文件名
-    tChar* lpRetForSplite = vm::v_strrchr(const_cast<tChar*>(cpPath), _V_DIR_SPLITE_);
+    tchar* lpRetForSplite = vm::v_strrchr(const_cast<tchar*>(cpPath), _V_DIR_SPLITE_);
     // 判断是否查找到目录分割符
     if (lpRetForSplite == nullptr)
         return false;
@@ -211,23 +211,23 @@ bool CFileBase::HasDir(_vIn_ const tChar* const cpPath)
 // Name      : HasExt(...)
 // Brief     :
 // Return    : bool
-// Parameter : _vIn_ const tChar * const cpPath
-bool CFileBase::HasExt(_vIn_ const tChar* const cpPath)
+// Parameter : _vIn_ const tchar * const cpPath
+bool CFileBase::HasExt(_vIn_ const tchar* const cpPath)
 {
     // 根据目录分割符判断输入的字符串是否为带有目录的文件名
-    tChar* lpRetForSplite = vm::v_strrchr(const_cast<tChar*>(cpPath), _V_EXT_SPLITE_);
+    tchar* lpRetForSplite = vm::v_strrchr(const_cast<tchar*>(cpPath), _V_EXT_SPLITE_);
     // 判断是否查找到目录分割符
     if (lpRetForSplite == nullptr)
         return false;
 
-    tChar lpNextChar = *(lpRetForSplite + 1);
+    tchar lpNextChar = *(lpRetForSplite + 1);
     // 判断符号是".\\"
     if ((lpNextChar == _V_DIR_SPLITE_))
     {
         return false;
     }
 
-    tChar lpNextNextChar = *(lpRetForSplite + 2);
+    tchar lpNextNextChar = *(lpRetForSplite + 2);
     // 判断符号是否是"..\\"
     if ((lpNextChar == _V_EXT_SPLITE_) && (lpNextNextChar == _V_DRV_SPLITE_))
     {
@@ -242,12 +242,12 @@ bool CFileBase::HasExt(_vIn_ const tChar* const cpPath)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetFileDir(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : _vIn_ const tChar * const cpPath
+// Return    : tchar*
+// Parameter : _vIn_ const tchar * const cpPath
 // Parameter : _vIn_ const size_t csztPathLen
-// Parameter : _vOt_ tChar * const pDirBuf
+// Parameter : _vOt_ tchar * const pDirBuf
 // Parameter : _vIn_ const size_t csztDirBufSize
-size_t CFileBase::GetFileDir(_vIn_ const tChar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tChar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
+size_t CFileBase::GetFileDir(_vIn_ const tchar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tchar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
 {
     size_t lsztRet = vm::v_str_substr(pDirBuf, csztDirBufSize, cpPath, csztPathLen, vStrPosBegin, _V_DIR_SPLITE_);
     return lsztRet;
@@ -258,12 +258,12 @@ size_t CFileBase::GetFileDir(_vIn_ const tChar* const cpPath, _vIn_ const size_t
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetFileName(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : _vIn_ const tChar * const cpPath
+// Return    : tchar*
+// Parameter : _vIn_ const tchar * const cpPath
 // Parameter : _vIn_ const size_t csztPathLen
-// Parameter : _vOt_ tChar * const pDirBuf
+// Parameter : _vOt_ tchar * const pDirBuf
 // Parameter : _vIn_ const size_t csztDirBufSize
-size_t CFileBase::GetFileName(_vIn_ const tChar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tChar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
+size_t CFileBase::GetFileName(_vIn_ const tchar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tchar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
 {
     size_t lsztRet = vm::v_str_substr_last(pDirBuf, csztDirBufSize, cpPath, csztPathLen, _V_DIR_SPLITE_, vStrPosEnded);
     return lsztRet;
@@ -275,12 +275,12 @@ size_t CFileBase::GetFileName(_vIn_ const tChar* const cpPath, _vIn_ const size_
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetFileBase(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : _vIn_ const tChar * const cpPath
+// Return    : tchar*
+// Parameter : _vIn_ const tchar * const cpPath
 // Parameter : _vIn_ const size_t csztPathLen
-// Parameter : _vOt_ tChar * const pDirBuf
+// Parameter : _vOt_ tchar * const pDirBuf
 // Parameter : _vIn_ const size_t csztDirBufSize
-size_t CFileBase::GetFileBase(_vIn_ const tChar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tChar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
+size_t CFileBase::GetFileBase(_vIn_ const tchar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tchar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
 {
     // 获取文件名，不包含扩展名
     size_t lsztRet = vm::v_str_substr_last(pDirBuf, csztDirBufSize, cpPath, csztPathLen, _V_DIR_SPLITE_, _V_EXT_SPLITE_);
@@ -292,12 +292,12 @@ size_t CFileBase::GetFileBase(_vIn_ const tChar* const cpPath, _vIn_ const size_
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : GetFileExt(...)
 // Brief     :
-// Return    : tChar*
-// Parameter : _vIn_ const tChar * const cpPath
+// Return    : tchar*
+// Parameter : _vIn_ const tchar * const cpPath
 // Parameter : _vIn_ const size_t csztPathLen
-// Parameter : _vOt_ tChar * const pDirBuf
+// Parameter : _vOt_ tchar * const pDirBuf
 // Parameter : _vIn_ const size_t csztDirBufSize
-size_t CFileBase::GetFileExt(_vIn_ const tChar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tChar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
+size_t CFileBase::GetFileExt(_vIn_ const tchar* const cpPath, _vIn_ const size_t csztPathLen, _vOt_ tchar* const pDirBuf, _vIn_ const size_t csztDirBufSize)
 {
     // 获取文件扩展名
     size_t lsztRet = vm::v_str_substr_last(pDirBuf, csztDirBufSize, cpPath, csztPathLen, _V_EXT_SPLITE_, vStrPosEnded);
@@ -309,10 +309,10 @@ size_t CFileBase::GetFileExt(_vIn_ const tChar* const cpPath, _vIn_ const size_t
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : GetExecDir(...)
 // Brief     : Get current execute file's direction
-// Return    : tChar*                                     - return current execute file dir
+// Return    : tchar*                                     - return current execute file dir
 // Parameter : pOutputBuf                                - [O] the buffer for current execute file direct.
 //           : csztBufSize                               - [I] the buffer's size
-size_t CFileBase::GetExecDir(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize)
+size_t CFileBase::GetExecDir(_vOt_ tchar* const pOutputBuf, _vIn_ const size_t csztBufSize)
 {
     // Get full path.
     size_t lsztLenOfPath = ::GetModuleFileName(NULL, pOutputBuf, csztBufSize);
@@ -331,7 +331,7 @@ size_t CFileBase::GetExecDir(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t c
 //             0                                         - the function is failed, get error by GetLastError().  
 // Parameter : pOutputBuf                                - [O] the buffer for the execute file's full path
 //           : csztBufSize                               - [I] the buffer's size
-size_t CFileBase::GetExecName(_vOt_ tChar* const pOutputBuf, _vIn_ const size_t csztBufSize)
+size_t CFileBase::GetExecName(_vOt_ tchar* const pOutputBuf, _vIn_ const size_t csztBufSize)
 {
     size_t lsztRet = ::GetModuleFileName(NULL, pOutputBuf, csztBufSize);
     return lsztRet;

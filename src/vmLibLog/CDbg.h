@@ -74,7 +74,7 @@ private:
     CDbg& operator = ( const CDbg& obj ){};
    
 public:
-    void operator()( const tChar* const cpFmt, ... )
+    void operator()( const tchar* const cpFmt, ... )
     {   
          
     };

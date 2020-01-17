@@ -55,7 +55,7 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Output function :
 // TODO : the functions of here will be in other files.
-void utLog(const tChar* const cpFmt, ...)
+void utLog(const tchar* const cpFmt, ...)
 {
     vm::CWinConsole loConsole;
 
@@ -65,7 +65,7 @@ void utLog(const tChar* const cpFmt, ...)
     va_end(vList);
 }
 
-void utLog( const short csTxtColor,  const tChar* const cpFmt, ...)
+void utLog( const short csTxtColor,  const tchar* const cpFmt, ...)
 {
     vm::CWinConsole loConsole;
     
@@ -76,7 +76,7 @@ void utLog( const short csTxtColor,  const tChar* const cpFmt, ...)
     
 }
 
-void utLogLine(const tChar* const cpFmt, ...)
+void utLogLine(const tchar* const cpFmt, ...)
 {
     vm::CWinConsole loConsole;
 
@@ -118,14 +118,14 @@ friend class CUnitTestFrame;
 // Construct && Destruct
 public:
     // Construct define
-    inline CUnit( const tChar* const cpName ) { strcpy( mszName, cpName ); };
+    inline CUnit( const tchar* const cpName ) { strcpy( mszName, cpName ); };
     // Destruct define
     inline virtual ~CUnit(){};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 public:
-    tChar mszName[256];
+    tchar mszName[256];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :

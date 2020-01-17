@@ -48,9 +48,9 @@ class DLL_API CWinSehExp : public CExp
 public:
     // Construct define
     explicit CWinSehExp(const CWinSeh& coExp,
-                        const tChar* const     cpFile,
+                        const tchar* const     cpFile,
                         const unsigned long   culLine,
-                        const tChar* const     cpTimeFmt);
+                        const tchar* const     cpTimeFmt);
     // Destruct define
     virtual ~CWinSehExp();
     

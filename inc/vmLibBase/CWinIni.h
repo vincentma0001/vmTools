@@ -77,9 +77,9 @@ private:
 // Members :
 private:
     // 存储Ini文件完整文件名
-    tChar   mszPath[_V_FILE_MAX_PATH_];
+    tchar   mszPath[_V_FILE_MAX_PATH_];
     // 数据缓存区
-    tChar   mszBuf[sztBufSize];
+    tchar   mszBuf[sztBufSize];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :

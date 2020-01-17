@@ -63,7 +63,7 @@ private:
     CWrn& operator = ( const CWrn& obj ){};
 
 public:
-    void operator()(const tChar* const cpFmt, ...)
+    void operator()(const tchar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);

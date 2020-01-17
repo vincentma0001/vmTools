@@ -273,7 +273,7 @@ private:
 // Functions :
 public:
     // 获取异常描述
-    const tChar* cs_Msg(const DWORD dwLanguage = LANG_ENGLISH) const;
+    const tchar* cs_Msg(const DWORD dwLanguage = LANG_ENGLISH) const;
     // 获取异常代码
     const DWORD code() const;
 

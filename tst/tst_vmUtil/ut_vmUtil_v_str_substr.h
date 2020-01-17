@@ -63,10 +63,10 @@ TEST_FUNC_BEGIN( ut_vmUtil_v_str_substr_t1 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lszpSrc  = vT( "this is a test str! substr is {A1234567890A}!" );
+    const tchar* lszpSrc  = vT( "this is a test str! substr is {A1234567890A}!" );
     vm::utLogLine("Src string    : %s", lszpSrc);
 
-    tChar lszBuf[1024] = {0x00};
+    tchar lszBuf[1024] = {0x00};
     vm::v_str_substr( lszBuf, sizeof(lszBuf), lszpSrc, strlen(lszpSrc), vT('{'), vT('}') );
     vm::utLogLine("Substr string : %s", lszBuf);
 
@@ -86,10 +86,10 @@ TEST_FUNC_BEGIN( ut_vmUtil_v_str_substr_t2 )
 
     // #Add test content here#
     // #Add test content here#
-    const tChar* lszpSrc = vT("{A1234567890A}!");
+    const tchar* lszpSrc = vT("{A1234567890A}!");
     vm::utLogLine("Src string    : %s", lszpSrc);
 
-    tChar lszBuf[ 1024 ] = { 0x00 };
+    tchar lszBuf[ 1024 ] = { 0x00 };
     vm::v_str_substr(lszBuf, sizeof(lszBuf), lszpSrc, strlen(lszpSrc), vT('{'), vT('}'));
     vm::utLogLine("Substr string : %s", lszBuf);
 
@@ -109,10 +109,10 @@ TEST_FUNC_BEGIN( ut_vmUtil_v_str_substr_t3 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lszpSrc = vT("A{A1234567890A}A");
+    const tchar* lszpSrc = vT("A{A1234567890A}A");
     vm::utLogLine("Src string    : %s", lszpSrc);
 
-    tChar lszBuf[ 1024 ] = { 0x00 };
+    tchar lszBuf[ 1024 ] = { 0x00 };
     vm::v_str_substr(lszBuf, sizeof(lszBuf), lszpSrc, strlen(lszpSrc), vMinsInt, vT('}'));
     vm::utLogLine("Substr string : %s", lszBuf);
 
@@ -132,10 +132,10 @@ TEST_FUNC_BEGIN( ut_vmUtil_v_str_substr_t4 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lszpSrc = vT("A{A1234567890A}A");
+    const tchar* lszpSrc = vT("A{A1234567890A}A");
     vm::utLogLine("Src string    : %s", lszpSrc);
 
-    tChar lszBuf[ 1024 ] = { 0x00 };
+    tchar lszBuf[ 1024 ] = { 0x00 };
     vm::v_str_substr(lszBuf, sizeof(lszBuf), lszpSrc, strlen(lszpSrc), vT('{'), vMinsInt);
     vm::utLogLine("Substr string : %s", lszBuf);
 
@@ -155,10 +155,10 @@ TEST_FUNC_BEGIN( ut_vmUtil_v_str_substr_t5 )
     vm::utLogLine("");
 
     // #Add test content here#
-    const tChar* lszpSrc = vT("A{A123{456}7890A}A");
+    const tchar* lszpSrc = vT("A{A123{456}7890A}A");
     vm::utLogLine("Src string    : %s", lszpSrc);
 
-    tChar lszBuf[ 1024 ] = { 0x00 };
+    tchar lszBuf[ 1024 ] = { 0x00 };
     vm::v_str_substr(lszBuf, sizeof(lszBuf), lszpSrc, strlen(lszpSrc), vT('{'), vT('}'));
     vm::utLogLine("Substr string : %s", lszBuf);
 

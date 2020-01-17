@@ -78,14 +78,14 @@ public:
     {
         friend CParser;
     public:
-        explicit CPattern( const tChar* const cpFlg, const tSize csztFlgLen,
-                           const tChar* const cpRpl, const tSize csztRplLen )
-                          :mpFlg(const_cast<tChar*>(cpFlg)), msztFlgLen(csztFlgLen), 
-                           mpRpl(const_cast<tChar*>(cpRpl)), msztRplLen(csztRplLen),
+        explicit CPattern( const tchar* const cpFlg, const size_t csztFlgLen,
+                           const tchar* const cpRpl, const size_t csztRplLen )
+                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(csztFlgLen), 
+                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(csztRplLen),
                            mpPattern(nullptr) {};
-        explicit CPattern( const tChar* const cpFlg, const tChar* const cpRpl )
-                          :mpFlg(const_cast<tChar*>(cpFlg)), msztFlgLen(vStrLen(cpFlg)), 
-                           mpRpl(const_cast<tChar*>(cpRpl)), msztRplLen(vStrLen(cpRpl)),
+        explicit CPattern( const tchar* const cpFlg, const tchar* const cpRpl )
+                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(vStrLen(cpFlg)), 
+                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(vStrLen(cpRpl)),
                            mpPattern(nullptr) {};
         virtual ~CPattern() 
         { 
@@ -94,10 +94,10 @@ public:
             mpPattern = nullptr; 
         };
     public:
-        tChar*  mpFlg;
-        tSize   msztFlgLen;
-        tChar*  mpRpl;
-        tSize   msztRplLen;
+        tchar*   mpFlg;
+        size_t   msztFlgLen;
+        tchar*   mpRpl;
+        size_t   msztRplLen;
 
     private:
         CPattern*  mpPattern;
@@ -116,12 +116,12 @@ public:
 // Construct && Destruct
 public:
     // Construct define
-    CParser( const tChar cszSpecifier, const tChar* const cpFmt, const tSize csztFmtLen) 
+    CParser( const tchar cszSpecifier, const tchar* const cpFmt, const size_t csztFmtLen)
             :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<tChar*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
-   CParser( const tChar cszSpecifier, const tChar* const cpFmt) 
+             mpFmt(const_cast<tchar*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
+   CParser( const tchar cszSpecifier, const tchar* const cpFmt) 
             :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<tChar*>(cpFmt)), msztFmtLen(vStrLen(cpFmt)){};
+             mpFmt(const_cast<tchar*>(cpFmt)), msztFmtLen(vStrLen(cpFmt)){};
 
     // Destruct define
     virtual ~CParser() 
@@ -138,9 +138,9 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 private:
-    tChar           mszSpecifier;
-    tChar*          mpFmt;
-    tSize           msztFmtLen;
+    tchar           mszSpecifier;
+    tchar*          mpFmt;
+    size_t          msztFmtLen;
     CPattern*       mpPatterns;
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -157,22 +157,22 @@ public:
         lpFlag = &oFlag;
     }
 
-    tChar* Parse( tChar* const pOutBuf, const tSize csztOutBufLen )
+    tchar* Parse( tchar* const pOutBuf, const size_t csztOutBufLen )
     {
         // 准备解析数据
         vm::CStrPtr loFmt(mpFmt,msztFmtLen);
-        tSize lsztFmtOffSet = 0;
-        tChar* lpFmtEnd      = mpFmt + msztFmtLen;
+        size_t lsztFmtOffSet = 0;
+        tchar* lpFmtEnd      = mpFmt + msztFmtLen;
         vm::CStrPtr loOutBuf(pOutBuf, csztOutBufLen);
-        tSize lsztOutBufOffset = 0;
+        size_t lsztOutBufOffset = 0;
 
         // 查找第一个标识符，若查找不到则返回。
-        tChar* lpPos = loFmt.Find(mszSpecifier);
+        tchar* lpPos = loFmt.Find(mszSpecifier);
         if ( lpPos == nullptr ) return nullptr;
 
         // 将标识符到源数据开始位置的数据复制到目标数据中
-        tSize lsztCount        = (lpPos-mpFmt);
-        tSize lsztFirstCopied  = loOutBuf.CopyFm( mpFmt,lsztCount );
+        size_t lsztCount        = (lpPos-mpFmt);
+        size_t lsztFirstCopied  = loOutBuf.CopyFm( mpFmt,lsztCount );
         lsztOutBufOffset      += lsztFirstCopied;
         lsztFmtOffSet         += lsztFirstCopied;
 
@@ -191,7 +191,7 @@ public:
                 }
                 
                 // 对Pattern代表的字符串进行替换 
-                tSize lsztCopied  = loOutBuf.CopyFm( lsztOutBufOffset,lpPattern->mpRpl, lpPattern->msztRplLen );
+                size_t lsztCopied  = loOutBuf.CopyFm( lsztOutBufOffset,lpPattern->mpRpl, lpPattern->msztRplLen );
                 lsztFmtOffSet    += lpPattern->msztFlgLen;
                 lsztOutBufOffset += lsztCopied;
                 lpPattern         = lpPattern->mpPattern;
@@ -199,12 +199,12 @@ public:
             }
 
             // 查找下一个标识符所在的位置
-            tChar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
+            tchar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
             //do{
                 if (  lpNextPos != lpPos )
                 {
                     // 将当前标识符与下一个标识符中的数据复制到目标数据中
-                    tSize lsztCount = 0;
+                    size_t lsztCount = 0;
                     if ( lpNextPos == nullptr )
                     { 
                         // 当前标识符后以不存在标识符，将当前标识符到源字符串结尾的数据复制到目标字符串中。
@@ -214,7 +214,7 @@ public:
                         // 将当前标识符与下一个标识符中的数据复制到目标数据中
                         lsztCount = lpNextPos-(mpFmt+lsztFmtOffSet);
                     }
-                    tSize lsztCopied    = loOutBuf.CopyFm( lsztOutBufOffset, loFmt[lsztFmtOffSet], lsztCount );
+                    size_t lsztCopied    = loOutBuf.CopyFm( lsztOutBufOffset, loFmt[lsztFmtOffSet], lsztCount );
                     lsztOutBufOffset   += lsztCopied;
                     lsztFmtOffSet      += lsztCount;
                     lpPos               = lpNextPos;
@@ -222,9 +222,9 @@ public:
                 else
                 {
                     // 当前标识符的后面不存在可解析的数据
-                    tSize lszCopied   = loOutBuf.CopyFm(lsztOutBufOffset, loFmt[lsztFmtOffSet], sizeof(mszSpecifier));
-                    lsztFmtOffSet    += lszCopied;
-                    lsztOutBufOffset += lszCopied;
+                    size_t lsztCopied   = loOutBuf.CopyFm(lsztOutBufOffset, loFmt[lsztFmtOffSet], sizeof(mszSpecifier));
+                    lsztFmtOffSet    += lsztCopied;
+                    lsztOutBufOffset += lsztCopied;
                     //lpNextPos         = loFmt.Find(lsztFmtOffSet, mszSpecifier);
                     lpPos             = lpNextPos;                   
                 }

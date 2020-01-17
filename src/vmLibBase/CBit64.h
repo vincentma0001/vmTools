@@ -238,7 +238,7 @@ public:
     // Members :
 private:
     unsigned long long  mBit;
-    tChar            mszBuf[_V_CBIT64_MAX_BUF_];
+    tchar            mszBuf[_V_CBIT64_MAX_BUF_];
 
     /////////////////////////////////////////////////////////////////////////////////////////
     // Functions :
@@ -477,10 +477,10 @@ public:
     inline bool isSet64() { return (((PSTBIT64)&mBit)->bit63 & 1) ? true : false; };
 
     // 以二进制方式返回bit值字符串
-    inline tChar* toBin()
+    inline tchar* toBin()
     {
         vMemZero(mszBuf);
-        tChar* lpPos = mszBuf;
+        tchar* lpPos = mszBuf;
         for (int i = 63; i >= 0; i--)
         {
             (*lpPos) = ((mBit >> i) & 1) ? '1' : '0';;
@@ -489,21 +489,21 @@ public:
         return mszBuf;
     };
     // 以八进制方式返回bit值字符串
-    inline tChar* toOct()
+    inline tchar* toOct()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%08o", mBit);
         return mszBuf;
     };
     // 以十进制方式返回bit值字符串
-    inline tChar* toDec()
+    inline tchar* toDec()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%08d", mBit);
         return mszBuf;
     };
     // 以十六进制方式返回bit值字符串
-    inline tChar* toHex()
+    inline tchar* toHex()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04X", mBit);
@@ -554,7 +554,7 @@ public:
     // Members :
 private:
     unsigned long long*  mpBit;
-    tChar  mszBuf[_V_CBIT64_MAX_BUF_];
+    tchar  mszBuf[_V_CBIT64_MAX_BUF_];
 
     /////////////////////////////////////////////////////////////////////////////////////////
     // Functions :
@@ -793,10 +793,10 @@ public:
     inline bool isSet64() { return (((PSTBIT64)mpBit)->bit63 & 1) ? true : false; };
 
     // 以二进制方式返回bit值字符串
-    inline tChar* toBin()
+    inline tchar* toBin()
     {
         vMemZero(mszBuf);
-        tChar* lpPos = mszBuf;
+        tchar* lpPos = mszBuf;
         for (int i = 63; i >= 0; i--)
         {
             (*lpPos) = ((*mpBit >> i) & 1) ? '1' : '0';
@@ -805,21 +805,21 @@ public:
         return mszBuf;
     };
     // 以八进制方式返回bit值字符串
-    inline tChar* toOct()
+    inline tchar* toOct()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%08o", *mpBit);
         return mszBuf;
     };
     // 以十进制方式返回bit值字符串
-    inline tChar* toDec()
+    inline tchar* toDec()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%08d", *mpBit);
         return mszBuf;
     };
     // 以十六进制方式返回bit值字符串
-    inline tChar* toHex()
+    inline tchar* toHex()
     {
         vMemZero(mszBuf);
         int liRet = v_sprintf(mszBuf, sizeof(mszBuf), "%04X", *mpBit);

@@ -71,7 +71,7 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    void WriteLine(const tChar* const cpFmt, va_list vList)
+    void WriteLine(const tchar* const cpFmt, va_list vList)
     {
         vprintf( cpFmt, vList );
         WriteNext(cpFmt, vList);

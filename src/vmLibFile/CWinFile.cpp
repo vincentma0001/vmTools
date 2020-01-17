@@ -73,8 +73,8 @@ CWinFile::CWinFile(const CWinFile& obj)
 // Name      : CFile(...)
 // Brief     :
 // Return    : 
-// Parameter : const tChar * cpFName
-CFile::CFile(const tChar* cpFName /*= nullptr*/) :CWinFile(cpFName)
+// Parameter : const tchar * cpFName
+CFile::CFile(const tchar* cpFName /*= nullptr*/) :CWinFile(cpFName)
 {
 
 }

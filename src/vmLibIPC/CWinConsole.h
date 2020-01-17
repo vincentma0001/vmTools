@@ -117,14 +117,14 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 private:
-    tChar       mszBuf[_V_FILE_MAX_PATH_];
+    tchar       mszBuf[_V_FILE_MAX_PATH_];
     CONSOLE_SCREEN_BUFFER_INFO mstBufInfo;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     
-    int Write( const short csAttribute, const tChar* const cpFmt, ... )
+    int Write( const short csAttribute, const tchar* const cpFmt, ... )
     {
         bool lbRet = SetTextAttribute( csAttribute );
         if ( lbRet == false )
@@ -141,7 +141,7 @@ public:
 
         return liRetForPrintf;
     }
-    int Write(const short csAttribute, const tChar* const cpFmt, va_list& vList)
+    int Write(const short csAttribute, const tchar* const cpFmt, va_list& vList)
     {
         bool lbRet = SetTextAttribute(csAttribute);
         if (lbRet == false)
@@ -198,13 +198,13 @@ public:
         mulErrCode = ::GetLastError();
         return false;
     }
-    tChar* GetTitile(  )
+    tchar* GetTitile(  )
     {
         vMemZero(mszBuf);
         DWORD ldwRet = ::GetConsoleTitle(mszBuf, sizeof(mszBuf));
         return mszBuf;
     }
-    bool SetTitile( const tChar* const cpTitile )
+    bool SetTitile( const tchar* const cpTitile )
     {
         BOOL lbRet = ::SetConsoleTitle( cpTitile );
         if ( lbRet == TRUE )
