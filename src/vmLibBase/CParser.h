@@ -200,32 +200,35 @@ public:
 
             // 查找下一个标识符所在的位置
             tChar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
-            if (  lpNextPos != lpPos )
-            {
-                // 将当前标识符与下一个标识符中的数据复制到目标数据中
-                tSize lsztCount = 0;
-                if ( lpNextPos == nullptr )
-                { 
-                    // 当前标识符后以不存在标识符，将当前标识符到源字符串结尾的数据复制到目标字符串中。
-                    lsztCount = lpFmtEnd-(mpFmt+lsztFmtOffSet);
-                }else
+            //do{
+                if (  lpNextPos != lpPos )
                 {
                     // 将当前标识符与下一个标识符中的数据复制到目标数据中
-                    lsztCount = lpNextPos-(mpFmt+lsztFmtOffSet);
+                    tSize lsztCount = 0;
+                    if ( lpNextPos == nullptr )
+                    { 
+                        // 当前标识符后以不存在标识符，将当前标识符到源字符串结尾的数据复制到目标字符串中。
+                        lsztCount = lpFmtEnd-(mpFmt+lsztFmtOffSet);
+                    }else
+                    {
+                        // 将当前标识符与下一个标识符中的数据复制到目标数据中
+                        lsztCount = lpNextPos-(mpFmt+lsztFmtOffSet);
+                    }
+                    tSize lsztCopied    = loOutBuf.CopyFm( lsztOutBufOffset, loFmt[lsztFmtOffSet], lsztCount );
+                    lsztOutBufOffset   += lsztCopied;
+                    lsztFmtOffSet      += lsztCount;
+                    lpPos               = lpNextPos;
                 }
-                tSize lsztCopied    = loOutBuf.CopyFm( lsztOutBufOffset, loFmt[lsztFmtOffSet], lsztCount );
-                lsztOutBufOffset   += lsztCopied;
-                lsztFmtOffSet      += lsztCount;
-                lpPos               = lpNextPos;
-            }
-            else
-            {
-                // 当前标识符的后面不存在可解析的数据
-                tSize lszCopied = loOutBuf.CopyFm(lsztOutBufOffset, loFmt[lsztFmtOffSet], sizeof(mszSpecifier));
-                lpPos++;
-                if ( lpPos >= lpFmtEnd )
-                break;
-            }
+                else
+                {
+                    // 当前标识符的后面不存在可解析的数据
+                    tSize lszCopied   = loOutBuf.CopyFm(lsztOutBufOffset, loFmt[lsztFmtOffSet], sizeof(mszSpecifier));
+                    lsztFmtOffSet    += lszCopied;
+                    lsztOutBufOffset += lszCopied;
+                    //lpNextPos         = loFmt.Find(lsztFmtOffSet, mszSpecifier);
+                    lpPos             = lpNextPos;                   
+                }
+            //}while(lpPos!=nullptr);
         }
 
         return pOutBuf;

@@ -63,7 +63,7 @@ class CStrPtr
 // Construct && Destruct
 public:
     // Construct define
-    inline explicit CStrPtr( char* const pBuf, const size_t cszBufSize);
+    inline explicit CStrPtr( tChar* const pBuf, const size_t cszBufSize);
     // Destruct define
     inline virtual ~CStrPtr();
     
@@ -75,8 +75,8 @@ private:
 
 public:
     // 加法操作
-    inline char* operator +  (const char* cpSrc);
-    inline char* operator +  (const char  cszVal)
+    inline tChar* operator +  (const tChar* cpSrc);
+    inline tChar* operator +  (const tChar  cszVal)
     {
         size_t lszBufStrLen = vStrLen(mpBuf);
         if ( lszBufStrLen>=mszBufSize )
@@ -85,19 +85,19 @@ public:
         mpBuf[lszBufStrLen+1] = 0x00;
     };
     // 赋值操作
-    inline void  operator =  (const char* cpSrc);
+    inline void  operator =  (const tChar* cpSrc);
     // 小于操作
-    inline bool  operator <  (const char* cpSrc);
+    inline bool  operator <  (const tChar* cpSrc);
     // 大于操作
-    inline bool  operator >  (const char* cpSrc);
+    inline bool  operator >  (const tChar* cpSrc);
     // 对比操作
-    inline bool  operator == (const char* cpSrc);
+    inline bool  operator == (const tChar* cpSrc);
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // members
 private:
     // 字符串基地址
-    char*    mpBuf;
+    tChar*    mpBuf;
     // 字符串长度
     size_t   mszBufSize;
 
@@ -105,11 +105,11 @@ private:
 // Functions :
 public:
     // 获取字符串基地址
-    inline char* operator *();
+    inline tChar* operator *();
     // 获取字符串中子字符串地址
-    inline char* operator [] (const size_t csztPos);
+    inline tChar* operator [] (const size_t csztPos);
     // 获取字符串基地址
-    inline const char* c_str();
+    inline const tChar* c_str();
 
     // 获取字符串长度
     inline size_t len();
@@ -120,38 +120,38 @@ public:
 
 public:
     // 获取字符串中子字符串地址
-    inline char* At( const size_t csztBufOffset );
+    inline tChar* At( const size_t csztBufOffset );
 
     // 格式化字符串
-    inline char* Fmt(const char* const cpFmt, ...)
+    inline tChar* Fmt(const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
-        char* lpRet = Fmt(0, cpFmt, vList);
+        tChar* lpRet = Fmt(0, cpFmt, vList);
         va_end(vList);
 
         return lpRet;
     };
-    inline char* Fmt(const size_t csztBufOffset, const char* const cpFmt, ...)
+    inline tChar* Fmt(const size_t csztBufOffset, const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
-        char* lpRet = Fmt(csztBufOffset, cpFmt, vList);
+        tChar* lpRet = Fmt(csztBufOffset, cpFmt, vList);
         va_end(vList);
 
         return lpRet;
     };
-    inline char* Fmt(const char* const cpFmt, va_list vList)
+    inline tChar* Fmt(const tChar* const cpFmt, va_list vList)
     {
         return Fmt(0, cpFmt, vList);
     };
-    inline char* Fmt(const size_t csztBufOffset, const char* const cpFmt, va_list vList)
+    inline tChar* Fmt(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
     {
-        char* lpPos = mpBuf + csztBufOffset;
+        tChar* lpPos = mpBuf + csztBufOffset;
         int liRet = v_vsprintf(lpPos, mszBufSize, cpFmt, vList);
         return lpPos;
     };
-    inline int Fmt2(const char* const cpFmt, ...)
+    inline int Fmt2(const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -160,7 +160,7 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const size_t csztBufOffset, const char* const cpFmt, ...)
+    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, ...)
     {
         va_list vList;
         va_start(vList, cpFmt);
@@ -169,54 +169,54 @@ public:
 
         return liRet;
     };
-    inline int Fmt2(const char* const cpFmt, va_list vList)
+    inline int Fmt2(const tChar* const cpFmt, va_list vList)
     {
         return Fmt2(0, cpFmt, vList);
     };
-    inline int Fmt2(const size_t csztBufOffset, const char* const cpFmt, va_list vList)
+    inline int Fmt2(const size_t csztBufOffset, const tChar* const cpFmt, va_list vList)
     {
-        char* lpPos = mpBuf + csztBufOffset;
+        tChar* lpPos = mpBuf + csztBufOffset;
         return v_vsprintf(lpPos, mszBufSize, cpFmt, vList);
     };
     
 
-    inline bool Cmp(const char* const cpSrc)
+    inline bool Cmp(const tChar* const cpSrc)
     {
         return v_strcmp_equl(mpBuf, cpSrc);
     }
-    inline bool Cmp(const char* const cpSrc, const size_t csztDataLen, const size_t csztBufOffSet = 0)
+    inline bool Cmp(const tChar* const cpSrc, const size_t csztDataLen, const size_t csztBufOffSet = 0)
     {
-        char* lpPos = mpBuf + csztBufOffSet;
+        tChar* lpPos = mpBuf + csztBufOffSet;
         return v_strncmp_equl(lpPos, cpSrc, csztDataLen);
     }
-    inline bool iCmp(const char* const cpSrc, const size_t csztDataLen, const size_t csztBufOffset = 0)
+    inline bool iCmp(const tChar* const cpSrc, const size_t csztDataLen, const size_t csztBufOffset = 0)
     {
         void* lpPos = mpBuf + csztBufOffset;
         return v_memicmp_equl(lpPos, cpSrc, csztDataLen);
     }
 
     // 将cpSrc字符串副本添加到本字符串中
-    inline char* Cat( const char* cpSrc );
+    inline tChar* Cat( const tChar* cpSrc );
     // 将cpSrc字符串中csztSrcLen长度副本添加到本字符串中
-    inline char* Cat( const char* cpSrc, const size_t csztSrcLen );
+    inline tChar* Cat( const tChar* cpSrc, const size_t csztSrcLen );
 
-    inline char* Sub( const char* const cpSubStr );
-    inline char* Sub( const size_t csztBufOffset, const char* const cpSubStr);
+    inline tChar* Sub( const tChar* const cpSubStr );
+    inline tChar* Sub( const size_t csztBufOffset, const tChar* const cpSubStr);
 
-    inline char* Find (const int ciFlag);
-    inline char* Find (const size_t csztBufOffset, const int ciFlag);
-    inline char* rFind(const int ciFlag);
-    inline char* rFind(const size_t csztBufOffset, const int czFlag);
+    inline tChar* Find (const int ciFlag);
+    inline tChar* Find (const size_t csztBufOffset, const int ciFlag);
+    inline tChar* rFind(const int ciFlag);
+    inline tChar* rFind(const size_t csztBufOffset, const int czFlag);
     
-    inline size_t CopyFm( const char* cpSrc );
-    inline size_t CopyFm( const size_t csztBufOffset, const char* cpSrc );
-    inline size_t CopyFm( const char* cpSrc, const size_t csztSrcLen );
-    inline size_t CopyFm( const size_t csztBufOffset, const char* cpSrc, const size_t csztSrcLen );
+    inline size_t CopyFm( const tChar* cpSrc );
+    inline size_t CopyFm( const size_t csztBufOffset, const tChar* cpSrc );
+    inline size_t CopyFm( const tChar* cpSrc, const size_t csztSrcLen );
+    inline size_t CopyFm( const size_t csztBufOffset, const tChar* cpSrc, const size_t csztSrcLen );
 
-    inline size_t CopyTo( char* pDst );
-    inline size_t CopyTo( const size_t csztBufOffset, char* pDst );
-    inline size_t CopyTo( char* pDst, const size_t csztDstSize, const size_t csztDataLen );
-    inline size_t CopyTo( const size_t csztBufOffset, char* pDst, const size_t csztDstSize, const size_t csztDataLen);
+    inline size_t CopyTo( tChar* pDst );
+    inline size_t CopyTo( const size_t csztBufOffset, tChar* pDst );
+    inline size_t CopyTo( tChar* pDst, const size_t csztDstSize, const size_t csztDataLen );
+    inline size_t CopyTo( const size_t csztBufOffset, tChar* pDst, const size_t csztDstSize, const size_t csztDataLen);
 
 }; // End of class CStrPtr
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -225,9 +225,9 @@ public:
 // Name      : CStrPtr(...)
 // Brief     :
 // Return    : 
-// Parameter : char *  & pBuf
+// Parameter : tChar *  & pBuf
 // Parameter : const size_t cszBufSize
-CStrPtr::CStrPtr(char* const pBuf, const size_t cszBufSize) :mpBuf(pBuf), mszBufSize(cszBufSize)
+CStrPtr::CStrPtr(tChar* const pBuf, const size_t cszBufSize) :mpBuf(pBuf), mszBufSize(cszBufSize)
 {
 
 }
@@ -248,9 +248,9 @@ CStrPtr::~CStrPtr()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : operator+(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char * cpSrc
-char* CStrPtr::operator+(const char* cpSrc)
+// Return    : tChar*
+// Parameter : const tChar * cpSrc
+tChar* CStrPtr::operator+(const tChar* cpSrc)
 {
     return v_strcat(mpBuf, mszBufSize, cpSrc);
 }
@@ -261,8 +261,8 @@ char* CStrPtr::operator+(const char* cpSrc)
 // Name      : operator=(...)
 // Brief     :
 // Return    : void
-// Parameter : const char * cpSrc
-void CStrPtr::operator=(const char* cpSrc)
+// Parameter : const tChar * cpSrc
+void CStrPtr::operator=(const tChar* cpSrc)
 {
     size_t lsztRet = v_strcpy(mpBuf, mszBufSize, cpSrc);
 }
@@ -273,8 +273,8 @@ void CStrPtr::operator=(const char* cpSrc)
 // Name      : operator<(...)
 // Brief     :
 // Return    : bool
-// Parameter : const char * cpSrc
-bool CStrPtr::operator<(const char* cpSrc)
+// Parameter : const tChar * cpSrc
+bool CStrPtr::operator<(const tChar* cpSrc)
 {
     return v_strcmp_less(mpBuf, cpSrc);
 }
@@ -285,8 +285,8 @@ bool CStrPtr::operator<(const char* cpSrc)
 // Name      : operator>(...)
 // Brief     :
 // Return    : bool
-// Parameter : const char * cpSrc
-bool CStrPtr::operator>(const char* cpSrc)
+// Parameter : const tChar * cpSrc
+bool CStrPtr::operator>(const tChar* cpSrc)
 {
     return v_strcmp_more(mpBuf, cpSrc);
 }
@@ -297,8 +297,8 @@ bool CStrPtr::operator>(const char* cpSrc)
 // Name      : operator==(...)
 // Brief     :
 // Return    : bool
-// Parameter : const char * cpSrc
-bool CStrPtr::operator==(const char* cpSrc)
+// Parameter : const tChar * cpSrc
+bool CStrPtr::operator==(const tChar* cpSrc)
 {
     return v_strcmp_equl(mpBuf, cpSrc);
 }
@@ -310,7 +310,7 @@ bool CStrPtr::operator==(const char* cpSrc)
 // Brief     : # add method brief here #
 // Return    : void
 // Parameter : null
-char* CStrPtr::operator [](const size_t csztBufOffset)
+tChar* CStrPtr::operator [](const size_t csztBufOffset)
 {
     return (mpBuf + csztBufOffset);
 }
@@ -320,8 +320,8 @@ char* CStrPtr::operator [](const size_t csztBufOffset)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : operator*(...)
 // Brief     :
-// Return    : char*
-char* CStrPtr::operator*()
+// Return    : tChar*
+tChar* CStrPtr::operator*()
 {
     return mpBuf;
 }
@@ -331,8 +331,8 @@ char* CStrPtr::operator*()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : c_str(...)
 // Brief     :
-// Return    : const char*
-const char* CStrPtr::c_str()
+// Return    : const tChar*
+const tChar* CStrPtr::c_str()
 {
     return mpBuf;
 }
@@ -364,9 +364,9 @@ size_t CStrPtr::size()
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : At(...)
 // Brief     :
-// Return    : char*
+// Return    : tChar*
 // Parameter : const size_t csztBufOffset
-char* CStrPtr::At(const size_t csztBufOffset)
+tChar* CStrPtr::At(const size_t csztBufOffset)
 {
     return (mpBuf + csztBufOffset);
 }
@@ -376,9 +376,9 @@ char* CStrPtr::At(const size_t csztBufOffset)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Cat(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char * cSrc
-char* CStrPtr::Cat(const char* cSrc)
+// Return    : tChar*
+// Parameter : const tChar * cSrc
+tChar* CStrPtr::Cat(const tChar* cSrc)
 {
     return v_strcat(mpBuf, mszBufSize, cSrc);
 }
@@ -388,10 +388,10 @@ char* CStrPtr::Cat(const char* cSrc)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Cat(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char * cpSrc
+// Return    : tChar*
+// Parameter : const tChar * cpSrc
 // Parameter : const size_t csztSrcLen
-char* CStrPtr::Cat(const char* cpSrc, const size_t csztSrcLen)
+tChar* CStrPtr::Cat(const tChar* cpSrc, const size_t csztSrcLen)
 {
     return v_strncat(mpBuf, mszBufSize, cpSrc, csztSrcLen);
 }
@@ -401,9 +401,9 @@ char* CStrPtr::Cat(const char* cpSrc, const size_t csztSrcLen)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Sub(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char * cpSubStr
-char* CStrPtr::Sub(const char* const cpSubStr)
+// Return    : tChar*
+// Parameter : const tChar * cpSubStr
+tChar* CStrPtr::Sub(const tChar* const cpSubStr)
 {
     return v_strstr(mpBuf, cpSubStr);
 }
@@ -413,12 +413,12 @@ char* CStrPtr::Sub(const char* const cpSubStr)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Sub(...)
 // Brief     :
-// Return    : char*
+// Return    : tChar*
 // Parameter : const size_t csztBufOffset
-// Parameter : const char * cpSubStr
-char* CStrPtr::Sub(const size_t csztBufOffset, const char* const cpSubStr)
+// Parameter : const tChar * cpSubStr
+tChar* CStrPtr::Sub(const size_t csztBufOffset, const tChar* const cpSubStr)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strstr(lpPos, cpSubStr);
 }
 // End of function Sub(...)
@@ -427,12 +427,12 @@ char* CStrPtr::Sub(const size_t csztBufOffset, const char* const cpSubStr)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : rFind(...)
 // Brief     :
-// Return    : char*
+// Return    : tChar*
 // Parameter : const size_t csztBufOffset
-// Parameter : const char czFlag
-char* CStrPtr::rFind(const size_t csztBufOffset, const int ciFlag)
+// Parameter : const tChar czFlag
+tChar* CStrPtr::rFind(const size_t csztBufOffset, const int ciFlag)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strrchr(lpPos, ciFlag);
 }
 // End of function rFind(...)
@@ -441,9 +441,9 @@ char* CStrPtr::rFind(const size_t csztBufOffset, const int ciFlag)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : rFind(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char czFlag
-char* CStrPtr::rFind(const int ciFlag)
+// Return    : tChar*
+// Parameter : const tChar czFlag
+tChar* CStrPtr::rFind(const int ciFlag)
 {
     return v_strrchr(mpBuf, ciFlag);
 }
@@ -453,12 +453,12 @@ char* CStrPtr::rFind(const int ciFlag)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Find(...)
 // Brief     :
-// Return    : char*
+// Return    : tChar*
 // Parameter : const size_t csztBufOffset
-// Parameter : const char czFlag
-char* CStrPtr::Find(const size_t csztBufOffset, const int ciFlag)
+// Parameter : const tChar czFlag
+tChar* CStrPtr::Find(const size_t csztBufOffset, const int ciFlag)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strchr(lpPos, ciFlag);
 }
 // End of function Find(...)
@@ -467,9 +467,9 @@ char* CStrPtr::Find(const size_t csztBufOffset, const int ciFlag)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : Find(...)
 // Brief     :
-// Return    : char*
-// Parameter : const char czFlag
-char* CStrPtr::Find(const int ciFlag)
+// Return    : tChar*
+// Parameter : const tChar czFlag
+tChar* CStrPtr::Find(const int ciFlag)
 {
     return v_strchr(mpBuf, ciFlag);
 }
@@ -480,8 +480,8 @@ char* CStrPtr::Find(const int ciFlag)
 // Name      : CopyFm(...)
 // Brief     :
 // Return    : void
-// Parameter : const char * cpSrc
-size_t CStrPtr::CopyFm(const char* cpSrc)
+// Parameter : const tChar * cpSrc
+size_t CStrPtr::CopyFm(const tChar* cpSrc)
 {
     return v_strcpy(mpBuf, mszBufSize, cpSrc);
 }
@@ -493,10 +493,10 @@ size_t CStrPtr::CopyFm(const char* cpSrc)
 // Brief     :
 // Return    : void
 // Parameter : const size_t csztBufOffset
-// Parameter : const char * cpSrc
-size_t CStrPtr::CopyFm(const size_t csztBufOffset, const char* cpSrc)
+// Parameter : const tChar * cpSrc
+size_t CStrPtr::CopyFm(const size_t csztBufOffset, const tChar* cpSrc)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strcpy(lpPos, mszBufSize, cpSrc);
 }
 // End of function CopyFm(...)
@@ -506,9 +506,9 @@ size_t CStrPtr::CopyFm(const size_t csztBufOffset, const char* cpSrc)
 // Name      : CopyFm(...)
 // Brief     :
 // Return    : void
-// Parameter : const char * cpSrc
+// Parameter : const tChar * cpSrc
 // Parameter : const size_t csztSrcLen
-size_t CStrPtr::CopyFm(const char* cpSrc, const size_t csztSrcLen)
+size_t CStrPtr::CopyFm(const tChar* cpSrc, const size_t csztSrcLen)
 {
     return v_strncpy(mpBuf, mszBufSize, cpSrc, csztSrcLen);
 }
@@ -520,11 +520,11 @@ size_t CStrPtr::CopyFm(const char* cpSrc, const size_t csztSrcLen)
 // Brief     :
 // Return    : void
 // Parameter : const size_t csztBufOffset
-// Parameter : const char * cpSrc
+// Parameter : const tChar * cpSrc
 // Parameter : const size_t csztSrcLen
-size_t CStrPtr::CopyFm(const size_t csztBufOffset, const char* cpSrc, const size_t csztSrcLen)
+size_t CStrPtr::CopyFm(const size_t csztBufOffset, const tChar* cpSrc, const size_t csztSrcLen)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strncpy(lpPos, mszBufSize, cpSrc, csztSrcLen);
 }
 // End of function CopyFm(...)
@@ -534,8 +534,8 @@ size_t CStrPtr::CopyFm(const size_t csztBufOffset, const char* cpSrc, const size
 // Name      : CopyTo(...)
 // Brief     :
 // Return    : void
-// Parameter : char * pDst
-size_t CStrPtr::CopyTo(char* pDst)
+// Parameter : tChar * pDst
+size_t CStrPtr::CopyTo(tChar* pDst)
 {
     return v_strcpy(pDst, mszBufSize, mpBuf);
 }
@@ -547,10 +547,10 @@ size_t CStrPtr::CopyTo(char* pDst)
 // Brief     :
 // Return    : void
 // Parameter : const size_t csztBufOffset
-// Parameter : char * pDst
-size_t CStrPtr::CopyTo(const size_t csztBufOffset, char* pDst)
+// Parameter : tChar * pDst
+size_t CStrPtr::CopyTo(const size_t csztBufOffset, tChar* pDst)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strcpy(pDst, mszBufSize, lpPos);
 }
 // End of function CopyTo(...)
@@ -560,10 +560,10 @@ size_t CStrPtr::CopyTo(const size_t csztBufOffset, char* pDst)
 // Name      : CopyTo(...)
 // Brief     :
 // Return    : void
-// Parameter : char * pDst
+// Parameter : tChar * pDst
 // Parameter : const size_t csztDstSize
 // Parameter : const size_t csztDataLen
-size_t CStrPtr::CopyTo(char* pDst, const size_t csztDstSize, const size_t csztDataLen)
+size_t CStrPtr::CopyTo(tChar* pDst, const size_t csztDstSize, const size_t csztDataLen)
 {
     return v_strncpy(pDst, csztDstSize, mpBuf, csztDataLen);
 }
@@ -575,12 +575,12 @@ size_t CStrPtr::CopyTo(char* pDst, const size_t csztDstSize, const size_t csztDa
 // Brief     :
 // Return    : void
 // Parameter : const size_t csztBufOffset
-// Parameter : char * pDst
+// Parameter : tChar * pDst
 // Parameter : const size_t csztDstSize
 // Parameter : const size_t csztDataLen
-size_t CStrPtr::CopyTo(const size_t csztBufOffset, char* pDst, const size_t csztDstSize, const size_t csztDataLen)
+size_t CStrPtr::CopyTo(const size_t csztBufOffset, tChar* pDst, const size_t csztDstSize, const size_t csztDataLen)
 {
-    char* lpPos = mpBuf + csztBufOffset;
+    tChar* lpPos = mpBuf + csztBufOffset;
     return v_strncpy(pDst, csztDstSize, lpPos, csztDataLen);
 }
 // End of function CopyTo(...)

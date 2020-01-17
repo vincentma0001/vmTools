@@ -51,7 +51,7 @@ namespace vStd{
         if ( lsztDataLen == 0 ) return vString(vT(""));
         
         size_t lsztStartPos = 0;
-        vChar lszValue = strData[lsztStartPos];
+        tChar lszValue = strData[lsztStartPos];
         // while ( (lsztStartPos!=lsztDataLen) && ( (lszValue == ' ') || (lszValue == '\t') || (lszValue == '\n') ) )
         while ( (lsztStartPos!=lsztDataLen) && (isspace(lszValue)))
         {
@@ -78,7 +78,7 @@ namespace vStd{
         if (lsztDataLen == 0) return vString(vT(""));
 
         size_t lsztStartPos = 0;
-        vChar lszValue = strData[lsztStartPos];
+        tChar lszValue = strData[lsztStartPos];
         // while ((lsztStartPos != lsztDataLen) && ((lszValue == ' ') || (lszValue == '\t') || (lszValue == '\n')))
         while ((lsztStartPos != lsztDataLen) && (isspace(lszValue)))
         {
@@ -96,7 +96,7 @@ namespace vStd{
         if (lsztDataLen == 0) return vString(vT(""));
 
         size_t lsztEndPos = lsztDataLen;
-        vChar lszValue = strData[lsztEndPos];
+        tChar lszValue = strData[lsztEndPos];
         // while ((lsztEndPos != 0)  && ((lszValue == ' ') || (lszValue == '\t') || (lszValue == '\n')))
         while ((lsztEndPos != 0)  && (isspace(lszValue)))
         {
@@ -108,7 +108,7 @@ namespace vStd{
         return strData.substr(0, lsztNewDataLen);
     }
 
-    inline vString v_std_str_substr(const vString& strData, const vChar const cszBegin, const vChar const cszEnd )
+    inline vString v_std_str_substr(const vString& strData, const tChar const cszBegin, const tChar const cszEnd )
     {
         // 获取整个字符串长度
         size_t lsztDataLen = strData.length();
@@ -133,7 +133,7 @@ namespace vStd{
         return strData.substr(lsztStartPos, lsztNewDataLen);
     }
 
-    inline vString v_std_str_substr_first(const vString& strData, const vChar const cszBegin, const vChar const cszEnd)
+    inline vString v_std_str_substr_first(const vString& strData, const tChar const cszBegin, const tChar const cszEnd)
     {
         // 获取整个字符串长度
         size_t lsztDataLen = strData.length();

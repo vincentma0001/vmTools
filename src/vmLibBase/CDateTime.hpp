@@ -146,7 +146,7 @@ public:
     //      %DD  (Day of month, zero padded      e.g,                    01-31)  = %d
     //      %dd  (Day of month, space padded     e.g,                     1-31)  = %e
     //      %hh  (Hour in 24h                    e.g.                    01-24)  = %H
-    //      %II  (Hour in 12h                    e.g.                    01-12)  = %I
+    //      %ii  (Hour in 12h                    e.g.                    01-12)  = %I
     //      %mm  (Minute                         e.g.                    00-59)  = %M
     //      %ss  (Second                         e.g.                    00-61)  = %S
     //      %ms  (millisecond                    e.g.                  000-999)
@@ -166,7 +166,7 @@ public:
     //      %SD  (Short MM/DD/YY date            e.g.                 08/23/01)  = %D
     //      %sd  (Short YY/MM/DD date            e.g.                 01/08/23)  = %y/%m/%d
     //      %FD  (Short YYYY-MM-DD date          e.g.               2001-08-23)  = %F
-    //      %fd  (Short YYYY-MM-DD date          e.g.               08-23-2001)  = %m-%d-%Y
+    //      %fd  (Short MM-DD-YYYY date          e.g.               08-23-2001)  = %m-%d-%Y
     //      %RT  (24 - hour HH:MM time           e.g.                    14:55)  = %R
     //      %rt  (12 - hour clock time           e.g.              02:55:02 pm)  = %r
     //      %TT  (ISO 8601 time format           e.g.                 14:55:02)  = %T
@@ -178,7 +178,7 @@ public:
     //      %n   (New        - line character('\n')  
     //      %t   (Horizontal - tab  character('\t')  
     //      %%   ( A % sign	- %
-    inline tChar* Fmt( const tChar* const pFmt )
+    inline const tChar* Fmt( const tChar* const cpFmt )
     {
         // 初始化缓存区数据
         vm::CParser loParser(vT('%'), cpFmt);
@@ -201,7 +201,7 @@ public:
         vm::CParser::CPattern loPatternDTForhh( vT("%hh"), vT("%H") );
         loParser.Regist(loPatternDTForhh);
         //      %II  (Hour in 12h                    e.g.                    01-12)  = %I
-        vm::CParser::CPattern loPatternDTForII( vT("%II"), vT("%I") );
+        vm::CParser::CPattern loPatternDTForII( vT("%ii"), vT("%I") );
         loParser.Regist(loPatternDTForII);
         //      %mm  (Minute                         e.g.                    00-59)  = %M
         vm::CParser::CPattern loPatternDTFormm( vT("%mm"), vT("%M") );
@@ -237,7 +237,7 @@ public:
         vm::CParser::CPattern loPatternDTForAP( vT("%AP"), vT("%p") );
         loParser.Regist(loPatternDTForAP);
         //      %AM  (Abbreviated month              e.g.                   August)  = %B
-        vm::CParser::CPattern loPatternDTForAM( vT("%AM"), vT("%b") );
+        vm::CParser::CPattern loPatternDTForAM( vT("%AM"), vT("%B") );
         loParser.Regist(loPatternDTForAM);
         //      %am  (Abbreviated month              e.g.                      Aug)  = %b
         vm::CParser::CPattern loPatternDTForam( vT("%am"), vT("%b") );
@@ -296,8 +296,7 @@ public:
         tChar lszNewFmt[_V_CDATETIME_MAX_BUF_] = {0x00};
         loParser.Parse(lszNewFmt, sizeof(lszNewFmt));
 
-
-        tChar lpTimeStr = toTimeStr( lszNewFmt );
+        const tChar* lpTimeStr = toTimeStr( lszNewFmt );
         return lpTimeStr;
     };
 

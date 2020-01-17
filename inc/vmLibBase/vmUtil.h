@@ -54,6 +54,15 @@ namespace vm{
 #   define vMemSet(szBuf, ciFlag) vm::v_memset(&szBuf,ciFlg,sizeof(szBuf))
 #endif // vMemSet
 
+#ifndef    vStrPosBegin
+#    define vStrPosBegin vMinsInt
+#endif  // vStrPosBegin
+
+#ifndef    vStrPosEnded
+#    define vStrPosEnded vMinsInt
+#endif  // vStrPosEnded
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
 #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 // --------------------------------------------------------------------------------------
@@ -63,11 +72,11 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strchr(...)
 // Brief     : 在字节串中搜索第一次出现的ciVal值地址
-// Return    : char*                            - 查找的地址
+// Return    : tChar*                            - 查找的地址
 //             nullptr                          - 未查找的指定的数据
 // Parameter : cpBuf                            - 被搜索的字符串
 //             ciVal                            - 标识数据
-inline char* v_strchr(char* const cpBuf, const int ciVal)
+inline tChar* v_strchr(tChar* const cpBuf, const int ciVal)
 {
     return strchr(cpBuf, ciVal);
 }
@@ -77,11 +86,11 @@ inline char* v_strchr(char* const cpBuf, const int ciVal)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strrchr(...)
 // Brief     : 在字节串中反向搜索第一次出现的ciVal地址
-// Return    : char*                            - 查找的地址
+// Return    : tChar*                            - 查找的地址
 //             nullptr                          - 未查找的指定的数据
 // Parameter : cpBuf                            - 被搜索的字符串
 //             ciVal                            - 标识数据
-inline char* v_strrchr( char* const cpBuf, const int ciVal )
+inline tChar* v_strrchr( tChar* const cpBuf, const int ciVal )
 {
     return strrchr(cpBuf, ciVal);
 }
@@ -91,11 +100,11 @@ inline char* v_strrchr( char* const cpBuf, const int ciVal )
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strstr(...)
 // Brief     : 在字节串中查找第一次出现子字符串的地址
-// Return    : char*                            - 查找的地址，当cpSubStr为null时，返回cpBuf
+// Return    : tChar*                            - 查找的地址，当cpSubStr为null时，返回cpBuf
 //             nullptr                          - 未查找到指定的字符串
 // Parameter : cpBuf                            - 被搜索的字符串
 //             cpSubStr                         - 需要查找的子字符串
-inline char* v_strstr( char* const cpBuf, const char* const cpSubStr )
+inline tChar* v_strstr( tChar* const cpBuf, const tChar* const cpSubStr )
 {
     return strstr(cpBuf, cpSubStr);
 }
@@ -109,7 +118,7 @@ inline char* v_strstr( char* const cpBuf, const char* const cpSubStr )
 //             false                            - 两个字符串不相等
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strcmp_equl( const char* const pStr1, const char* const pStr2 )
+inline bool v_strcmp_equl( const tChar* const pStr1, const tChar* const pStr2 )
 {
     int liRet  = strcmp(pStr1, pStr2);
     if ( liRet == 0 ) 
@@ -127,7 +136,7 @@ inline bool v_strcmp_equl( const char* const pStr1, const char* const pStr2 )
 //             false                            - pStr1字符串小于或等于pStr2字符串
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strcmp_more(const char* const pStr1, const char* const pStr2)
+inline bool v_strcmp_more(const tChar* const pStr1, const tChar* const pStr2)
 {
     int liRet = strcmp(pStr1, pStr2);
     if (liRet > 0) 
@@ -145,7 +154,7 @@ inline bool v_strcmp_more(const char* const pStr1, const char* const pStr2)
 //             false                            - pStr1字符串大于或等于pStr2字符串
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strcmp_less(const char* const pStr1, const char* const pStr2)
+inline bool v_strcmp_less(const tChar* const pStr1, const tChar* const pStr2)
 {
     int liRet = strcmp(pStr1, pStr2);
     if (liRet < 0) 
@@ -163,7 +172,7 @@ inline bool v_strcmp_less(const char* const pStr1, const char* const pStr2)
 //             false                            - 两个字符串不相等
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strncmp_equl(const char* const pStr1, const char* const pStr2, const size_t csztDataLen)
+inline bool v_strncmp_equl(const tChar* const pStr1, const tChar* const pStr2, const size_t csztDataLen)
 {
     int liRet = strncmp(pStr1, pStr2, csztDataLen);
     if (liRet == 0)
@@ -181,7 +190,7 @@ inline bool v_strncmp_equl(const char* const pStr1, const char* const pStr2, con
 //             false                            - pStr1字符串小于或等于pStr2字符串
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strncmp_more(const char* const pStr1, const char* const pStr2,const size_t csztDataLen)
+inline bool v_strncmp_more(const tChar* const pStr1, const tChar* const pStr2,const size_t csztDataLen)
 {
     int liRet = strncmp(pStr1, pStr2,csztDataLen);
     if (liRet > 0)
@@ -199,7 +208,7 @@ inline bool v_strncmp_more(const char* const pStr1, const char* const pStr2,cons
 //             false                            - pStr1字符串大于或等于pStr2字符串
 // Parameter : pStr1                            - 字符串之一
 //             pStr2                            - 字符串之一
-inline bool v_strncmp_less(const char* const pStr1, const char* const pStr2, const size_t csztDataLen )
+inline bool v_strncmp_less(const tChar* const pStr1, const tChar* const pStr2, const size_t csztDataLen )
 {
     int liRet = strncmp(pStr1, pStr2, csztDataLen);
     if (liRet < 0)
@@ -214,13 +223,13 @@ inline bool v_strncmp_less(const char* const pStr1, const char* const pStr2, con
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strncat(...)
 // Brief     : 将由cpSrc字节串的副本中csztDataLen长度的字节追加到由pDst字节串的末尾
-// Return    : char*                                - 返回复制完的字符串地址
+// Return    : tChar*                                - 返回复制完的字符串地址
 //             nullptr                              - 出现异常
 // Parameter : pDst                                 - 目的内存区地址
 //             csztDstSize                          - 目的内存区大小
 //             cpSrc                                - 源字符串
 //             csztDataLen                          - 需复制的字符串大小
-inline char* v_strncat(char* const pDst, const size_t csztDstSize, const char* const cpSrc, const size_t csztDataLen)
+inline tChar* v_strncat(tChar* const pDst, const size_t csztDstSize, const tChar* const cpSrc, const size_t csztDataLen)
 {
 
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
@@ -238,12 +247,12 @@ inline char* v_strncat(char* const pDst, const size_t csztDstSize, const char* c
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strcat(...)
 // Brief     : 将由cpSrc字节串的副本追加到由pDst字节串的末尾
-// Return    : char*                                - 返回复制完的字符串地址
+// Return    : tChar*                                - 返回复制完的字符串地址
 //             nullptr                              - 出现异常
 // Parameter : pDst                                 - 目的内存区地址
 //             csztDstSize                          - 目的内存区大小
 //             cpSrc                                - 源字符串
-inline char* v_strcat(char* const pDst, const size_t csztDstSize, const char* const cpSrc)
+inline tChar* v_strcat(tChar* const pDst, const size_t csztDstSize, const tChar* const cpSrc)
 {
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
     errno_t loRet = strcat_s(pDst, csztDstSize, cpSrc);
@@ -260,13 +269,13 @@ inline char* v_strcat(char* const pDst, const size_t csztDstSize, const char* co
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strncpy(...)
 // Brief     : 将由cpSrc字节串的副本中csztDataLen长度的字节复制到由pDst指向的缓存区中
-// Return    : char*                                - 返回复制完的字符串地址
+// Return    : tChar*                                - 返回复制完的字符串地址
 //             nullptr                              - 出现异常
 // Parameter : pDst                                 - 目的内存区地址
 //             csztDstSize                          - 目的内存区大小
 //             cpSrc                                - 源字符串
 //             csztDataLen                          - 需复制的字符串大小
-inline size_t v_strncpy(char* const pDst, const size_t csztDstSize, const char* const cpSrc, const size_t csztDataLen)
+inline size_t v_strncpy(tChar* const pDst, const size_t csztDstSize, const tChar* const cpSrc, const size_t csztDataLen)
 {
     size_t lsztDatalen = vMin((csztDstSize-sizeof(tChar)),csztDataLen);
     
@@ -279,7 +288,7 @@ inline size_t v_strncpy(char* const pDst, const size_t csztDstSize, const char* 
 
     return csztDataLen;
 #else
-    char* lpEnd = memcpy(pDst, cpSrc, lsztDatalen)
+    tChar* lpEnd = vmemcpy(pDst, cpSrc, lsztDatalen)
     if ( lpEnd == nullptr ){ return 0; }
 
     size_t lsztCopied= lpEnd -pDst;
@@ -292,12 +301,12 @@ inline size_t v_strncpy(char* const pDst, const size_t csztDstSize, const char* 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strcpy(...)
 // Brief     : 将由cpSrc字节串的副本复制到由pDst指向的缓存区中
-// Return    : char*                                - 返回复制完的字符串地址
+// Return    : tChar*                                - 返回复制完的字符串地址
 //             nullptr                              - 出现异常
 // Parameter : pDst                                 - 目的内存区地址
 //             csztDstSize                          - 目的内存区大小
 //             cpSrc                                - 源字符串
-inline size_t v_strcpy( char* const pDst, const size_t csztDstSize, const char* const cpSrc )
+inline size_t v_strcpy( tChar* const pDst, const size_t csztDstSize, const tChar* const cpSrc )
 {
     size_t lsztSrcLen = vStrLen(cpSrc);
     size_t lsztDataLen = vMin( csztDstSize, lsztSrcLen );
@@ -309,7 +318,7 @@ inline size_t v_strcpy( char* const pDst, const size_t csztDstSize, const char* 
     
     return lsztDataLen;
 #else
-    char* lpEnd = strcpy(pDst, cpSrc)
+    tChar* lpEnd = strcpy(pDst, cpSrc)
     if ( lpEnd == nullptr )
         return 0;
     
@@ -516,7 +525,7 @@ inline size_t v_memccpy(void* const pDst, const size_t csztDstSize, const void* 
         return csztDataLen
 #endif
 
-    size_t lsztCoyied = (char*)lpEnd - (char*)pDst; 
+    size_t lsztCoyied = (tChar*)lpEnd - (tChar*)pDst; 
     return lsztCoyied;
 }
 // End of function v_memccpy(...)
@@ -587,7 +596,7 @@ inline size_t v_memmove(void* const pDst, const size_t csztDstSize, const void* 
 //             csztDstSize                          - 目的缓存区大小
 //             cpFmt                                - 格式字符串
 //             vList                                - 参数列表
-inline int v_vsprintf(char* const pDst, const size_t csztDstSize, const char* const cpFmt, va_list vList)
+inline int v_vsprintf(tChar* const pDst, const size_t csztDstSize, const tChar* const cpFmt, va_list vList)
 {
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     int liRet = vsprintf_s(pDst, csztDstSize, cpFmt, vList);
@@ -610,7 +619,7 @@ inline int v_vsprintf(char* const pDst, const size_t csztDstSize, const char* co
 //             csztDstSize                          - 目的缓存区大小
 //             cpFmt                                - 格式字符串
 //             ...                                  - 参数列表
-inline int v_sprintf( char* const pDst, const size_t csztDstSize, const char* const cpFmt, ... )
+inline int v_sprintf( tChar* const pDst, const size_t csztDstSize, const tChar* const cpFmt, ... )
 {
     va_list vlist;
     va_start( vlist, cpFmt );
@@ -628,13 +637,13 @@ inline int v_sprintf( char* const pDst, const size_t csztDstSize, const char* co
 // End of function v_sprintf(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
-inline char* v_strtrim_left( char* const pData, const size_t csztDataLen )
+inline tChar* v_strtrim_left( tChar* const pData, const size_t csztDataLen )
 {
     // TODO : 添加输入错误处理
     if (csztDataLen <= 0) return nullptr;
-    char* lpEnd = pData+ csztDataLen;
+    tChar* lpEnd = pData+ csztDataLen;
 
-    char* lpPos = pData;
+    tChar* lpPos = pData;
     size_t lsztOffset = 0;
     // while ( (lpPos!=lpEnd) && ( (*lpPos == ' ') || (*lpPos=='\n') || (*lpPos=='\t') )  )
     while ( (lpPos!=lpEnd) && (isspace(*lpPos)))
@@ -652,12 +661,12 @@ inline char* v_strtrim_left( char* const pData, const size_t csztDataLen )
     return pData;
 }
 
-inline char* v_strtrim_right( char* const pData, const size_t csztDataLen )
+inline tChar* v_strtrim_right( tChar* const pData, const size_t csztDataLen )
 {
     if (csztDataLen <= 0) return nullptr;
-    char* lpEnd = pData+ csztDataLen;
+    tChar* lpEnd = pData+ csztDataLen;
 
-    char* lpPos = lpEnd-1;
+    tChar* lpPos = lpEnd-1;
     size_t lsztOffset = 0;
     // while( (lpPos!=pData) && ((*lpPos==' ') || (*lpPos=='\t') || (*lpPos=='\n') ) )
     while( (lpPos>pData) && (isspace(*lpPos)))
@@ -671,12 +680,12 @@ inline char* v_strtrim_right( char* const pData, const size_t csztDataLen )
     return pData;
 }
 
-inline char* v_strtrim( char* const pData, const size_t csztDataLen )
+inline tChar* v_strtrim( tChar* const pData, const size_t csztDataLen )
 {
     if (csztDataLen <= 0) return nullptr;
-    char* lpEnd = pData + csztDataLen;
+    tChar* lpEnd = pData + csztDataLen;
 
-    char* lpStartPos = pData;
+    tChar* lpStartPos = pData;
     size_t lsztStartOffset = 0;
     // while ((lpStartPos != lpEnd) && ((*lpStartPos == ' ') || (*lpStartPos == '\n') || (*lpStartPos == '\t')))
     while ((lpStartPos != lpEnd) && (isspace(*lpStartPos)))
@@ -685,7 +694,7 @@ inline char* v_strtrim( char* const pData, const size_t csztDataLen )
         lpStartPos = pData + lsztStartOffset;
     }
 
-    char* lpEndPos = lpEnd;
+    tChar* lpEndPos = lpEnd;
     size_t lsztEndOffset = 0;
     // while ((lpEndPos != lpStartPos) && ((*lpEndPos == ' ') || (*lpEndPos == '\t') || (*lpEndPos == '\n')))
     while ((lpEndPos != lpStartPos) && (isspace(*lpEndPos)))
@@ -703,20 +712,20 @@ inline char* v_strtrim( char* const pData, const size_t csztDataLen )
     return pData;
 }
 
-inline size_t v_strtrim_left(char*const        pDst, const size_t sztDstSize,
-                             const char* const pSrc, const size_t  sztSrcLen)
+inline size_t v_strtrim_left(tChar*const        pDst, const size_t sztDstSize,
+                             const tChar* const pSrc, const size_t  sztSrcLen)
 {
     // TODO : 添加输入错误处理
     if (sztSrcLen <= 0) return 0;
-    char* lpEnd = (char*)pSrc + sztSrcLen;
+    tChar* lpEnd = (tChar*)pSrc + sztSrcLen;
 
-    char* lpPos = (char*)pSrc;
+    tChar* lpPos = (tChar*)pSrc;
     size_t lsztOffset = 0;
     // while ((lpPos != lpEnd) && ((*lpPos == ' ') || (*lpPos == '\n') || (*lpPos == '\t')))
     while ((lpPos != lpEnd) && (isspace(*lpPos)))
     {
         lsztOffset++;
-        lpPos = (char*)pSrc + lsztOffset;
+        lpPos = (tChar*)pSrc + lsztOffset;
     }
 
     size_t lsztNewDataLen = sztSrcLen - lsztOffset;
@@ -726,13 +735,13 @@ inline size_t v_strtrim_left(char*const        pDst, const size_t sztDstSize,
     return lsztCopied;
 }
 
-inline size_t v_strtrim_right(char*const        pDst, const size_t sztDstSize,
-                              const char* const pSrc, const size_t  sztSrcLen)
+inline size_t v_strtrim_right(tChar*const        pDst, const size_t sztDstSize,
+                              const tChar* const pSrc, const size_t  sztSrcLen)
 {
     if (sztSrcLen <= 0) return 0;
-    char* lpEnd = (char*)pSrc + sztSrcLen;
+    tChar* lpEnd = (tChar*)pSrc + sztSrcLen;
 
-    char* lpPos = lpEnd;
+    tChar* lpPos = lpEnd;
     size_t lsztOffset = 0;
     // while ((lpPos != pSrc) && ((*lpPos == ' ') || (*lpPos == '\t') || (*lpPos == '\n')))
     while ((lpPos != pSrc) && (isspace(*lpPos)))
@@ -748,22 +757,22 @@ inline size_t v_strtrim_right(char*const        pDst, const size_t sztDstSize,
     return lsztNewDataLen;
 }
 
-inline size_t v_strtrim(const char* const pSrc, const size_t  sztSrcLen, 
-                        char*const        pDst, const size_t sztDstSize)
+inline size_t v_strtrim(const tChar* const pSrc, const size_t  sztSrcLen, 
+                        tChar*const        pDst, const size_t sztDstSize)
 {
     if (sztSrcLen <= 0) return 0;
-    char* lpEnd = (char*)pSrc + sztSrcLen;
+    tChar* lpEnd = (tChar*)pSrc + sztSrcLen;
 
-    char* lpStartPos = (char*)pSrc;
+    tChar* lpStartPos = (tChar*)pSrc;
     size_t lsztStartOffset = 0;
     // while ((lpStartPos != lpEnd) && ((*lpStartPos == ' ') || (*lpStartPos == '\n') || (*lpStartPos == '\t')))
     while ((lpStartPos != lpEnd) && (isspace(*lpStartPos)))
     {
         lsztStartOffset++;
-        lpStartPos = (char*)pSrc + lsztStartOffset;
+        lpStartPos = (tChar*)pSrc + lsztStartOffset;
     }
 
-    char* lpEndPos = lpEnd;
+    tChar* lpEndPos = lpEnd;
     size_t lsztEndOffset = 0;
     // while ((lpEndPos != lpStartPos) && ((*lpEndPos == ' ') || (*lpEndPos == '\t') || (*lpEndPos == '\n')))
     while ((lpEndPos != lpStartPos) && ( isspace(*lpEndPos)))
@@ -779,19 +788,20 @@ inline size_t v_strtrim(const char* const pSrc, const size_t  sztSrcLen,
     return lsztNewDataLen;
 }
 
-inline size_t v_str_substr(char* const       pDst, const size_t csztDstSize,
-                           const char* const pSrc, const size_t  csztSrcLen, 
+
+inline size_t v_str_substr(tChar* const       pDst, const size_t csztDstSize,
+                           const tChar* const pSrc, const size_t  csztSrcLen, 
                            const int      ciBFlag, const int      ciEFlag )
 {
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
     // 获取子字符串开头的位置
-    char* lpStartPos = const_cast<char*>(pSrc);
+    tChar* lpStartPos = const_cast<tChar*>(pSrc);
     // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
     if  ( ciBFlag != vMinsInt  )
     {
-        lpStartPos = v_strchr((char*)pSrc, ciBFlag);
+        lpStartPos = v_strchr((tChar*)pSrc, ciBFlag);
         if (lpStartPos == nullptr) return 0;
 
         lpStartPos+=sizeof(tChar);
@@ -799,11 +809,11 @@ inline size_t v_str_substr(char* const       pDst, const size_t csztDstSize,
     // End of if () ...
 
     // 获取子字符串结尾的位置
-    char* lpEndPos = const_cast<char*>(pSrc)+csztSrcLen;
+    tChar* lpEndPos = const_cast<tChar*>(pSrc)+csztSrcLen;
     // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
     if  (  ciEFlag != vMinsInt  )
     {
-        lpEndPos = v_strrchr((char*)pSrc, ciEFlag);
+        lpEndPos = v_strrchr((tChar*)pSrc, ciEFlag);
         if (lpEndPos == nullptr) return 0;
 
     } // End of if () ...
@@ -817,18 +827,18 @@ inline size_t v_str_substr(char* const       pDst, const size_t csztDstSize,
     return lsztCopied;
 }
 
-inline size_t v_str_substr(char* const    pSrc, const size_t  csztSrcLen,
+inline size_t v_str_substr(tChar* const    pSrc, const size_t  csztSrcLen,
                            const int   ciBFlag, const int        ciEFlag)
 {
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
     // 获取子字符串开头的位置
-    char* lpStartPos = const_cast<char*>(pSrc);
+    tChar* lpStartPos = const_cast<tChar*>(pSrc);
     // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
     if (ciBFlag != vMinsInt)
     {
-        lpStartPos = v_strchr((char*)pSrc, ciBFlag);
+        lpStartPos = v_strchr((tChar*)pSrc, ciBFlag);
         if (lpStartPos == nullptr) return 0;
 
         lpStartPos += sizeof(tChar);
@@ -836,11 +846,11 @@ inline size_t v_str_substr(char* const    pSrc, const size_t  csztSrcLen,
     // End of if () ...
 
     // 获取子字符串结尾的位置
-    char* lpEndPos = const_cast<char*>(pSrc) + csztSrcLen;
+    tChar* lpEndPos = const_cast<tChar*>(pSrc) + csztSrcLen;
     // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
     if (ciEFlag != vMinsInt)
     {
-        lpEndPos = v_strrchr((char*)pSrc, ciEFlag);
+        lpEndPos = v_strrchr((tChar*)pSrc, ciEFlag);
         if (lpEndPos == nullptr) return 0;
 
     } // End of if () ...
@@ -859,18 +869,18 @@ inline size_t v_str_substr(char* const    pSrc, const size_t  csztSrcLen,
     return lsztCopied;
 }
 
-inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
+inline size_t v_str_substr_first(tChar* const    pSrc, const size_t  csztSrcLen,
                                  const int   ciBFlag, const int        ciEFlag)
 {
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
     // 获取子字符串开头的位置
-    char* lpStartPos = const_cast<char*>(pSrc);
+    tChar* lpStartPos = const_cast<tChar*>(pSrc);
     // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
     if (ciBFlag != vMinsInt)
     {
-        lpStartPos = v_strchr((char*)pSrc, ciBFlag);
+        lpStartPos = v_strchr((tChar*)pSrc, ciBFlag);
         if (lpStartPos == nullptr) return 0;
 
         lpStartPos += sizeof(tChar);
@@ -878,11 +888,11 @@ inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
     // End of if () ...
 
     // 获取子字符串结尾的位置
-    char* lpEndPos = const_cast<char*>(pSrc) + csztSrcLen;
+    tChar* lpEndPos = const_cast<tChar*>(pSrc) + csztSrcLen;
     // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
     if (ciEFlag != vMinsInt)
     {
-        lpEndPos = v_strchr((char*)pSrc, ciEFlag);
+        lpEndPos = v_strchr((tChar*)pSrc, ciEFlag);
         if (lpEndPos == nullptr) return 0;
 
     } // End of if () ...
@@ -893,7 +903,7 @@ inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
 
     // 计算子字符串长度
     size_t lsztNewDataLen = lpEndPos - lpStartPos;
-    size_t lsztCopied     = v_memmove(pSrc,csztSrcLen,pSrc,lsztNewDataLen);
+    size_t lsztCopied     = v_memmove(pSrc,csztSrcLen, lpStartPos,lsztNewDataLen);
 
     // 将移动过后的多出的数据置零
     size_t lsztRemoved    = csztSrcLen - lsztNewDataLen;
@@ -901,18 +911,18 @@ inline size_t v_str_substr_first(char* const    pSrc, const size_t  csztSrcLen,
     return lsztCopied;
 }
 
-inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
+inline size_t v_str_substr_last( tChar* const    pSrc, const size_t  csztSrcLen,
                                  const int   ciBFlag, const int        ciEFlag)
 {
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
     // 获取子字符串开头的位置
-    char* lpStartPos = const_cast<char*>(pSrc);
+    tChar* lpStartPos = const_cast<tChar*>(pSrc);
     // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
     if (ciBFlag != vMinsInt)
     {
-        lpStartPos = v_strrchr((char*)pSrc, ciBFlag);
+        lpStartPos = v_strrchr((tChar*)pSrc, ciBFlag);
         if (lpStartPos == nullptr) return 0;
 
         lpStartPos += sizeof(tChar);
@@ -920,11 +930,11 @@ inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
     // End of if () ...
 
     // 获取子字符串结尾的位置
-    char* lpEndPos = const_cast<char*>(pSrc) + csztSrcLen;
+    tChar* lpEndPos = const_cast<tChar*>(pSrc) + csztSrcLen;
     // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
     if (ciEFlag != vMinsInt)
     {
-        lpEndPos = v_strrchr((char*)pSrc, ciEFlag);
+        lpEndPos = v_strrchr((tChar*)pSrc, ciEFlag);
         if (lpEndPos == nullptr) return 0;
 
     } // End of if () ...
@@ -934,7 +944,7 @@ inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
 
     // 计算子字符串长度
     size_t lsztNewDataLen = lpEndPos - lpStartPos;
-    size_t lsztCopied = v_memmove(pSrc, csztSrcLen, pSrc, lsztNewDataLen);
+    size_t lsztCopied = v_memmove(pSrc, csztSrcLen, lpStartPos, lsztNewDataLen);
 
     // 将移动过后的多出的数据置零
     size_t lsztRemoved = csztSrcLen - lsztNewDataLen;
@@ -942,24 +952,65 @@ inline size_t v_str_substr_last(char* const    pSrc, const size_t  csztSrcLen,
     return lsztCopied;
 }
 
-inline void v_toupper(char* pData, const size_t csztDataLen)
+inline size_t v_str_substr_last( tChar* const         pDst, const size_t  cszDstSize,
+                                 const tChar* const   pSrc, const size_t  csztSrcLen,
+                                 const int         ciBFlag, const int        ciEFlag)
 {
-    char* lpPos = pData;
+    // 获取整个字符串长度
+    if (csztSrcLen == 0) return 0;
+
+    // 获取子字符串开头的位置
+    tChar* lpStartPos = const_cast<tChar*>(pSrc);
+    // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
+    if (ciBFlag != vMinsInt)
+    {
+        lpStartPos = v_strrchr((tChar*)pSrc, ciBFlag);
+        if (lpStartPos == nullptr) return 0;
+
+        lpStartPos += sizeof(tChar);
+    }
+    // End of if () ...
+
+    // 获取子字符串结尾的位置
+    tChar* lpEndPos = const_cast<tChar*>(pSrc) + csztSrcLen;
+    // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
+    if (ciEFlag != vMinsInt)
+    {
+        lpEndPos = v_strrchr((tChar*)pSrc, ciEFlag);
+        if (lpEndPos == nullptr) return 0;
+
+    } // End of if () ...
+
+    // 判断子字符串是否有效，解决类似“}{”问题
+    if (lpEndPos <= lpStartPos) return 0;
+
+    // 计算子字符串长度
+    size_t lsztNewDataLen = lpEndPos - lpStartPos;
+    size_t lsztCopied = v_memmove(pDst, cszDstSize, lpStartPos, lsztNewDataLen);
+
+    // 设置字符串结尾
+    *(pDst+lsztCopied) = 0x00;
+    return lsztCopied;
+}
+
+inline void v_toupper(tChar* pData, const size_t csztDataLen)
+{
+    tChar* lpPos = pData;
     size_t lsztOffset = 0;
     for ( size_t lsztOffset = 0; lsztOffset < csztDataLen; lsztOffset++ )
     {
-        char* pValue = lpPos+lsztOffset;
+        tChar* pValue = lpPos+lsztOffset;
         if (isalpha(*pValue))
             toupper(*pValue);
     }
 }
-inline void v_tolower(char* pData, const size_t csztDataLen)
+inline void v_tolower(tChar* pData, const size_t csztDataLen)
 {
-    char* lpPos = pData;
+    tChar* lpPos = pData;
     size_t lsztOffset = 0;
     for (size_t lsztOffset = 0; lsztOffset < csztDataLen; lsztOffset++)
     {
-        char* pValue = lpPos + lsztOffset;
+        tChar* pValue = lpPos + lsztOffset;
         if (isalpha(*pValue))
             tolower(*pValue);
     }

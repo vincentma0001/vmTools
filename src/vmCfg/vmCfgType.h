@@ -123,7 +123,7 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Type redefines :
 
-typedef unsigned tChar tByte;
+typedef unsigned char tByte;
 
 #define tVoid         void
 #define tBool         bool

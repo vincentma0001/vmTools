@@ -118,10 +118,10 @@ public:
     // Construct define
     CParser( const tChar cszSpecifier, const tChar* const cpFmt, const tSize csztFmtLen) 
             :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<char*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
+             mpFmt(const_cast<tChar*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
    CParser( const tChar cszSpecifier, const tChar* const cpFmt) 
             :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<char*>(cpFmt)), msztFmtLen(vStrLen(cpFmt)){};
+             mpFmt(const_cast<tChar*>(cpFmt)), msztFmtLen(vStrLen(cpFmt)){};
 
     // Destruct define
     virtual ~CParser() 
@@ -157,17 +157,17 @@ public:
         lpFlag = &oFlag;
     }
 
-    char* Parse( tChar* const pOutBuf, const tSize csztOutBufLen )
+    tChar* Parse( tChar* const pOutBuf, const tSize csztOutBufLen )
     {
         // 准备解析数据
         vm::CStrPtr loFmt(mpFmt,msztFmtLen);
         tSize lsztFmtOffSet = 0;
-        char* lpFmtEnd      = mpFmt + msztFmtLen;
+        tChar* lpFmtEnd      = mpFmt + msztFmtLen;
         vm::CStrPtr loOutBuf(pOutBuf, csztOutBufLen);
         tSize lsztOutBufOffset = 0;
 
         // 查找第一个标识符，若查找不到则返回。
-        char* lpPos = loFmt.Find(mszSpecifier);
+        tChar* lpPos = loFmt.Find(mszSpecifier);
         if ( lpPos == nullptr ) return nullptr;
 
         // 将标识符到源数据开始位置的数据复制到目标数据中
@@ -199,7 +199,7 @@ public:
             }
 
             // 查找下一个标识符所在的位置
-            char* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
+            tChar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
             if (  lpNextPos != lpPos )
             {
                 // 将当前标识符与下一个标识符中的数据复制到目标数据中
