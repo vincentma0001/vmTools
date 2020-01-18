@@ -66,15 +66,16 @@
 TEST_FUNC_BEGIN( ut_CDateTime_t1 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
+    vm::utLogLine(vT("======================================================================================"));
+    vm::utLogLine(vT(""));
 
     // #Add test content here#
-    vm::CString<256> lstrDateTime = vm::CDateTime<128>::GetCurrTime().ToStrFull();
-    vm::utLogLine("Current Time is %s", *lstrDateTime);
+    vm::CDateTime<128> loDateTime = vm::CDateTime<128>::GetCurrTime();
+    vm::CString<256> lstrDateTime = loDateTime.ToStrFull();
+    vm::utLogLine(vT("Current Time is %s"), *lstrDateTime);
 
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
+    vm::utLogLine(vT(""));
+    vm::utLogLine(vT("======================================================================================"));
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -84,8 +85,8 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CDateTime_t2 )
 {
     bool lbRet = true;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
+    vm::utLogLine(vT("======================================================================================"));
+    vm::utLogLine(vT(""));
 
     // #Add test content here#
     vm::CDateTime<256> loDateTime = vm::CDateTime<256>::GetCurrTime();
@@ -144,8 +145,8 @@ TEST_FUNC_BEGIN( ut_CDateTime_t2 )
     vm::utLogLine(vT("$$ is %s"),loDateTime.Fmt(vT("AA%%AA")) );
     
 
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
+    vm::utLogLine(vT(""));
+    vm::utLogLine(vT("======================================================================================"));
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -155,14 +156,14 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CDateTime_t3 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
+    vm::utLogLine(vT("======================================================================================"));
+    vm::utLogLine(vT(""));
 
     // #Add test content here#
 
 
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
+    vm::utLogLine(vT(""));
+    vm::utLogLine(vT("======================================================================================"));
     return lbRet;
 }
 TEST_FUNC_ENDED

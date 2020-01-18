@@ -27,7 +27,8 @@
 
 // Config files included
 
-// platform files included
+// platform files include
+#include <vmCfg.h>
 
 // Declare file included
 #include <vmLibBase/CUnitTestFrame.h>

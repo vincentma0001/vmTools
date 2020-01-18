@@ -164,7 +164,7 @@ public:
     explicit CAny(const double             cVal ) :memType(emType::emDouble) { munValue.dValue   = cVal; vMemZero(mszBuf); };
     explicit CAny(const long double        cVal ) :memType(emType::emLDouble){ munValue.ldValue  = cVal; vMemZero(mszBuf); };
 
-    explicit CAny(const tchar* const      cpValue) :memType(emType::emStr) { vMemZero(mszBuf); v_memcpy(mszBuf, sizeof(mszBuf),cpValue,strlen(cpValue)); };
+    explicit CAny(const tchar* const      cpValue) :memType(emType::emStr) { vMemZero(mszBuf); v_memcpy(mszBuf, sizeof(mszBuf), cpValue, vStrlen(cpValue)); };
     // Destruct define
     virtual ~CAny() {};
     
@@ -195,9 +195,10 @@ public:
 // Functions :
 public:
     // 基础数据类型长度
-    static size_t size_bool()   { return sizeof(bool);          }
-    static size_t size_uchar()  { return sizeof(unsigned tchar);};
-    static size_t size_char()   { return sizeof(tchar);         };
+    static size_t size_bool()   { return sizeof(bool);          };
+    static size_t size_uchar()  { return sizeof(unsigned char); };
+    static size_t size_char()   { return sizeof(char);          };
+    static size_t size_wchar()  { return sizeof(wchar_t);       };
     static size_t size_short()  { return sizeof(short);         };
     static size_t size_ushort() { return sizeof(unsigned short);};
     static size_t size_int()    { return sizeof(int);           };
@@ -248,20 +249,20 @@ public:
 
 public:
     // 字符串输出数据
-    inline tchar* s_bool()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%s",  munValue.bValue==true?"true":"false");   return mszBuf; };
-    inline tchar* s_char()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%hhd",  munValue.cValue);   return mszBuf; };
-    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%hhu",  munValue.ucValue);  return mszBuf; };
-    inline tchar* s_short()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%hi", munValue.sValue);   return mszBuf; };
-    inline tchar* s_ushort() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%hu", munValue.usValue);  return mszBuf; };
-    inline tchar* s_int()    { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%li", munValue.iValue);   return mszBuf; };
-    inline tchar* s_uint()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%lu", munValue.uiValue);  return mszBuf; };
-    inline tchar* s_long()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%li", munValue.lValue);   return mszBuf; };
-    inline tchar* s_ulong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%lu", munValue.ulValue);  return mszBuf; };
-    inline tchar* s_llong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%Li", munValue.llValue);  return mszBuf; };
-    inline tchar* s_ullong() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%Lu", munValue.ullValue); return mszBuf; };
-    inline tchar* s_float()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%hf", munValue.fValue);   return mszBuf; };
-    inline tchar* s_double() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%lf", munValue.dValue);   return mszBuf; };
-    inline tchar* s_ldouble(){ vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, "%Lf", munValue.dValue);   return mszBuf; };
+    inline tchar* s_bool()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%s"),  munValue.bValue==true?"true":"false");   return mszBuf; };
+    inline tchar* s_char( const tchar* const cpPrototype=nullptr)   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhd"),  munValue.cValue);   return mszBuf; };
+    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhu"),  munValue.ucValue);  return mszBuf; };
+    inline tchar* s_short()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hi"), munValue.sValue);   return mszBuf; };
+    inline tchar* s_ushort() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hu"), munValue.usValue);  return mszBuf; };
+    inline tchar* s_int()    { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%li"), munValue.iValue);   return mszBuf; };
+    inline tchar* s_uint()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lu"), munValue.uiValue);  return mszBuf; };
+    inline tchar* s_long()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%li"), munValue.lValue);   return mszBuf; };
+    inline tchar* s_ulong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lu"), munValue.ulValue);  return mszBuf; };
+    inline tchar* s_llong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Li"), munValue.llValue);  return mszBuf; };
+    inline tchar* s_ullong() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Lu"), munValue.ullValue); return mszBuf; };
+    inline tchar* s_float()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hf"), munValue.fValue);   return mszBuf; };
+    inline tchar* s_double() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lf"), munValue.dValue);   return mszBuf; };
+    inline tchar* s_ldouble(){ vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Lf"), munValue.dValue);   return mszBuf; };
 
 public:
     inline bool               toBool()   { return munValue.bValue;   };
@@ -285,7 +286,8 @@ public:
 template<size_t sztBufSize>
 int CAny<sztBufSize>::toInt(const tchar* const cpValue)
 {
-    return atoi(cpValue);
+    tchar* lpEnd = 0;
+    return vStol(cpValue, lpEnd, 10);
 }
 // End of function toFloat(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -298,7 +300,7 @@ template<size_t sztBufSize>
 float CAny<sztBufSize>::toFloat(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    float lfRet = strtof(cpValue, &lpEnd);
+    float lfRet = vStof(cpValue, &lpEnd);
     // #  TODO : Add condition brife here ##
     if ( errno == 0 )
         return lfRet;
@@ -317,7 +319,7 @@ template<size_t sztBufSize>
 long CAny<sztBufSize>::toLong(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    long llRet = strtol(cpValue, &lpEnd, 0);
+    long llRet = vStol(cpValue, &lpEnd, 0);
     if (errno == 0)
         return llRet;
 
@@ -335,7 +337,7 @@ template<size_t sztBufSize>
 unsigned long CAny<sztBufSize>::toULong(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    unsigned long lulRet = strtoul(cpValue, &lpEnd, 0);
+    unsigned long lulRet = vStoul(cpValue, &lpEnd, 0);
     if (errno == 0)
         return lulRet;
 
@@ -353,7 +355,7 @@ template<size_t sztBufSize>
 long long CAny<sztBufSize>::toLLong(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    long long lllRet = strtoll(cpValue, &lpEnd, 0);
+    long long lllRet = vStoll(cpValue, &lpEnd, 0);
     if (errno == 0)
         return lllRet;
 
@@ -371,7 +373,7 @@ template<size_t sztBufSize>
 unsigned long long CAny<sztBufSize>::toULLong(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    unsigned long long lullRet = strtoull(cpValue, &lpEnd, 0);
+    unsigned long long lullRet = vStoull(cpValue, &lpEnd, 0);
     if (errno == 0)
         return lullRet;
 
@@ -389,7 +391,7 @@ template<size_t sztBufSize>
 double CAny<sztBufSize>::toDouble(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    double ldRet = strtod(cpValue, &lpEnd);
+    double ldRet = vStod(cpValue, &lpEnd);
     if (errno == 0)
         return ldRet;
 
@@ -407,7 +409,7 @@ template<size_t sztBufSize>
 long double CAny<sztBufSize>::toLDouble(const tchar* const cpValue)
 {
     tchar* lpEnd = 0;
-    long double lldRet = strtold(cpValue, &lpEnd);
+    long double lldRet = vStold(cpValue, &lpEnd);
     if (errno == 0)
         return lldRet;
 

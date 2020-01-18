@@ -103,7 +103,7 @@ private:
 	// 时间存储结构， 如果定义_USE_32BIT_TIME_T宏使用32bit版本，否则使用64bit版本
 	_timeb  mstTime;
     // 数据缓存，用于存储时间字符串
-    tchar    mszBuf[sztBufSize];
+    tchar   mszBuf[sztBufSize];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
@@ -791,13 +791,13 @@ inline const tchar* CDateTime<sztBufSize>::toTimeStr(const tchar* const cpFmt)
 #if defined ( _MSC_VER ) && ( _MSC_VER >=1200 )
     struct tm loTm;
     errno_t loErr = localtime_s(&loTm, &mstTime.time);
-    strftime(mszBuf, sztBufSize, cpFmt, &loTm);
+    vStrftime((tchar*)mszBuf, sztBufSize, cpFmt, &loTm);
 #else
     struct tm* lpTm = localtime(&mstTime.time);
-    strftime(mszBuf, sztBufSize, cpFmt, lpTm);
+    vStrftime(mszBuf, sztBufSize, cpFmt, lpTm);
 #endif
 
-    return mszBuf;
+    return (tchar*)mszBuf;
 };
 // End of function Fmt(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -809,15 +809,15 @@ inline void  CDateTime<sztBufSize>::s_millisecond( tchar* const       pBuf,
 {
     CMemPtr loBuf(pBuf, csztBufSize);
     size_t  lsztBufOffset = 0;
-    CStrPtr loFmt(const_cast<tchar*>(cpFmt), strlen(cpFmt));
+    CStrPtr loFmt(const_cast<tchar*>(cpFmt), vStrlen(cpFmt));
     size_t  lsztFmtOffset = 0;
     
     // 将cpFmt指向字符串中的“%K”字符串替换为时间毫秒值
     const tchar* lpFlags = vT("%K");
     vm::CAny<128> loMillim(mstTime.millitm);
-    vm::CParser::CPattern   loPattern( lpFlags, vStrLen(lpFlags), loMillim.s_ushort(), loMillim.len() );
+    vm::CParser::CPattern   loPattern( lpFlags, vStrlen(lpFlags), loMillim.s_ushort(), loMillim.len() );
 
-    vm::CParser             loParser('%', cpFmt, vStrLen(cpFmt));
+    vm::CParser             loParser('%', cpFmt, vStrlen(cpFmt));
     loParser.Regist( loPattern );
     loParser.Parse(pBuf,csztBufSize);
 }
@@ -884,22 +884,22 @@ inline const tchar* CDateTime<sztBufSize>::ToStrMillitm()
 template <size_t sztBufSize>
 inline const tchar* CDateTime<sztBufSize>::ToStrFull()
 {
-    memset(&mszBuf, 0x00, sztBufSize);
+    vMemZero(mszBuf);
     tchar lszBuf[sztBufSize] = { 0 };
 
 #if defined ( _MSC_VER ) && ( _MSC_VER >=1200 )
     struct tm loTm;
     errno_t er = localtime_s(&loTm, &mstTime.time);
-    strftime(lszBuf, sztBufSize, "%Y-%m-%d %H:%M:%S", &loTm);
-    sprintf_s(mszBuf, sztBufSize, "%s.%03d", lszBuf, mstTime.millitm);
+    vStrftime(lszBuf, sztBufSize, vT("%Y-%m-%d %H:%M:%S"), &loTm);
+    vSprintf_s((tchar*)mszBuf, sztBufSize, vT("%s.%03d"), lszBuf, mstTime.millitm);
 #else
     struct tm* lpTm = NULL;
     lpTm = localtime(&mstTime.time);
-    strftime(lszBuf, sztBufSize, "%Y-%m-%d %H:%M:%S", lpTm);
-    sprintf(mszBuf, "%s.%03d", lszBuf, mstTime.millitm);
+    vStrftime(lszBuf, sztBufSize, vT("%Y-%m-%d %H:%M:%S"), lpTm);
+    vSprintf((tchar*)mszBuf, vT("%s.%03d"), lszBuf, mstTime.millitm);
 #endif
 
-    return mszBuf;
+    return (tchar*)mszBuf;
 }
 // End of function ToStrFull()
 /////////////////////////////////////////////////////////////////////////////////////////

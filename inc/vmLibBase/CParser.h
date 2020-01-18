@@ -84,8 +84,8 @@ public:
                            mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(csztRplLen),
                            mpPattern(nullptr) {};
         explicit CPattern( const tchar* const cpFlg, const tchar* const cpRpl )
-                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(vStrLen(cpFlg)), 
-                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(vStrLen(cpRpl)),
+                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(vStrlen(cpFlg)),
+                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(vStrlen(cpRpl)),
                            mpPattern(nullptr) {};
         virtual ~CPattern() 
         { 
@@ -121,7 +121,7 @@ public:
              mpFmt(const_cast<tchar*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
    CParser( const tchar cszSpecifier, const tchar* const cpFmt) 
             :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<tchar*>(cpFmt)), msztFmtLen(vStrLen(cpFmt)){};
+             mpFmt(const_cast<tchar*>(cpFmt)), msztFmtLen(vStrlen(cpFmt)){};
 
     // Destruct define
     virtual ~CParser() 

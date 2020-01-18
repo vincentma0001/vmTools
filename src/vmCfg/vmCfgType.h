@@ -118,8 +118,6 @@ namespace vm{
 #define vMin(a,b)            (((a) < (b)) ? (a) : (b))
 #endif
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////
 // Type redefines :
 
@@ -300,81 +298,11 @@ typedef unsigned char tByte;
 #define vMinDouble     DBL_MIN
 #define vMaxDouble     DBL_MAX
 
-/////////////////////////////////////////////////////////////////////////////////////////
-#if         defined( _V_USE_WCHAR_ ) && ( _V_USE_WCHAR_ == 0 )
-// --------------------------------------------------------------------------------------
 
-/////////////////////////////////////////////////////////////////////////////////////////
-// String redefines :
-#define tchar         char
-#define tschar        signed char
-#define tuchar        unsigned char
+// TODO : convert wchar_t to char
+#define vMinWchar        WCHAR_MIN
+#define vMaxWchar        WCHAR_MAX
 
-#define vT(x) x
-namespace vStd {
-#define vStdStr         std::string
-#define vStdCout        std::cout
-#define vStdEndl        std::endl
-};
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// String functions redefines :
-#define vStrLen(x)      strlen(x)
-#define vmemset         memset
-#define vmemchr         memchr
-#define vmemcmp         memcmp
-#define vmemcpy         memcpy
-#define vmemcpy_s       memcpy_s
-
-// --------------------------------------------------------------------------------------
-#else   // !defined( _V_USE_WCHAR_ ) && ( _V_USE_WCHAR_ == 0 )
-// --------------------------------------------------------------------------------------
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// String redefine :
-#define tchar         wchar_t
-#define tsChar        signed wchar_t
-#define tuChar        unsigned wchar_t
-
-#define ctChar        const wchar_t
-#define ctsChar       const signed wchar_t
-#define ctuChar       const unsigned wchar_t
-
-#define ptChar        wchar_t*
-#define ptsChar       signed wchar_t*
-#define ptuChar       unsigned wchar_t*
-
-#define cptChar       const wchar_t* 
-#define cptsChar      const signed wchar_t*
-#define cptuChar      const unsigned wchar_t*
-
-#define pctChar       wchar_t* const
-#define pctsChar      signed wchar_t* const
-#define pctuChar      unsigned wchar_t* const
-
-#define cpctChar      const wchar_t* const
-#define cpctsChar     const signed wchar_t* const
-#define cpctuChar     const unsigned wchar_t* const
-
-#define vT(x) L##x
-namespace vStd {
-#define vStdStr         std::wstring
-#define vStdCout        std::wcout
-#define vStdEndl        std::endl
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// String functions redefine :
-#define vStrLen(x)      wcslen(x)
-#define vmemset         wmemset
-#define vmemchr         wmemchr
-#define vmemcmp         wmemcmp
-#define vmemcpy         wmemcpy
-#define vmemcpy_s       wmemcpy_s
-
-// --------------------------------------------------------------------------------------
-#endif  // !defined( _V_USE_WCHAR_ ) && ( _V_USE_WCHAR_ == 0 )
-/////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm

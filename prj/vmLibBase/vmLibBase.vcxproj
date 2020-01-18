@@ -22,6 +22,7 @@
     <ClInclude Include="..\..\src\vmCfg.h" />
     <ClInclude Include="..\..\src\vmCfg\vmCfgDll.h" />
     <ClInclude Include="..\..\src\vmCfg\vmCfgPlatform.h" />
+    <ClInclude Include="..\..\src\vmCfg\vmCfgtString.h" />
     <ClInclude Include="..\..\src\vmCfg\vmCfgType.h" />
     <ClInclude Include="..\..\src\vmLibBase.h" />
     <ClInclude Include="..\..\src\vmLibBase\CAny.hpp" />

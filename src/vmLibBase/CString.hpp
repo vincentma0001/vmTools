@@ -87,7 +87,7 @@ public:
     // 赋值操作
     tchar* operator =  (const tchar* const cpSrc)
     {
-        v_memcpy(mszBuf, sizeof(mszBuf), cpSrc, strlen(cpSrc));
+        v_memcpy(mszBuf, sizeof(mszBuf), cpSrc, vStrlen(cpSrc));
         return mszBuf;
     };
     // 小于操作

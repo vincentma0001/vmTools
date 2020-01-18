@@ -147,6 +147,9 @@
     <ClInclude Include="..\..\src\vmLibBase\CUnitTestFrame.h">
       <Filter>inc\vmLibBase</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgtString.h">
+      <Filter>inc\vmCfg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\vmLibBase\CUseCom.cpp">

@@ -80,12 +80,12 @@ void utLogLine(const tchar* const cpFmt, ...)
 {
     vm::CWinConsole loConsole;
 
-    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, "// " );
+    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, vT("// ") );
     va_list vList;
     va_start(vList, cpFmt);
     loConsole.Write(vm::CWinConsole::emColor::vfLightWhite, cpFmt, vList);
     va_end(vList);
-    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, "\n" );
+    loConsole.Write( vm::CWinConsole::emColor::vfDarkYellow, vT("\n") );
 }
 
 
@@ -94,7 +94,7 @@ void utLogLine(const tchar* const cpFmt, ...)
 #ifndef   __V_UNIT_TEST_MACRO__
 #define   __V_UNIT_TEST_MACRO__
 
-#define TEST_FUNC_BEGIN(func) class func : public vm::CUnit { public: func():CUnit(#func){}; ~func(){}; public: virtual bool toDo(void)
+#define TEST_FUNC_BEGIN(func) class func : public vm::CUnit { public: func():CUnit(vT(#func)){}; ~func(){}; public: virtual bool toDo(void)
 #define TEST_FUNC_ENDED };
 #define UNIT_TEST_BEGIN( unFrame ) class unFrame : public vm::CUnitTestFrame{ virtual void Regist() {
 #define UNIT_TEST_REGIST(func)  {func* lp##func = new func ; mListUnits.push_back( lp##func );}
@@ -118,7 +118,7 @@ friend class CUnitTestFrame;
 // Construct && Destruct
 public:
     // Construct define
-    inline CUnit( const tchar* const cpName ) { strcpy( mszName, cpName ); };
+    inline CUnit( const tchar* const cpName ) { vStrcpy( mszName, cpName ); };
     // Destruct define
     inline virtual ~CUnit(){};
 
@@ -191,20 +191,20 @@ public:
         for ( ; loIter!=mListUnits.end(); loIter++  )
         {
             CUnit* lpFunc = (*loIter);
-            utLog( "\n" );
-            utLog( vm::CWinConsole::emColor::vfDarkYellow, "/////////////////////////////////////////////////////////////////////////////////////////\n" );
-            utLog( vm::CWinConsole::emColor::vfDarkYellow, "// ");
-            utLog( vm::CWinConsole::emColor::vfLightYellow,"%s is running ... \n", lpFunc->mszName );
+            utLog( vT("\n") );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("/////////////////////////////////////////////////////////////////////////////////////////\n") );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightYellow,vT("%s is running ... \n"), lpFunc->mszName );
             bool lbRet = lpFunc->toDo( );
-            utLog( vm::CWinConsole::emColor::vfDarkYellow, "// ");
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
             // #  TODO : Add condition brife here ##
             if  ( lbRet == TRUE )
-            { utLog(vm::CWinConsole::emColor::vfLightGreen, "%s is %s\n", lpFunc->mszName, "Succeed" ); }
+            { utLog(vm::CWinConsole::emColor::vfLightGreen, vT("%s is %s\n"), lpFunc->mszName, vT("Succeed") ); }
             else
-            { utLog(vm::CWinConsole::emColor::vfLightRed,   "%s is %s\n", lpFunc->mszName, "Failed"); }
+            { utLog(vm::CWinConsole::emColor::vfLightRed,   vT("%s is %s\n"), lpFunc->mszName, vT("Failed")); }
              // End of if () ...
-            utLog( vm::CWinConsole::emColor::vfDarkYellow,  "/////////////////////////////////////////////////////////////////////////////////////////\n" );
-            utLog( vm::CWinConsole::emColor::vfDarkYellow,  "\n" );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow,  vT("/////////////////////////////////////////////////////////////////////////////////////////\n") );
+            utLog( vm::CWinConsole::emColor::vfDarkYellow,  vT("\n") );
             
         }
 

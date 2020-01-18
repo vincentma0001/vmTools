@@ -78,7 +78,7 @@ public:
     inline tchar* operator +  (const tchar* cpSrc);
     inline tchar* operator +  (const tchar  cszVal)
     {
-        size_t lszBufStrLen = vStrLen(mpBuf);
+        size_t lszBufStrLen = vStrlen(mpBuf);
         if ( lszBufStrLen>=mszBufSize )
             return nullptr;
         mpBuf[lszBufStrLen]   = cszVal;
@@ -116,7 +116,7 @@ public:
     // 获取指定的字符串缓存大小
     inline size_t size();
     // 清理数据
-    inline void clear() { vMemZero(mpBuf); };
+    inline void clear() { vMemZero(mpBuf, mszBufSize); };
 
 public:
     // 获取字符串中子字符串地址
@@ -345,7 +345,7 @@ const tchar* CStrPtr::c_str()
 // Return    : size_t
 size_t CStrPtr::len()
 {
-    return strlen(mpBuf);
+    return vStrlen(mpBuf);
 }
 // End of function len(...)
 /////////////////////////////////////////////////////////////////////////////////////////

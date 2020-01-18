@@ -25,8 +25,9 @@
 // Include files :
 
 #include <vmCfg/vmCfgPlatform.h>
-#include <vmCfg/vmCfgType.h>
 #include <vmCfg/vmCfgDll.h>
+#include <vmCfg/vmCfgType.h>
+#include <vmCfg/vmCfgtString.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 #endif // __VM_CFG_H__

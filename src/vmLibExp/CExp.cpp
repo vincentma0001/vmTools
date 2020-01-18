@@ -111,7 +111,7 @@ CExp::CExp( const CExp&               oExp,
     mpExpNext       = new CExp();
     *mpExpNext      = oExp;
 
-    vm::CFileBase::GetFileName( cpFile, vStrLen(cpFile), mszFile, sizeof(mszFile) ); 
+    vm::CFileBase::GetFileName( cpFile, vStrlen(cpFile), mszFile, sizeof(mszFile) );
     muiLine                   = culLine;
     vCStrPtr(mszDateTime)     = vm::CDateTime<_V_CDATETIME_MAX_BUF_>::GetCurrTime().Fmt(cpTimeFmt);
 }

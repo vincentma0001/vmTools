@@ -307,7 +307,7 @@ inline const void*  CMemPtr::c_str()
 // Parameter : null
 inline size_t CMemPtr::len()
 {
-    return strlen((tchar*)mpBuf);
+    return vStrlen((tchar*)mpBuf);
 };
 // End of function Len()
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -372,8 +372,8 @@ inline void* CMemPtr::Fmt(const tchar* const cpFmt, va_list vp)
 inline void* CMemPtr::Fmt(const size_t csztBufOffset, const tchar* const cpFmt, va_list vList)
 {
     tchar* lpPos = (tchar*)mpBuf + csztBufOffset;
-    int liBufLeft   = msztBufSize-csztBufOffset;
-    int liRet = v_vsprintf(lpPos, liBufLeft, (tchar*)cpFmt, vList);
+    size_t lsztBufLeft   = msztBufSize-csztBufOffset;
+    int liRet = v_vsprintf(lpPos, lsztBufLeft, (tchar*)cpFmt, vList);
     return lpPos;
 }
 // End of function Fmt(...)

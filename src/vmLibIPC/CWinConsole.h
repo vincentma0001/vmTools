@@ -132,7 +132,7 @@ public:
        
         va_list vList; 
         va_start( vList, cpFmt );
-        int liRetForPrintf = vprintf_s( cpFmt, vList );
+        int liRetForPrintf = vVprintf_s( cpFmt, vList );
         va_end( vList );
 
         bool lbRet2 = SetTextAttribute();
@@ -147,7 +147,7 @@ public:
         if (lbRet == false)
             return emRet::vError;
 
-        int liRetForPrintf = vprintf_s(cpFmt, vList);
+        int liRetForPrintf = vVprintf_s(cpFmt, vList);
 
         bool lbRet2 = SetTextAttribute();
         if (lbRet2 == false)

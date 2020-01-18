@@ -115,19 +115,19 @@ TEST_FUNC_BEGIN( ut_CFileBase_t2 )
     vm::utLogLine("Execute name path : %s", lszBuf);
 
     tchar lszBufForDir[_V_FILE_MAX_DIR_] = {0x00};
-    vm::CFileBase::GetFileDir( lszBuf, vStrLen(lszBuf), lszBufForDir, sizeof(lszBufForDir) );
+    vm::CFileBase::GetFileDir( lszBuf, vStrlen(lszBuf), lszBufForDir, sizeof(lszBufForDir) );
     vm::utLogLine("FileDir is  : %s", lszBufForDir);
 
     tchar lszBufForFileName[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
-    vm::CFileBase::GetFileName(lszBuf, vStrLen(lszBuf), lszBufForFileName, sizeof(lszBufForFileName));
+    vm::CFileBase::GetFileName(lszBuf, vStrlen(lszBuf), lszBufForFileName, sizeof(lszBufForFileName));
     vm::utLogLine("FileName is : %s", lszBufForFileName);
 
     tchar lszBufForFileBase[ _V_FILE_MAX_FNAME_ ] = { 0x00 };
-    vm::CFileBase::GetFileBase(lszBuf, vStrLen(lszBuf), lszBufForFileBase, sizeof(lszBufForFileBase));
+    vm::CFileBase::GetFileBase(lszBuf, vStrlen(lszBuf), lszBufForFileBase, sizeof(lszBufForFileBase));
     vm::utLogLine("FileBase is : %s", lszBufForFileBase);
 
     tchar lszBufForExt[_V_FILE_MAX_EXT_] = {0x00};
-    vm::CFileBase::GetFileExt( lszBuf, vStrLen(lszBuf), lszBufForExt, sizeof(lszBufForExt) );
+    vm::CFileBase::GetFileExt( lszBuf, vStrlen(lszBuf), lszBufForExt, sizeof(lszBufForExt) );
     vm::utLogLine("FileExt is  : %s", lszBufForExt);
 
     vm::utLogLine("");
