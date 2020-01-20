@@ -116,7 +116,7 @@ public:
     // 获取指定的字符串缓存大小
     inline size_t size();
     // 清理数据
-    inline void clear() { vMemZero(mpBuf, mszBufSize); };
+    inline void clear() { v_memzero(mpBuf, mszBufSize); };
 
 public:
     // 获取字符串中子字符串地址

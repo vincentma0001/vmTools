@@ -24,10 +24,21 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 
-#include <vmCfg/vmCfgPlatform.h>
-#include <vmCfg/vmCfgDll.h>
-#include <vmCfg/vmCfgType.h>
-#include <vmCfg/vmCfgtString.h>
+#ifndef   __VM_CFG_PLATFORM_H__
+#	include <vmCfg/vmCfgPlatform.h>
+#endif // __VM_CFG_PLATFORM_H__
+
+#ifndef   __VM_CFG_DLL_H__
+#	include <vmCfg/vmCfgDll.h>
+#endif // _VM_CFG_DLL_H__
+
+#ifndef   __VM_CFG_TYPE_H__
+#	include <vmCfg/vmCfgType.h>
+#endif // __VM_CFG_TYPE_H__
+
+#ifndef   __VM_CFG_TSTRING_H__
+#    include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 #endif // __VM_CFG_H__

@@ -72,18 +72,26 @@ class CDateTime
 // Construct && Destruct
 public:
     // Construct define
-    explicit CDateTime();
-    explicit CDateTime(time_t tTime);
-    explicit CDateTime(_timeb tTimeb);
+    inline explicit CDateTime(              ):mulErrCode(0) { vMemZero(mstTime); vMemZero(mszBuf); };
+    inline explicit CDateTime(tTimet   stTime):mulErrCode(0) { vMemZero(mstTime); vMemZero(mszBuf); mstTime.time_t = stTime; };
+    inline explicit CDateTime(tTimeb   stTime):mulErrCode(0), mstTime(stTime){ vMemZero(mszBuf); };
+    inline explicit CDateTime(tLLong  ullTime)
+    {
+        tllDiv ldiv = div( ullTime, 1000 );
+        mstTime.time_t      = ldiv.quot;
+        mstTime.millitm     = ldiv.rem;
+    }
     // Destruct define
-    virtual ~CDateTime();
-
-    // Copy construct define
-    CDateTime(const CDateTime& obj);
+    inline virtual ~CDateTime(){};
 
 public:
+    // Copy construct define
+    inline CDateTime(const CDateTime& obj){*this = obj;};
     // 赋值操作
-    inline CDateTime&  operator =  ( const CDateTime& obj );
+    inline CDateTime&  operator =  (const CDateTime& obj) { mstTime = obj.mstTime; };
+
+
+public:
     // 加法操作
     inline time_t      operator +  ( const time_t tTimeDiff );
     // 减法操作
@@ -101,24 +109,44 @@ public:
 // members
 private:
 	// 时间存储结构， 如果定义_USE_32BIT_TIME_T宏使用32bit版本，否则使用64bit版本
-	_timeb  mstTime;
+	tTimeb  mstTime;
     // 数据缓存，用于存储时间字符串
     tchar   mszBuf[sztBufSize];
+
+private:
+    // 错误信息
+    tuLong  mulErrCode;
+
+public:
+    // 判断是否有错误发生
+    bool HasError()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
+    inline static CDateTime CDateTime& Now()
+    {  
+        tTimeb  lstTime;
+#if defined (_MSC_VER) && (_MSC_VER > 1300)
+        // for new version vs
+        errno_t loErr = _ftime_s(&lstTime);
+#else
+        _ftime(&lstTime);
+#endif
+        return CDateTime(lstTime);
+    }
+public:
     // 获取当前时间
 	inline static CDateTime GetCurrTime();
     // 获取当前对象的time_t时间结构
-    inline time_t& timet();
-    inline _timeb& timeb();
-    // 获取当前对象的毫秒数
-    inline unsigned short millitm();
+    inline vTimeb&              timeb() { return mstTime; };
+    inline vTimet&              timet() { return mstTime.time; };
+    inline unsigned short&    millitm() { return mstTime.millitm; };
+    inline unsigned long long    time() { return (mstTime.time*1000+mstTime.millitm); }
 
     // 设置时间对象
     inline void SetTime( unsigned int   uiHour,  unsigned int   uiMin,
-                         unsigned int    uiSec,  unsigned short usMill = 0);
+                         unsigned int   uiSec,   unsigned short usMill = 0);
     // 设置时间对象
     inline void SetTime( unsigned int   uiYear,  unsigned int uiMonth, unsigned int  uiDay,
                          unsigned int   uiHour,  unsigned int uiMin,   unsigned int  uiSec, 
@@ -365,20 +393,6 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Method    : CDateTime()
-// Brief     : 构建函数
-// Return    : void
-// Parameter : null
-template < size_t sztBufSize>
-CDateTime<sztBufSize>::CDateTime()
-{
-    vMemZero(mszBuf);
-    vMemZero(mstTime);
-};
-// End of function CDateTime()
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
 // Method    : ~CDateTime()
 // Brief     : 析构函数
 // Return    : void
@@ -402,38 +416,6 @@ CDateTime<sztBufSize>::CDateTime(const CDateTime& obj)
    *this = obj;
 };
 // End of function CDateTime(const CDateTime& obj)
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Method    : CDateTime(time_t tTime)
-// Brief     : 构造函数
-// Return    : void
-// Parameter : time_t tTime             - 赋值time_t对象
-template <size_t sztBufSize>
-CDateTime<sztBufSize>::CDateTime(time_t tTime) 
-{
-    vMemZero(mszBuf);
-    vMemZero(mstTime);
-
-    mstTime.time = tTime;
-};
-// End of function CDateTime(time_t tTime)
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Method    : CDateTime(_timeb tTimeb)
-// Brief     : 构造函数
-// Return    : void
-// Parameter : _timeb tTimeb            - 赋值_timeb对象
-template <size_t sztBufSize>
-CDateTime<sztBufSize>::CDateTime(_timeb tTimeb)
-{
-    vMemZero(mszBuf);
-    vMemZero(mstTime);
-
-    mstTime = tTimeb;    
-};
-// End of function CDateTime(_timeb tTimeb)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -781,8 +763,6 @@ inline void CDateTime<sztBufSize>::SetTime( unsigned int  uiYear, unsigned int  
 //               | timezone cannot be determined, no         |
 //               | characters                                |
 //     %%        | A % sign	                                 | %
-// --------------------------------------------------------------------------------------
-//     %k        | 毫秒值
 template <size_t sztBufSize>
 inline const tchar* CDateTime<sztBufSize>::toTimeStr(const tchar* const cpFmt)
 {

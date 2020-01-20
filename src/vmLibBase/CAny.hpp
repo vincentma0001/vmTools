@@ -25,11 +25,11 @@
 // Include files :
 
 #ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
+#   include <vmCfg.h>
 #endif // __VM_CFG_H__
 
 #ifndef   __VM_UTIL_H__
-#	error this file need #include <vmLibBase/vmUtil.h>
+#   include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -250,9 +250,29 @@ public:
 public:
     // ×Ö·û´®Êä³öÊý¾Ý
     inline tchar* s_bool()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%s"),  munValue.bValue==true?"true":"false");   return mszBuf; };
-    inline tchar* s_char( const tchar* const cpPrototype=nullptr)   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhd"),  munValue.cValue);   return mszBuf; };
-    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhu"),  munValue.ucValue);  return mszBuf; };
-    inline tchar* s_short()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hi"), munValue.sValue);   return mszBuf; };
+    inline tchar* s_char()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.cValue);   return mszBuf; };
+    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.ucValue);  return mszBuf; };
+    inline tchar* s_short( size_t sztWight=0, bool isLeft=false, bool bFillWithZero=false )  
+    { 
+        vMemZero(mszBuf); 
+        tchar lszFlag[128] = {0x00};
+        v_strcat( lszFlag, sizeof(lszFlag), vT('%') );
+        // #  TODO : Add condition brief here ##
+        if (sztWight!=0)
+        {
+        	// #  TODO : Add condition brief here ##
+        	if (lszFlag==true)
+        	{
+        		v_strcat(  )
+        	} 
+        	// End of if (lszFlag==true) ...
+        } 
+        // End of if (sztWight!=0) ...
+
+        v_sprintf(mszBuf, sztBufSize, vT("%hi"), 
+        munValue.sValue);   
+        return mszBuf; 
+    };
     inline tchar* s_ushort() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hu"), munValue.usValue);  return mszBuf; };
     inline tchar* s_int()    { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%li"), munValue.iValue);   return mszBuf; };
     inline tchar* s_uint()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lu"), munValue.uiValue);  return mszBuf; };

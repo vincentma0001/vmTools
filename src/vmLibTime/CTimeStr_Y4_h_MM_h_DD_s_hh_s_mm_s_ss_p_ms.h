@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CWinCounter.h
+// File name    : CTimeStr_Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms.h
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/10 09:43:01
-// Modify time  : 2020/01/10 09:43:01
+// Create time  : 2020/01/19 18:59:32
+// Modify time  : 2020/01/19 18:59:32
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 #pragma once
 #endif
 
-#ifndef __CWINCOUNTER_H__
-#define __CWINCOUNTER_H__
+#ifndef __CTIMESTR_Y4_H_MM_H_DD_S_HH_C_MM_C_SS_P_MS_H__
+#define __CTIMESTR_Y4_H_MM_H_DD_S_HH_C_MM_C_SS_P_MS_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include libs  :
@@ -27,97 +27,86 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#ifndef   _INC_STRING
-#	error this file need #include <string.h>
-#endif // _INC_STRING
 
 // Config files included
+#include <vmCfg/vmCfgtString.h>
 
 // Platform files included
-#ifndef   _WINDOWS_
-#	error this file need #include <windows.h>
-#endif // _WINDOWS_
 
 // Used files included
+#include <vmLibTime/vmCfgTime.h>
+#include <vmLibTime/CTimeStr.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
+namespace vTime{
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms
+#   define Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms vm::vTime::gp_Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms
+#endif // !Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms
+
+extern static const tchar* const gp_Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms = vT("%Y4-%MM-%DD %hh:%mm:%ss.%ms");
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CWinCounter : ## add class brief here ##
+// class CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-class CWinCounter
+// h - Hyphen
+// c - Colon 
+// p - Period
+// s - Space
+// v - Virgule
+class CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms : public CTimeStr
 {
+/////////////////////////////////////////////////////////////////////////////////////////
+// Typedefs :
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    inline explicit CWinCounter(){ Reset(); };
+    explicit CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms()
+    : mpTimeFmt(vT("%u-%u-%u %u:%u:%u.%u"))
+    {};
     // Destruct define
-    inline virtual ~CWinCounter(){};
+    virtual ~CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms(){};
     
 private:
     // No Copy
-    inline CWinCounter(const CWinCounter& obj){};
+    CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms(const CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms& obj):mpTimeFmt(0){};
     // No Assignment
-    inline CWinCounter& operator = ( const CWinCounter& obj ){};
+    CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms& operator = ( const CTimeStr__Y4_h_MM_h_DD_h_HH_c_mm_c_ss_p_ms& obj ){};
     
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
-private:
-    LARGE_INTEGER	mliFrequency;
-    LARGE_INTEGER	mliStart;
-    LARGE_INTEGER	mliStop;
-    long double     mldTimeDiff;
+public:
+    const tchar* const mpTimeFmt;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    inline void Reset()
+    bool Scanf( const tchar* const cpTimeString )
     {
-        mldTimeDiff = 0;
-        memset( &mliFrequency, 0x00, sizeof(mliFrequency) );
-        memset( &mliStart,     0x00, sizeof(mliStart)     );
-        memset( &mliStop,      0x00, sizeof(mliStop)      );
+        int liRet = sscanf_s( cpTimeString, mpTimeFmt, mulYear, mulMonth, mulDay, mulHour, mulMinute,mulSeconde, mulMSeconde );
     }
 
-    // 开始计数
-    inline void    Start()
-    {
-        Reset();
-        ::QueryPerformanceFrequency(&mliFrequency);
-        ::QueryPerformanceCounter(&mliStart);
-    }
-
-    // 结束计数
-    inline long double Stop()
-    {
-        ::QueryPerformanceCounter(&mliStop);
-        mldTimeDiff = (mliStop.QuadPart - mliStart.QuadPart);
-        return mldTimeDiff;
-    };
-
-    inline long double toSecond()
-    {
-        return (mldTimeDiff / (long double)mliFrequency.QuadPart);
-    }
-
-
-}; // End of class CWinCounter
+}; // End of class CTimeStr_Y4_MM_DD_HHss$ms
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
+} // End of namespace vTime
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CWINCOUNTER_H__
+#endif // __CTIMESTR_Y4_H_MM_H_DD_S_HH_C_MM_C_SS_P_MS_H__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CWinCounter.h
+// End of file CTimeStr_Y4_h_MM_h_DD_s_hh_c_mm_c_ss_p_ms$ms.h
 /////////////////////////////////////////////////////////////////////////////////////////

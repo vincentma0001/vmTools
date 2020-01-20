@@ -661,10 +661,10 @@ inline int v_sprintf( tchar* const pDst, const size_t csztDstSize, const tchar* 
     va_list vlist;
     va_start( vlist, cpFmt );
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
-    int liRet = vSprintf_s( pDst,csztDstSize, cpFmt,vlist);
+    int liRet = vVsprintf_s( pDst,csztDstSize, cpFmt,vlist);
     if (liRet < 0) { /* TODO 处理错误信息 */ };
 #else
-    int liRet = vSprintf( pDst, cpFmt, vlist );
+    int liRet = vVsprintf( pDst, cpFmt, vlist );
     if (liRet < 0) { /* TODO 处理错误信息 */ };
 #endif
     va_end(vlist);
