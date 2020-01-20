@@ -195,7 +195,15 @@ public:
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("/////////////////////////////////////////////////////////////////////////////////////////\n") );
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
             utLog( vm::CWinConsole::emColor::vfLightYellow,vT("%s is running ... \n"), lpFunc->mszName );
-            bool lbRet = lpFunc->toDo( );
+            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("======================================================================================\n"));
+            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog(vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
+            bool lbRet = lpFunc->toDo();
+            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
+            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("======================================================================================\n"));
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
             // #  TODO : Add condition brife here ##
             if  ( lbRet == TRUE )

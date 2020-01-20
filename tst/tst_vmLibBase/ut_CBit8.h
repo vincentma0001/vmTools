@@ -61,7 +61,7 @@ void  print(vm::CBit8& oBit)
     vm::CString<128> lstrBitOct = oBit.toOct();
     vm::CString<128> lstrBitDec = oBit.toDec();
     vm::CString<128> lstrBitHex = oBit.toHex();
-    vm::utLogLine("Val [%s] : Bin(%s), Hex(%s), Oct(%s)", *lstrBitDec, *lstrBitBin, *lstrBitHex, *lstrBitOct);
+    vm::utLogLine(vT("Val [%s] : Bin(%s), Hex(%s), Oct(%s)"), *lstrBitDec, *lstrBitBin, *lstrBitHex, *lstrBitOct);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -72,8 +72,6 @@ void  print(vm::CBit8& oBit)
 TEST_FUNC_BEGIN( ut_CBit8_t1 )
 {
     bool lbRet = true;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
     tchar liVal = CHAR_MIN;
@@ -85,7 +83,7 @@ TEST_FUNC_BEGIN( ut_CBit8_t1 )
     vm::CBit8 loBit2(liVal);
     print(loBit2);
 
-    unsigned tchar liVal2 = 0;
+    unsigned char liVal2 = 0;
     vm::CBit8 loBit3(liVal2);
     print(loBit3);
 
@@ -93,8 +91,6 @@ TEST_FUNC_BEGIN( ut_CBit8_t1 )
     vm::CBit8 loBit4(liVal2);
     print(loBit4);
 
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -105,55 +101,50 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CBit8_t2 )
 {
     bool lbRet = true;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
     vm::CBit8 loBit5((tchar)0);
     print(loBit5);
 
     loBit5.Set01();
-    vm::utLogLine("Set Pos1 : %s", loBit5.isSet01() ? "Pos1 is setting!" : "Pos1 isn't setting!");
+    vm::utLogLine(vT("Set Pos1 : %s"), loBit5.isSet01() ? "Pos1 is setting!" : "Pos1 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set02();
-    vm::utLogLine("Set Pos2 : %s", loBit5.isSet02() ? "Pos2 is setting!" : "Pos2 isn't setting!");
+    vm::utLogLine(vT("Set Pos2 : %s"), loBit5.isSet02() ? "Pos2 is setting!" : "Pos2 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set03();
-    vm::utLogLine("Set Pos3 : %s", loBit5.isSet03() ? "Pos3 is setting!" : "Pos3 isn't setting!");
+    vm::utLogLine(vT("Set Pos3 : %s"), loBit5.isSet03() ? "Pos3 is setting!" : "Pos3 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set04();
-    vm::utLogLine("Set Pos4 : %s", loBit5.isSet04() ? "Pos3 is setting!" : "Pos4 isn't setting!");
+    vm::utLogLine(vT("Set Pos4 : %s"), loBit5.isSet04() ? "Pos3 is setting!" : "Pos4 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set05();
-    vm::utLogLine("Set Pos5 : %s", loBit5.isSet05() ? "Pos5 is setting!" : "Pos5 isn't setting!");
+    vm::utLogLine(vT("Set Pos5 : %s"), loBit5.isSet05() ? "Pos5 is setting!" : "Pos5 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set06();
-    vm::utLogLine("Set Pos6 : %s", loBit5.isSet06() ? "Pos6 is setting!" : "Pos6 isn't setting!");
+    vm::utLogLine(vT("Set Pos6 : %s"), loBit5.isSet06() ? "Pos6 is setting!" : "Pos6 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set07();
-    vm::utLogLine("Set Pos7 : %s", loBit5.isSet07() ? "Pos7 is setting!" : "Pos7 isn't setting!");
+    vm::utLogLine(vT("Set Pos7 : %s"), loBit5.isSet07() ? "Pos7 is setting!" : "Pos7 isn't setting!");
     print(loBit5);
 
     loBit5.clear();
     loBit5.Set08();
-    vm::utLogLine("Set Pos8 : %s", loBit5.isSet08() ? "Pos8 is setting!" : "Pos8 isn't setting!");
+    vm::utLogLine(vT("Set Pos8 : %s"), loBit5.isSet08() ? "Pos8 is setting!" : "Pos8 isn't setting!");
     print(loBit5);
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -163,8 +154,6 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CBit8_t3 )
 {
     bool lbRet = true;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
     vm::CBit8 loBit6((tchar)0);
@@ -217,9 +206,6 @@ TEST_FUNC_BEGIN( ut_CBit8_t3 )
     loBit6.unSet08();
     print(loBit6);
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED

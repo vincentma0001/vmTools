@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : tst_vmLibBase.cpp
+// File name    : tst_vmLibTime.cpp
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/14 21:33:43
-// Modify time  : 2020/01/14 21:33:43
+// Create time  : 2020/01/20 08:23:13
+// Modify time  : 2020/01/20 08:23:13
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -27,29 +27,22 @@
 
 // Config files included
 
-// platform files include
-#include <vmCfg.h>
+// platform files included
 
 // Declare file included
 #include <vmLibBase/CUnitTestFrame.h>
 
 // Unit test files include
-//#include "ut_CBit8.h"
-#include "ut_CTime.h"
-//#include "ut_CStdPars.h"
-//#include "ut_CWinAtom.h"
+#include "ut_CWinCounter.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-int main( int argc, tchar** argv )
+int main( int argc, char** argv )
 {
 // --------------------------------------------------------------------------------------
 // TODO : add main functions there
     // example : RUN_UNITTEST( ut_XXXX );
-    //RUN_UNITTEST(ut_CBit8);
-    RUN_UNITTEST(ut_CTime);
-    //RUN_UNITTEST(ut_CStdPars);
-    //RUN_UNITTEST(ut_CWinAtom);
+    RUN_UNITTEST(ut_CWinCounter);
 
 // ------------------------------------------------------------------------------------
 	::system("Pause");
@@ -59,5 +52,5 @@ int main( int argc, tchar** argv )
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file tst_vmLibBase.cpp
+// End of file tst_vmLibTime.cpp
 /////////////////////////////////////////////////////////////////////////////////////////

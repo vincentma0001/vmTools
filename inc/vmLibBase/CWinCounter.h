@@ -71,38 +71,70 @@ private:
     LARGE_INTEGER	mliFrequency;
     LARGE_INTEGER	mliStart;
     LARGE_INTEGER	mliStop;
-    long double     mldTimeDiff;
+    long long       mllTimeDiff;
+
+private:
+    unsigned long   mulErrCode;
+
+public:
+    bool HasError() { return mulErrCode == 0 ? true : false; };
+    unsigned long toErrCode(){ return mulErrCode; }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     inline void Reset()
     {
-        mldTimeDiff = 0;
+        mllTimeDiff = 0;
         memset( &mliFrequency, 0x00, sizeof(mliFrequency) );
         memset( &mliStart,     0x00, sizeof(mliStart)     );
         memset( &mliStop,      0x00, sizeof(mliStop)      );
     }
 
     // 开始计数
-    inline void    Start()
+    inline bool       Begin()
     {
         Reset();
-        ::QueryPerformanceFrequency(&mliFrequency);
-        ::QueryPerformanceCounter(&mliStart);
+
+        bool lbRetForFrequency = ::QueryPerformanceFrequency(&mliFrequency);
+        // #  TODO : Add condition brief here ##
+        if (lbRetForFrequency==false)
+        {
+        	mulErrCode = GetLastError();
+            return false;
+        } 
+        // End of if (lbRetForFrequency==false) ...
+
+        bool lbRetForCounter   = ::QueryPerformanceCounter(&mliStart);
+        // #  TODO : Add condition brief here ##
+        if (lbRetForCounter==false)
+        {
+        	mulErrCode = GetLastError();
+            return false;
+        } 
+        // End of if (lbRetForCounter==false) ...
+
+        return true;
     }
 
     // 结束计数
-    inline long double Stop()
+    inline long long  Ended()
     {
-        ::QueryPerformanceCounter(&mliStop);
-        mldTimeDiff = (mliStop.QuadPart - mliStart.QuadPart);
-        return mldTimeDiff;
+        bool lbRetForCounter = ::QueryPerformanceCounter(&mliStop);
+        // #  TODO : Add condition brief here ##
+        if (lbRetForCounter==false)
+        {
+        	mulErrCode = GetLastError();
+            return vMinsLLong;
+        } 
+        // End of if (lbRetForCounter==false) ...
+        mllTimeDiff = (mliStop.QuadPart - mliStart.QuadPart);
+        return mllTimeDiff;
     };
 
     inline long double toSecond()
     {
-        return (mldTimeDiff / (long double)mliFrequency.QuadPart);
+        return (mllTimeDiff / (long double)mliFrequency.QuadPart);
     }
 
 

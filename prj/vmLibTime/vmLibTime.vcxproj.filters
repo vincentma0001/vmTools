@@ -13,26 +13,24 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="inc\vmLibTime">
+      <UniqueIdentifier>{0b64e2af-403e-4685-b77a-e3e416694161}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\tst\tst_vmLibBase\tst_vmLibBase.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CBit8.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmLibTime\CTime.hpp">
+      <Filter>inc\vmLibTime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CDateTime.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmLibTime\CTimeStr.h">
+      <Filter>inc\vmLibTime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CWinAtom.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmLibTime\CTimeStr_Y4_h_MM_h_DD_s_hh_s_mm_s_ss_p_ms.h">
+      <Filter>inc\vmLibTime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CStdPars.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmLibTime\CWinCounter.h">
+      <Filter>inc\vmLibTime</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CTime.h">
+    <ClInclude Include="..\..\src\vmLibTime\vmCfgTime.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

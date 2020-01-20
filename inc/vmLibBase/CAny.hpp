@@ -25,11 +25,11 @@
 // Include files :
 
 #ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
+#   include <vmCfg.h>
 #endif // __VM_CFG_H__
 
 #ifndef   __VM_UTIL_H__
-#	error this file need #include <vmLibBase/vmUtil.h>
+#   include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////

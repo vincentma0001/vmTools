@@ -13,26 +13,24 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="inc\vmCfg">
+      <UniqueIdentifier>{7c459ad4-9f45-4db2-96af-13e9122e1bc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\tst\tst_vmLibBase\tst_vmLibBase.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CBit8.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgDll.h">
+      <Filter>inc\vmCfg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CDateTime.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgPlatform.h">
+      <Filter>inc\vmCfg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CWinAtom.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgType.h">
+      <Filter>inc\vmCfg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CStdPars.h">
-      <Filter>inc</Filter>
+    <ClInclude Include="..\..\src\vmCfg\vmCfgtString.h">
+      <Filter>inc\vmCfg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CTime.h">
+    <ClInclude Include="..\..\src\vmCfg.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

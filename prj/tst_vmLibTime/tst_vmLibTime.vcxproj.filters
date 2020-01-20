@@ -15,24 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\tst\tst_vmLibBase\tst_vmLibBase.cpp">
+    <ClCompile Include="..\..\tst\tst_vmLibTime\tst_vmLibTime.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CBit8.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CDateTime.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CWinAtom.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CStdPars.h">
-      <Filter>inc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CTime.h">
+    <ClInclude Include="..\..\tst\tst_vmLibTime\ut_CWinCounter.h">
       <Filter>inc</Filter>
     </ClInclude>
   </ItemGroup>

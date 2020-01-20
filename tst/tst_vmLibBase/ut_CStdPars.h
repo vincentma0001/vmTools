@@ -36,6 +36,7 @@
 // Standard c/c++ files included
 
 // Config files included
+#include <vmCfg.h>
 
 // Platform files included
 
@@ -56,12 +57,10 @@
 TEST_FUNC_BEGIN( ut_CStdPars_t1 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("this is a tst [%F:%L] - %M");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("this is a tst [%F:%L] - %M");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -75,11 +74,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t1 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -89,12 +85,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t2 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("this is a tst [%F:%L] - %M Flag");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("this is a tst [%F:%L] - %M Flag");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -108,11 +102,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t2 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -122,12 +113,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t3 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("this is a tst [%%L] - %M Flag");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("this is a tst [%%L] - %M Flag");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -141,11 +130,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t3 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -155,12 +141,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t4 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("this is a tst [%F:%L] - %M Flag %");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("this is a tst [%F:%L] - %M Flag %");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -174,11 +158,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t4 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -188,12 +169,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t5 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("%this is a tst [%F:%L] - %M Flag %");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("%this is a tst [%F:%L] - %M Flag %");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -207,11 +186,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t5 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -221,12 +197,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t6 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -240,11 +214,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t6 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
@@ -254,12 +225,10 @@ TEST_FUNC_ENDED
 TEST_FUNC_BEGIN( ut_CStdPars_t7 )
 {
     bool lbRet = false;
-    vm::utLogLine("======================================================================================");
-    vm::utLogLine("");
 
     // #Add test content here#
-    vString lstrString = vT("%");
-    vm::utLogLine("Pattern string : %s", lstrString.c_str());
+    vStdStr lstrString = vT("%");
+    vm::utLogLine(vT("Pattern string : %s"), lstrString.c_str());
 
     vm::vStd::CStdPars::CPattern loPatternFile(vT("%F"), vT("main.cpp"));
     vm::vStd::CStdPars::CPattern loPatternLine(vT("%L"), vT("1024"));
@@ -273,11 +242,8 @@ TEST_FUNC_BEGIN( ut_CStdPars_t7 )
     std::string lstrOut;
     loParser.Parse(lstrOut);
 
-    vm::utLogLine("Parered string : %s", lstrOut.c_str());
+    vm::utLogLine(vT("Parered string : %s"), lstrOut.c_str());
 
-
-    vm::utLogLine("");
-    vm::utLogLine("======================================================================================");
     return lbRet;
 }
 TEST_FUNC_ENDED
