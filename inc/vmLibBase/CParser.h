@@ -46,19 +46,10 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
-// Config files included
-#ifndef   __VM_CFG_H__
-#   include <vmCfg.h>
-#endif // __VM_CFG_H__
 
-// Used files included
-#ifndef   __VM_UTIL_H__
-#   include <vmLibBase/vmUtil.h>
-#endif // __VM_UTIL_H__
-
-#ifndef   __CSTRPTR_H__
-#   include <vmLibBase/CStrPtr.h>
-#endif // __CSTRPTR_H__
+#ifndef   __CSTRINGPTR_H__
+#   include <vmLibBase/CStringPtr.h>
+#endif // __CSTRINGPTR_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -74,61 +65,39 @@ class CParser
 /////////////////////////////////////////////////////////////////////////////////////////
 // Typedefs :
 public:
+    /////////////////////////////////////////////////////////////////////////////////////
+    // class CPattern
     class CPattern
     {
         friend CParser;
     public:
         explicit CPattern( const tchar* const cpFlg, const size_t csztFlgLen,
-                           const tchar* const cpRpl, const size_t csztRplLen )
-                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(csztFlgLen), 
-                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(csztRplLen),
-                           mpPattern(nullptr) {};
-        explicit CPattern( const tchar* const cpFlg, const tchar* const cpRpl )
-                          :mpFlg(const_cast<tchar*>(cpFlg)), msztFlgLen(vStrlen(cpFlg)),
-                           mpRpl(const_cast<tchar*>(cpRpl)), msztRplLen(vStrlen(cpRpl)),
-                           mpPattern(nullptr) {};
-        virtual ~CPattern() 
-        { 
-            mpFlg     = nullptr; 
-            mpRpl     = nullptr; 
-            mpPattern = nullptr; 
-        };
+                           const tchar* const cpRpl, const size_t csztRplLen );
+        explicit CPattern( const tchar* const cpFlg, const tchar* const cpRpl );
+        virtual ~CPattern();
     public:
-        tchar*   mpFlg;
-        size_t   msztFlgLen;
-        tchar*   mpRpl;
-        size_t   msztRplLen;
+        const tchar*    mpFlg;
+        size_t          msztFlgLen;
+        const tchar*    mpRpl;
+        size_t          msztRplLen;
 
     private:
-        CPattern*  mpPattern;
+        CPattern*       mpPattern;
 
     private:
-        CPattern*& GetLastPattern()
-        {
-            if (mpPattern == nullptr)
-                return mpPattern;
+        CPattern*&      GetLastPattern();
 
-            return mpPattern->GetLastPattern();
-        }
     }; // End of class CPattern
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    CParser( const tchar cszSpecifier, const tchar* const cpFmt, const size_t csztFmtLen)
-            :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<tchar*>(mpFmt)), msztFmtLen(csztFmtLen){}; 
-   CParser( const tchar cszSpecifier, const tchar* const cpFmt) 
-            :mszSpecifier(cszSpecifier),      mpPatterns(nullptr), 
-             mpFmt(const_cast<tchar*>(cpFmt)), msztFmtLen(vStrlen(cpFmt)){};
+    CParser( const tchar cszSpecifier, const tchar* const cpFmt, const size_t csztFmtLen);
+    CParser( const tchar cszSpecifier, const tchar* const cpFmt);
 
     // Destruct define
-    virtual ~CParser() 
-    { 
-        mpPatterns = nullptr; 
-    }
-
+    virtual ~CParser();
 private:
     // No Copy
     CParser(const CParser& obj){};
@@ -146,96 +115,219 @@ private:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    void Regist(CPattern& oFlag)
-    {
-        if (mpPatterns == nullptr)
-        {
-            mpPatterns = &oFlag; return;
-        };
-
-        CPattern*& lpFlag = mpPatterns->GetLastPattern();
-        lpFlag = &oFlag;
-    }
-
-    tchar* Parse( tchar* const pOutBuf, const size_t csztOutBufLen )
-    {
-        // 准备解析数据
-        vm::CStrPtr loFmt(mpFmt,msztFmtLen);
-        size_t lsztFmtOffSet = 0;
-        tchar* lpFmtEnd      = mpFmt + msztFmtLen;
-        vm::CStrPtr loOutBuf(pOutBuf, csztOutBufLen);
-        size_t lsztOutBufOffset = 0;
-
-        // 查找第一个标识符，若查找不到则返回。
-        tchar* lpPos = loFmt.Find(mszSpecifier);
-        if ( lpPos == nullptr ) return nullptr;
-
-        // 将标识符到源数据开始位置的数据复制到目标数据中
-        size_t lsztCount        = (lpPos-mpFmt);
-        size_t lsztFirstCopied  = loOutBuf.CopyFm( mpFmt,lsztCount );
-        lsztOutBufOffset      += lsztFirstCopied;
-        lsztFmtOffSet         += lsztFirstCopied;
-
-        // 循环对每一个Pattern进行对比
-        while ( lpPos != nullptr )
-        {
-            // 依次检测Pattern标识
-            CPattern* lpPattern = mpPatterns;
-            while (lpPattern != nullptr)
-            {
-                // 若当前Pattern与标识符不相同，将转到下一个Pattern进行检测
-                if ( ! loFmt.Cmp(lpPattern->mpFlg, lpPattern->msztFlgLen, lsztFmtOffSet ) )
-                {
-                    lpPattern = lpPattern->mpPattern;
-                    continue;
-                }
-                
-                // 对Pattern代表的字符串进行替换 
-                size_t lsztCopied  = loOutBuf.CopyFm( lsztOutBufOffset,lpPattern->mpRpl, lpPattern->msztRplLen );
-                lsztFmtOffSet    += lpPattern->msztFlgLen;
-                lsztOutBufOffset += lsztCopied;
-                lpPattern         = lpPattern->mpPattern;
-                break;
-            }
-
-            // 查找下一个标识符所在的位置
-            tchar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
-            //do{
-                if (  lpNextPos != lpPos )
-                {
-                    // 将当前标识符与下一个标识符中的数据复制到目标数据中
-                    size_t lsztCount = 0;
-                    if ( lpNextPos == nullptr )
-                    { 
-                        // 当前标识符后以不存在标识符，将当前标识符到源字符串结尾的数据复制到目标字符串中。
-                        lsztCount = lpFmtEnd-(mpFmt+lsztFmtOffSet);
-                    }else
-                    {
-                        // 将当前标识符与下一个标识符中的数据复制到目标数据中
-                        lsztCount = lpNextPos-(mpFmt+lsztFmtOffSet);
-                    }
-                    size_t lsztCopied    = loOutBuf.CopyFm( lsztOutBufOffset, loFmt[lsztFmtOffSet], lsztCount );
-                    lsztOutBufOffset   += lsztCopied;
-                    lsztFmtOffSet      += lsztCount;
-                    lpPos               = lpNextPos;
-                }
-                else
-                {
-                    // 当前标识符的后面不存在可解析的数据
-                    size_t lsztCopied   = loOutBuf.CopyFm(lsztOutBufOffset, loFmt[lsztFmtOffSet], sizeof(mszSpecifier));
-                    lsztFmtOffSet    += lsztCopied;
-                    lsztOutBufOffset += lsztCopied;
-                    //lpNextPos         = loFmt.Find(lsztFmtOffSet, mszSpecifier);
-                    lpPos             = lpNextPos;                   
-                }
-            //}while(lpPos!=nullptr);
-        }
-
-        return pOutBuf;
-    }
-
+    void   Regist( CPattern& oFlag );
+    tchar* Parse ( tchar* const pOutBuf, const size_t csztOutBufLen );
 
 }; // End of class CParser
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : CPattern(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CPattern::CPattern(const tchar* const cpFlg, const size_t csztFlgLen,
+                            const tchar* const cpRpl, const size_t csztRplLen)
+                           :mpFlg(cpFlg), msztFlgLen(csztFlgLen),
+                            mpRpl(cpRpl), msztRplLen(csztRplLen),
+                            mpPattern(nullptr) 
+{
+
+};
+// End of function CPattern(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : CPattern(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CPattern::CPattern(const tchar* const cpFlg, const tchar* const cpRpl)
+                           :mpFlg(cpFlg), msztFlgLen(vStrlen(cpFlg)),
+                            mpRpl(cpRpl), msztRplLen(vStrlen(cpRpl)),
+                            mpPattern(nullptr) 
+{
+
+};
+// End of function CPattern(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : ~CPattern(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CPattern::~CPattern()
+{
+    mpFlg       = nullptr;
+    mpRpl       = nullptr;
+    mpPattern   = nullptr;
+};
+// End of function ~CPattern(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : GetLastPattern(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CPattern*& CParser::CPattern::GetLastPattern()
+{
+    if (mpPattern == nullptr)
+        return mpPattern;
+
+    return mpPattern->GetLastPattern();
+}
+// End of function GetLastPattern(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : CParser(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CParser( const tchar cszSpecifier, const tchar* const cpFmt, const size_t csztFmtLen )
+                 :mszSpecifier(cszSpecifier), mpPatterns(nullptr),
+                  mpFmt(const_cast<tchar*>(mpFmt)), msztFmtLen(csztFmtLen) 
+{
+
+};
+// End of function CParser(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : CParser(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+CParser::CParser( const tchar cszSpecifier, const tchar* const cpFmt )
+                 :mszSpecifier(cszSpecifier), mpPatterns(nullptr),
+                  mpFmt(const_cast<tchar*>(cpFmt)), msztFmtLen(vStrlen(cpFmt)) 
+{
+
+};
+// End of function CParser(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : ~CParser(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+// Destruct define
+CParser::~CParser()
+{
+    mpPatterns = nullptr;
+}
+// End of function ~CParser(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : Regist(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+void CParser::Regist(CPattern& oFlag)
+{
+    if (mpPatterns == nullptr)
+    {
+        mpPatterns = &oFlag; 
+        return;
+    };
+
+    CPattern*& lpFlag = mpPatterns->GetLastPattern();
+    lpFlag = &oFlag;
+}
+// End of function Regist(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Method    : Parse(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+tchar* CParser::Parse(tchar* const pOutBuf, const size_t csztOutBufLen)
+{
+    // 准备解析数据
+    vm::CStringPtr loFmt(mpFmt, msztFmtLen);
+    size_t lsztFmtOffSet = 0;
+    tchar* lpFmtEnd = mpFmt + msztFmtLen;
+
+    vm::CStringPtr loOutBuf(pOutBuf, csztOutBufLen);
+    size_t lsztOutBufOffset = 0;
+
+    // 查找第一个标识符，若查找不到则返回。
+    tchar* lpPos = loFmt.Find(mszSpecifier);
+    if (lpPos == nullptr) 
+        return nullptr;
+
+    // 将标识符到源数据开始位置的数据复制到目标数据中
+    size_t lsztCount        = (lpPos - mpFmt);
+    size_t lsztFirstCopied  = loOutBuf.CopyFm(mpFmt, lsztCount, 0);
+    lsztOutBufOffset       += lsztFirstCopied;
+    lsztFmtOffSet          += lsztFirstCopied;
+
+    // 循环对每一个Pattern进行对比
+    while (lpPos != nullptr)
+    {
+        // 依次检测Pattern标识
+        CPattern* lpPattern = mpPatterns;
+        while (lpPattern != nullptr)
+        {
+            // 若当前Pattern与标识符不相同，将转到下一个Pattern进行检测
+            if (!loFmt.Cmp(lpPattern->mpFlg, lpPattern->msztFlgLen, lsztFmtOffSet))
+            {
+                lpPattern = lpPattern->mpPattern;
+                continue;
+            }
+
+            // 对Pattern代表的字符串进行替换 
+            size_t lsztCopied = loOutBuf.CopyFm(lpPattern->mpRpl, lpPattern->msztRplLen, lsztOutBufOffset);
+            lsztFmtOffSet += lpPattern->msztFlgLen;
+            lsztOutBufOffset += lsztCopied;
+            lpPattern = lpPattern->mpPattern;
+            break;
+        }
+
+        // 查找下一个标识符所在的位置
+        tchar* lpNextPos = loFmt.Find(lsztFmtOffSet, mszSpecifier);
+        if (lpNextPos != lpPos)
+        {
+            // 将当前标识符与下一个标识符中的数据复制到目标数据中
+            size_t lsztCount = 0;
+            if (lpNextPos == nullptr)
+            {
+                // 当前标识符后以不存在标识符，将当前标识符到源字符串结尾的数据复制到目标字符串中。
+                lsztCount = lpFmtEnd - (mpFmt + lsztFmtOffSet);
+            }
+            else
+            {
+                // 将当前标识符与下一个标识符中的数据复制到目标数据中
+                lsztCount = lpNextPos - (mpFmt + lsztFmtOffSet);
+            }
+            size_t lsztCopied = loOutBuf.CopyFm(loFmt[ lsztFmtOffSet ], lsztCount, lsztOutBufOffset);
+            lsztOutBufOffset += lsztCopied;
+            lsztFmtOffSet += lsztCount;
+            lpPos = lpNextPos;
+        }
+        else
+        {
+            // 当前标识符的后面不存在可解析的数据
+            size_t lsztCopied = loOutBuf.CopyFm(loFmt[ lsztFmtOffSet ], sizeof(mszSpecifier), lsztOutBufOffset);
+            lsztFmtOffSet += lsztCopied;
+            lsztOutBufOffset += lsztCopied;
+            //lpNextPos         = loFmt.Find(lsztFmtOffSet, mszSpecifier);
+            lpPos = lpNextPos;
+        }
+    }
+
+    return pOutBuf;
+}
+// End of function Parse(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////

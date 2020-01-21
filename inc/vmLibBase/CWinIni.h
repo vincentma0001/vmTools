@@ -30,21 +30,20 @@
 
 // Config files included
 #ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
+#   include <vmCfg/vmCfgtString.h>
 #endif // __VM_CFG_H__
 
 // Platform files included
 #ifndef   _WINDOWS_
-#	error this file need #include <windows.h>
+#   include <windows.h>
 #endif // _WINDOWS_
 
-// Used files included
-#ifndef   __VM_CFG_H__
-#	error this file need #include <vmLibBase/CStrPtr.h>
-#endif // __VM_CFG_H__
+#ifndef   __CSTRINGPTR_H__
+#   include <vmLibBase/CStringPtr.h>
+#endif // __CSTRINGPTR_H__
 
 #ifndef   __CWINFILE_H__
-#	error this file need #include <vmLibFile/CWinFile.h>
+#   include <vmLibFile/CWinFile.h>
 #endif // __CWINFILE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -85,15 +84,15 @@ private:
 // Functions :
 public:
     // 设置Ini完整文件名
-    inline tVoid Open( cpctChar szFileName);
+    inline void Open( const tchar* const szFileName);
 
     // 获取一个字符串类型的值
-    inline ptChar GetValueStr(cpctChar szAppName, cpctChar szKeyName, cpctChar szDefaule);
+    inline tchar* GetValueStr(const tchar* const szAppName, const tchar* const szKeyName, const tchar* const szDefaule);
     // 获取一个int型数值
-    inline tInt   GetValueInt(cpctChar szAppName, cpctChar szKeyName, ctInt iDefaule);
+    inline int    GetValueInt(const tchar* const szAppName, const tchar* const szKeyName, const int iDefaule);
 
     // 写入Ini文件值
-    inline tBool  WriteValue(cpctChar szAppName, cpctChar szKeyName, cpctChar szValue);
+    inline bool   WriteValue (const tchar* const szAppName, const tchar* const szKeyName, const tchar* const szValue);
 
 
 }; // End of class CWinIni
@@ -105,10 +104,10 @@ public:
 // Return    : void
 // Parameter : null
 template< size_t sztBufSize >
-inline tVoid CWinIni<sztBufSize>::Open(cpctChar szFileName)
+inline void CWinIni<sztBufSize>::Open( const tchar* const szFileName)
 {
     vm::CFile() loFile(szFileName);
-    vm::CStrPtr lstrPath(mszPath, sizeof(mszPath));
+    vm::CStringPtr lstrPath(mszPath, sizeof(mszPath));
     lstrPath = loFile.cs_Path();
 }
 // End of function 
@@ -120,7 +119,7 @@ inline tVoid CWinIni<sztBufSize>::Open(cpctChar szFileName)
 // Return    : void
 // Parameter : null
 template< size_t sztBufSize >
-inline ptChar CWinIni<sztBufSize>::GetValueStr(cpctChar szAppName, cpctChar szKeyName, cpctChar szDefaule)
+inline tchar* CWinIni<sztBufSize>::GetValueStr(const tchar* const szAppName, const tchar* const szKeyName, const tchar* const szDefaule)
 {
     ::GetPrivateProfileString(szAppName, szKeyName, szDefaule, mszBuf, sizeof(mszBuf), mszPath);
     return mszBuf;
@@ -134,7 +133,7 @@ inline ptChar CWinIni<sztBufSize>::GetValueStr(cpctChar szAppName, cpctChar szKe
 // Return    : void
 // Parameter : null
 template< size_t sztBufSize >
-inline tInt CWinIni<sztBufSize>::GetValueInt(cpctChar szAppName, cpctChar szKeyName, ctInt iDefaule)
+inline int CWinIni<sztBufSize>::GetValueInt(const tchar* const szAppName, const tchar* const szKeyName, const int iDefaule)
 {
     tInt liRet = ::GetPrivateProfileInt(szAppName, szKeyName, iDefaule, mszPath);
     return liRet;
@@ -148,7 +147,7 @@ inline tInt CWinIni<sztBufSize>::GetValueInt(cpctChar szAppName, cpctChar szKeyN
 // Return    : void
 // Parameter : null
 template< size_t sztBufSize >
-inline tBool CWinIni<sztBufSize>::WriteValue(cpctChar szAppName, cpctChar szKeyName, cpctChar szValue)
+inline bool CWinIni<sztBufSize>::WriteValue(const tchar* const szAppName, const tchar* const szKeyName, const tchar* const szValue)
 {
     BOOL lbRet = ::WritePrivateProfileString(szAppName, szKeyName, szValue, mszPath);
     return (lbRet == TRUE) ? true : false;

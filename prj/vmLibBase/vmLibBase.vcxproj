@@ -28,9 +28,8 @@
     <ClInclude Include="..\..\src\vmLibBase\CBit32.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit64.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit08.hpp" />
-    <ClInclude Include="..\..\src\vmLibBase\CErrBase.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CErrPtr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CErrno.h" />
-    <ClInclude Include="..\..\src\vmLibBase\CLuxErr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CUnitTestFrame.h" />
     <ClInclude Include="..\..\src\vmLibBase\CJson.h" />
     <ClInclude Include="..\..\src\vmLibBase\CJValue.h" />
@@ -56,10 +55,6 @@
     <ClInclude Include="..\..\src\vmLibBase\vmStdUtil.h" />
     <ClInclude Include="..\..\src\vmLibBase\vmUtil.h" />
     <ClInclude Include="..\..\src\vmLibBase\vmVerify.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\vmLibBase\CErrBase.cpp" />
-    <ClCompile Include="..\..\src\vmLibBase\CWinErr.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -155,9 +150,7 @@
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
 copy "$(SolutionDir)src\vmLibBase\*.h" "$(SolutionDir)inc\vmLibBase\*.h"
-copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"
-copy "$(SolutionDir)bin\vmLibBase.lib" "$(SolutionDir)lib\vmLibBase.lib"
-copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Command>
+copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"</Command>
     </PostBuildEvent>
     <Link />
   </ItemDefinitionGroup>
@@ -171,9 +164,7 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
 copy "$(SolutionDir)src\vmLibBase\*.h" "$(SolutionDir)inc\vmLibBase\*.h"
-copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"
-copy "$(SolutionDir)bin\vmLibBase.lib" "$(SolutionDir)lib\vmLibBase.lib"
-copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Command>
+copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"</Command>
     </PostBuildEvent>
     <Link>
       <GenerateMapFile>false</GenerateMapFile>
@@ -197,9 +188,7 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
 copy "$(SolutionDir)src\vmLibBase\*.h" "$(SolutionDir)inc\vmLibBase\*.h"
-copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"
-copy "$(SolutionDir)bin\vmLibBase.lib" "$(SolutionDir)lib\vmLibBase.lib"
-copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Command>
+copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -219,9 +208,7 @@ copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Comman
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)src\vmLibBase.h" "$(SolutionDir)inc\vmLibBase.h"
 copy "$(SolutionDir)src\vmLibBase\*.h" "$(SolutionDir)inc\vmLibBase\*.h"
-copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"
-copy "$(SolutionDir)bin\vmLibBase.lib" "$(SolutionDir)lib\vmLibBase.lib"
-copy "$(SolutionDir)bin\vmLibBase.dll" "$(SolutionDir)lib\vmLibBase.dll"</Command>
+copy "$(SolutionDir)src\vmLibBase\*.hpp" "$(SolutionDir)inc\vmLibBase\*.hpp"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

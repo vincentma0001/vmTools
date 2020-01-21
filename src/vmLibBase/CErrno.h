@@ -80,16 +80,16 @@ public:
     errno_t toErrCode();
 
     // 判断iErrno是否存错误
-    bool isError( const int iErrno );
+    bool    isError( const int iErrno );
     // 判断是否存在errno错误
-    bool HasErrno();
+    bool    HasErrno();
 
     // 检测错误，若有错误抛出异常
-    void CheckError( const tchar* const cpFunc );
+    void    CheckError( const tchar* const cpFunc );
 
     // 输出错误信息
-    tchar* MsgErrno();
-    tchar* MsgErrno(const errno_t oErrCode);
+    tchar*  MsgErrno();
+    tchar*  MsgErrno(const errno_t oErrCode);
 
 }; // End of class CErrno
 /////////////////////////////////////////////////////////////////////////////////////////

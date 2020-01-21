@@ -32,7 +32,9 @@
 #   include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
-#include <vmLibBase/CAnyFmt.hpp>
+#ifndef   __CANYFMT_HPP__
+#   include <vmLibBase/CAnyFmt.hpp>
+#endif // __CANYFMT_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace

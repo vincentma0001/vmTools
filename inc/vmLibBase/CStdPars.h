@@ -27,14 +27,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#ifndef   _STRING_
-#	error this file need #include <string>
-#endif // _STRING_
 
 // Config files included
-#ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
-#endif // __VM_CFG_H__
+#ifndef   __VM_CFG_TSTRING_H__
+#   include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 // Platform files included
 
@@ -59,13 +56,13 @@ public:
     {
     friend CStdPars;
     public:
-         explicit CPattern( vString strFlg, vString strRpl)
+         explicit CPattern(vStdStr strFlg, vStdStr strRpl)
                  :mstrFlg(strFlg),mulFlgLen(strFlg.length()),mstrRpl(strRpl),mpPattern(nullptr){};
          virtual ~CPattern(){ mpPattern = nullptr; };
     public:
         unsigned long   mulFlgLen;
-        vString         mstrFlg;
-        vString         mstrRpl;
+        vStdStr         mstrFlg;
+        vStdStr         mstrRpl;
 
     private:
         CPattern*          mpPattern;
@@ -84,7 +81,7 @@ public:
 // Construct && Destruct
 public:
     // Construct define
-    CStdPars( vString strFmt, tchar cFlag ):mstrFmt(strFmt), mszSpecifier(cFlag),mpPatterns(nullptr){};
+    CStdPars( vStdStr strFmt, tchar cFlag ):mstrFmt(strFmt), mszSpecifier(cFlag),mpPatterns(nullptr){};
     // Destruct define
     virtual ~CStdPars(){if (mpPatterns!=nullptr) mpPatterns=nullptr; }
     
@@ -98,7 +95,7 @@ private:
 // Members :
 private:
     tchar       mszSpecifier;
-    vString     mstrFmt;
+    vStdStr     mstrFmt;
     CPattern*   mpPatterns;
 
 public:
@@ -114,13 +111,13 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    bool Parse(vString& strOutput)
+    bool Parse(vStdStr& strOutput)
     {
         size_t lsztPos = mstrFmt.find_first_of(mszSpecifier);
-        if(lsztPos==vString::npos) return false;
+        if(lsztPos== vStdStr::npos) return false;
 
         strOutput = mstrFmt.substr(0,lsztPos);
-        while ( lsztPos!=vString::npos )
+        while ( lsztPos!= vStdStr::npos )
         {
             CPattern* lpPattern = mpPatterns;
             while (lpPattern !=nullptr)
@@ -162,7 +159,6 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vStd
-/////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
 

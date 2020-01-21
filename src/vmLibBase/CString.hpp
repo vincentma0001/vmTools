@@ -38,7 +38,7 @@
 #endif // __VM_UTIL_H__
 
 #ifndef   __CSTRPTR_H__
-#include <vmLibBase/CStringPtr.h>
+#   include <vmLibBase/CStringPtr.h>
 #endif // __CSTRPTR_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////

@@ -30,7 +30,7 @@
 
 // Config files included
 #ifndef   __VM_CFG_TSTRING_H__
-#include <vmCfg/vmCfgtString.h>
+#   include <vmCfg/vmCfgtString.h>
 #endif // __VM_CFG_TSTRING_H__
 
 // Platform files included

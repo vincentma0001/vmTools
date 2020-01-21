@@ -33,9 +33,6 @@
 // Platform files included
 
 // Used files included
-#ifndef   __CLOCKER_HPP__
-#	error this file need #include <vmLibIPC/CLocker.hpp>
-#endif // __CLOCKER_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -44,7 +41,7 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macro define :
 #ifndef    vSingleTon
-#   define vSingleTon( tType, tMutex ) vm::CSingleton<tType, tMutex>::Instance()
+#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
 #endif  // vSingleTon
 
 /////////////////////////////////////////////////////////////////////////////////////////

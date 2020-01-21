@@ -29,6 +29,9 @@
 // Standard c/c++ files included
 
 // Config files included
+#ifndef   __VM_CFG_TSTRING_H__
+#   include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 // Platform files included
 
@@ -52,17 +55,18 @@ class CFmt
 {
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macro defines :
-#ifndef   _V_CFMT_MAX_BUF_
+
+#ifndef    _V_CFMT_MAX_BUF_
 #   define _V_CFMT_MAX_BUF_ 256
-#endif // _V_CFMT_MAX_BUF_
+#endif  // _V_CFMT_MAX_BUF_
 
-#ifndef   vAnyFmt
+#ifndef    vAnyFmt
 #   define vAnyFmt(x) vm::vAny::CFmt<x>
-#endif // vAnyFmt
+#endif  // vAnyFmt
 
-#ifndef   vAnyFmtD
+#ifndef    vAnyFmtD
 #   define vAnyFmtD vm::vAny::CFmt<_V_CFMT_MAX_BUF_>
-#endif // vAnyFmtD
+#endif  // vAnyFmtD
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct

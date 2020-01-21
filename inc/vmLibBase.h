@@ -36,12 +36,12 @@
 
 // Used files included
 
-#include <vmLibBase\CBit8.h>
+#include <vmLibBase\CBit08.h>
 #include <vmLibBase\CAny.hpp>
 #include <vmLibBase\CDateTime.hpp>
 #include <vmLibBase\CMemPtr.h>
 #include <vmLibBase\CMem.hpp>
-#include <vmLibBase\CStrPtr.h>
+#include <vmLibBase\CStringPtr.h>
 #include <vmLibBase\CString.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////

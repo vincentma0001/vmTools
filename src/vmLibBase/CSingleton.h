@@ -41,7 +41,7 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macro define :
 #ifndef    vSingleTon
-#   define vSingleTon( tType, tMutex ) vm::CSingleton<tType, tMutex>::Instance()
+#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
 #endif  // vSingleTon
 
 /////////////////////////////////////////////////////////////////////////////////////////

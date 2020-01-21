@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CErrno.cpp
+// File name    : CErrno.h
 // Version      : 0.0.0.0
-// Author       : v.m.
 // Brief        : 
-// Create time  : 2019/12/31 10:49:52
-// Modify time  : 2019/12/31 10:49:52
+// Author       : v.m.
+// Create time  : 2019/12/31 10:24:43
+// Modify time  : 2019/12/31 10:24:43
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -13,46 +13,86 @@
 // Copyright : this file is copyright by v.m.'s tools lib
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Disable warnings :
-// Example : #pragma warning(disable:4996)
-#if defined (_MSC_VER)
-#   pragma warning(disable:4996)
+// compile macro definition
+#if defined (_MSC_VER) && (_MSC_VER >= 1300)
+#pragma once
 #endif
 
+#ifndef __CERRNO_H__
+#define __CERRNO_H__
+
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include files :
-// Standard c/c++ files included
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <string>
+// include file
+#ifndef   _INC_ERRNO
+#   include <errno.h>
+#endif // _INC_ERRNO
 
-// Config files included
-#include <vmCfg.h>
-
-// platform files included
-#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
-#include <windows.h>
-#include <errors.h>
-#endif // #if defined(...)
-
-// Used files included
-#include <vmLibBase/vmUtil.h>
-
-// Declare file included
-#include "CErrno.h"
+#ifndef   __VM_UTIL_H__
+#   include <vmLibBase/vmUtil.h>
+#endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
-/////////////////////////////////////////////////////////////////////////////////////////
-// Global variable initialize
+#define vCheckErrCode( func, oErrCode )   vm::CErrno( oErrCode ).CheckError( vT(#func) )
+#define vCheckError( func )               vm::CErrno( ).CheckError( vT(#func) );
 
-errno_t CErrno::moErrCode = 0;
-tchar    CErrno::mszErrMsg[_V_ERRNO_MAX_BUF_] = {0x00};
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// class CErrno : ## add class brief here ##
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+class CErrno
+{
+/////////////////////////////////////////////////////////////////////////////////////////
+// Macro define :
+#define _V_ERRNO_MAX_BUF_ 1024
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Construct && Destruct
+public:
+    // Construct define
+    explicit CErrno( const errno_t oErrCode):moErrCode(oErrCode){};
+    explicit CErrno():moErrCode(errno){};
+    // Destruct define
+    virtual  ~CErrno(){};
+    
+private:
+    // No Copy
+    CErrno(const CErrno& obj) {};
+    // No Assignment
+    CErrno& operator = ( const CErrno& obj ){ return *this; };
+    
+/////////////////////////////////////////////////////////////////////////////////////////
+// members
+public:
+    // ´íÎó´úÂë
+    errno_t  moErrCode;
+    
+    // ´íÎóÐÅÏ¢
+    tchar    mszErrMsg[_V_ERRNO_MAX_BUF_];
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Functions :
+public:
+    // »ñÈ¡µ±Ç°´íÎó´úÂë
+    errno_t toErrCode();
+
+    // ÅÐ¶ÏiErrnoÊÇ·ñ´æ´íÎó
+    bool    isError( const int iErrno );
+    // ÅÐ¶ÏÊÇ·ñ´æÔÚerrno´íÎó
+    bool    HasErrno();
+
+    // ¼ì²â´íÎó£¬ÈôÓÐ´íÎóÅ×³öÒì³£
+    void    CheckError( const tchar* const cpFunc );
+
+    // Êä³ö´íÎóÐÅÏ¢
+    tchar*  MsgErrno();
+    tchar*  MsgErrno(const errno_t oErrCode);
+
+}; // End of class CErrno
+/////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Name      : toErrCode(...)
@@ -82,6 +122,23 @@ inline bool CErrno::HasErrno()
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// Method    : CheckError(...)
+// Brief     : # add method brief here #
+// Return    : return                                    -     # add return value notes #
+// Parameter : Param1                                    - [O] # add param1 value notes #
+//           : Param2                                    - [I] # add param2 value notes #
+void CErrno::CheckError(const tchar* const cpFunc)
+{
+    if (moErrCode == 0)
+        return;
+
+    v_sprintf(mszErrMsg, sizeof(mszErrMsg), vT("%s - has an error(%d, %s) launched!"), cpFunc, moErrCode, vStrerror(moErrCode));
+    throw mszErrMsg;
+}
+// End of function CheckError(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // Method    : HasErrno()
 // Brief     : ÅÐ¶ÏÊÇ·ñ´æÔÚerrno´íÎó
 // Return    : void
@@ -107,7 +164,7 @@ inline tchar* CErrno::MsgErrno()
     vMemZero(mszErrMsg);
 
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
-    errno_t loRet = strerror_s(mszErrMsg, moErrCode);
+    errno_t loRet = vStrerror_s(mszErrMsg, moErrCode);
     if (loRet != 0)
     {
         v_sprintf(mszErrMsg, sizeof(mszErrMsg), "CErrno::MsgErrno() - strerror_s failed(%d)", loRet);
@@ -115,8 +172,8 @@ inline tchar* CErrno::MsgErrno()
     }
 
 #else 
-    tchar* lpErr = strerror(moErrCode);
-    tchar* lpRet = strcpy(mszErrMsg, lpErr);
+    tchar* lpErr = vStrerror(moErrCode);
+    tchar* lpRet = vStrcpy(mszErrMsg, lpErr);
 #endif
     return  mszErrMsg;
 }
@@ -133,7 +190,7 @@ inline tchar* CErrno::MsgErrno(const errno_t oErrCode)
     vMemZero(mszErrMsg);
 
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
-    errno_t loRet = strerror_s(mszErrMsg, oErrCode);
+    errno_t loRet = vStrerror_s(mszErrMsg, oErrCode);
     if (loRet != 0)
     {
         v_sprintf(mszErrMsg, sizeof(mszErrMsg), "CErrno::MsgErrno() - strerror_s failed(%d)", loRet);
@@ -141,8 +198,8 @@ inline tchar* CErrno::MsgErrno(const errno_t oErrCode)
     }
 
 #else 
-    tchar* lpErr = strerror(oErrCode);
-    tchar* lpRet = strcpy(mszErrMsg, lpErr);
+    tchar* lpErr = vStrerror(oErrCode);
+    tchar* lpRet = vStrcpy(mszErrMsg, lpErr);
 #endif
     return  mszErrMsg;
 }
@@ -152,5 +209,12 @@ inline tchar* CErrno::MsgErrno(const errno_t oErrCode)
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CErrno.cpp
+#endif // __CERRNO_H__
+/////////////////////////////////////////////////////////////////////////////////////////
+// usage :
+/*
+
+//*/
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CErrno.h
 /////////////////////////////////////////////////////////////////////////////////////////

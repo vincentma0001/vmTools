@@ -138,13 +138,7 @@
     <ClInclude Include="..\..\src\vmLibBase\CBit08.hpp">
       <Filter>inc\vmLibBase\CBit</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\vmLibBase\CErrBase.h">
-      <Filter>inc\vmLibBase\Error</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CErrno.h">
-      <Filter>inc\vmLibBase\Error</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\vmLibBase\CLuxErr.h">
       <Filter>inc\vmLibBase\Error</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CWinErr.h">
@@ -156,13 +150,8 @@
     <ClInclude Include="..\..\src\vmLibBase\CStringPtr.h">
       <Filter>inc\vmLibBase\String</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\vmLibBase\CErrBase.cpp">
+    <ClInclude Include="..\..\src\vmLibBase\CErrPtr.h">
       <Filter>inc\vmLibBase\Error</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\vmLibBase\CWinErr.cpp">
-      <Filter>inc\vmLibBase\Error</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>

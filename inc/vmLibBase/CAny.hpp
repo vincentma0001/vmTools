@@ -32,7 +32,9 @@
 #   include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
-#include <vmLibBase/CAnyFmt.hpp>
+#ifndef   __CANYFMT_HPP__
+#   include <vmLibBase/CAnyFmt.hpp>
+#endif // __CANYFMT_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -232,7 +234,7 @@ public:
     inline tchar*  str()     { return mszBuf;         };
     // 返回数据类型
     inline emType anyType() { return memType;        };
-    inline tchar* s_type()
+    inline const tchar* cs_type()
     {
         switch (memType)
         {
@@ -305,9 +307,21 @@ public:
     inline tchar* s_double (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("lf")), munValue.dValue);   return mszBuf; };
     inline tchar* s_ldouble(vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("Lf")), munValue.dValue);   return mszBuf; };
 
+    inline tchar* s_bin08(){};
+    inline tchar* s_bin16(){};
+    inline tchar* s_bin32(){};
+    inline tchar* s_bin64(){};
+    inline tchar* s_oct08(){};
+    inline tchar* s_oct16(){};
+    inline tchar* s_oct32(){};
+    inline tchar* s_oct64(){};
+    inline tchar* s_hex08(){};
+    inline tchar* s_hex16(){};
+    inline tchar* s_hex32(){};
+    inline tchar* s_hex64(){};
 public:
     inline bool               toBool()   { return munValue.bValue;   };
-    inline bool               toSBool()  { return v_strcmp_equl(mszBuf,"true");};
+    inline bool               toSBool()  { return v_strcmp_equl(mszBuf,vT("true"));};
     inline int                toInt()    { return toInt(mszBuf);     };
     inline long               toLong()   { return toLong(mszBuf);    };
     inline unsigned long      toULong()  { return toULong(mszBuf);   };

@@ -29,7 +29,9 @@
 // Standard c/c++ files included
 
 // Config files included
-#include <vmCfg/vmCfgtString.h>
+#ifndef   __VM_CFG_TSTRING_H__
+#   include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 // Platform files included
 

@@ -34,9 +34,17 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#include <stdio.h>
-#include <stdarg.h>
-#include <list>
+#ifndef   _INC_STDIO
+#   include <stdio.h>
+#endif // _INC_STDIO
+
+#ifndef   _INC_STDARG
+#   include <stdarg.h>
+#endif // _INC_STDARG
+
+#ifndef   _LIST_
+#   include <list>
+#endif // _LIST_
 
 // Config files included
 // #include <vmcfg.h>
@@ -44,9 +52,9 @@
 // Platform files included
 
 // Used files included
-//#include <vmLibBase/vmUtil.h>
-//#include <vmLibBase/CString.hpp>
+#ifndef   __CWINCONSOLE_H__
 #include <vmLibIPC/CWinConsole.h>
+#endif // __CWINCONSOLE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
