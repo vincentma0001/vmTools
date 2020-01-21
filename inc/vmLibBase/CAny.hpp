@@ -32,6 +32,8 @@
 #   include <vmLibBase/vmUtil.h>
 #endif // __VM_UTIL_H__
 
+#include <vmLibBase/CAnyFmt.hpp>
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
@@ -54,18 +56,18 @@ namespace vm{
 #define vSizeOfDouble  vm::CAny<0>()::size_double()
 #define vSizeOfLDouble vm::CAny<0>()::size_ldouble()
 
-#define vCAnyFmChar   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_char()
-#define vCAnyFmShort  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_short()
-#define vCAnyFmUShort ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ushort()
-#define vCAnyFmInt    ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_int()
-#define vCAnyFmUInt   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_uint()
-#define vCAnyFmLong   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_long()
-#define vCAnyFmULong  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ulong()
-#define vCAnyFmLLong  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_llong()
-#define vCAnyFmULLong ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ullong()
-#define vCAnyFmFloat  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_float()
-#define vCAnyFmDouble ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_double()
-#define vCAnyFmLDouble( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ldouble()
+#define vCAnyFmChar   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_char
+#define vCAnyFmShort  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_short
+#define vCAnyFmUShort ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ushort
+#define vCAnyFmInt    ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_int
+#define vCAnyFmUInt   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_uint
+#define vCAnyFmLong   ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_long
+#define vCAnyFmULong  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ulong
+#define vCAnyFmLLong  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_llong
+#define vCAnyFmULLong ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ullong
+#define vCAnyFmFloat  ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_float
+#define vCAnyFmDouble ( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_double
+#define vCAnyFmLDouble( sztBufSize, Value ) vm::CAny<sztBufSize>( Value ).s_ldouble
 
 #define vCAnyToInt    ( sztBufSize, szValue ) vm::CAny<sztBufSize>( szValue ).toInt()
 #define vCAnyToFloat  ( sztBufSize, szValue ) vm::CAny<sztBufSize>( szValue ).toFloat()
@@ -230,11 +232,50 @@ public:
     inline tchar*  str()     { return mszBuf;         };
     // 返回数据类型
     inline emType anyType() { return memType;        };
+    inline tchar* s_type()
+    {
+        switch (memType)
+        {
+        case emType::emBool:
+            return vT("bool");
+        case emType::emChar:
+            return vT("char");
+        case emType::emUChar:
+            return vT("unsigned char");
+        case emType::emWChar:
+            return vT("wchar_t");
+        case emType::emShort:
+            return vT("short");
+        case emType::emUShort:
+            return vT("unsigned short");
+        case emType::emInt:
+            return vT("int");
+        case emType::emUInt:
+            return vT("unsigned int");
+        case emType::emLong:
+            return vT("long");
+        case emType::emULong:
+            return vT("unsigned long");
+        case emType::emLLong:
+            return vT("long long");
+        case emType::emULLong:
+            return vT("unsigned long");
+        case emType::emFloat:
+            return vT("float");
+        case emType::emDouble:
+            return vT("double");
+        case emType::emLDouble:
+            return vT("long double");
+        default:
+            return vT("unknown");
+        }
+    }
 
     // 判读数据类型
     inline bool isBool()   { memType==emType::emBool    ? true:false; };
     inline bool isChar()   { memType==emType::emChar    ? true:false; };
     inline bool isUChar()  { memType==emType::emUChar   ? true:false; };
+    inline bool isWchar()  { memType==emType::emWChar   ? true:false; };
     inline bool isShort()  { memType==emType::emShort   ? true:false; };
     inline bool isUShort() { memType==emType::emUShort  ? true:false; };
     inline bool isInt()    { memType==emType::emInt     ? true:false; };
@@ -250,19 +291,19 @@ public:
 public:
     // 字符串输出数据
     inline tchar* s_bool()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%s"),  munValue.bValue==true?"true":"false");   return mszBuf; };
-    inline tchar* s_char( const tchar* const cpPrototype=nullptr)   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhd"),  munValue.cValue);   return mszBuf; };
-    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hhu"),  munValue.ucValue);  return mszBuf; };
-    inline tchar* s_short()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hi"), munValue.sValue);   return mszBuf; };
-    inline tchar* s_ushort() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hu"), munValue.usValue);  return mszBuf; };
-    inline tchar* s_int()    { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%li"), munValue.iValue);   return mszBuf; };
-    inline tchar* s_uint()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lu"), munValue.uiValue);  return mszBuf; };
-    inline tchar* s_long()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%li"), munValue.lValue);   return mszBuf; };
-    inline tchar* s_ulong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lu"), munValue.ulValue);  return mszBuf; };
-    inline tchar* s_llong()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Li"), munValue.llValue);  return mszBuf; };
-    inline tchar* s_ullong() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Lu"), munValue.ullValue); return mszBuf; };
-    inline tchar* s_float()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hf"), munValue.fValue);   return mszBuf; };
-    inline tchar* s_double() { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%lf"), munValue.dValue);   return mszBuf; };
-    inline tchar* s_ldouble(){ vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%Lf"), munValue.dValue);   return mszBuf; };
+    inline tchar* s_char()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.cValue);   return mszBuf; };
+    inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.ucValue);  return mszBuf; };
+    inline tchar* s_short  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hd")), munValue.sValue);     return mszBuf; };
+    inline tchar* s_ushort (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hu")), munValue.usValue);  return mszBuf; };
+    inline tchar* s_int    (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("li")), munValue.iValue);   return mszBuf; };
+    inline tchar* s_uint   (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("lu")), munValue.uiValue);  return mszBuf; };
+    inline tchar* s_long   (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("ld")), munValue.lValue);   return mszBuf; };
+    inline tchar* s_ulong  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("lu")), munValue.ulValue);  return mszBuf; };
+    inline tchar* s_llong  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("Ld")), munValue.llValue);  return mszBuf; };
+    inline tchar* s_ullong (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("Lu")), munValue.ullValue); return mszBuf; };
+    inline tchar* s_float  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hf")), munValue.fValue);   return mszBuf; };
+    inline tchar* s_double (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("lf")), munValue.dValue);   return mszBuf; };
+    inline tchar* s_ldouble(vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("Lf")), munValue.dValue);   return mszBuf; };
 
 public:
     inline bool               toBool()   { return munValue.bValue;   };

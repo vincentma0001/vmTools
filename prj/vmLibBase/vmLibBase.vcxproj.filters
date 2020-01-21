@@ -135,6 +135,9 @@
     <ClInclude Include="..\..\src\vmLibBase\vmTypeFmt.h">
       <Filter>inc\vmLibBase\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CAnyFmt.hpp">
+      <Filter>inc\vmLibBase\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\vmLibBase\CUseCom.cpp">

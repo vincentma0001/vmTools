@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\vmLibBase.h" />
     <ClInclude Include="..\..\src\vmLibBase\CAny.hpp" />
+    <ClInclude Include="..\..\src\vmLibBase\CAnyFmt.hpp" />
     <ClInclude Include="..\..\src\vmLibBase\CArgs.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit16.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit32.h" />

@@ -137,6 +137,7 @@
     <ClCompile Include="..\..\tst\tst_vmLibBase\tst_vmLibBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CAny.h" />
     <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CBit8.h" />
     <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CDateTime.h" />
     <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CStdPars.h" />

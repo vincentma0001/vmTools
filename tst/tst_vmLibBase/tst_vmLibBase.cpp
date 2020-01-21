@@ -35,7 +35,7 @@
 
 // Unit test files include
 //#include "ut_CBit8.h"
-#include "ut_CTime.h"
+#include "ut_CAny.h"
 //#include "ut_CStdPars.h"
 //#include "ut_CWinAtom.h"
 
@@ -47,7 +47,7 @@ int main( int argc, tchar** argv )
 // TODO : add main functions there
     // example : RUN_UNITTEST( ut_XXXX );
     //RUN_UNITTEST(ut_CBit8);
-    RUN_UNITTEST(ut_CTime);
+    RUN_UNITTEST(ut_CAny);
     //RUN_UNITTEST(ut_CStdPars);
     //RUN_UNITTEST(ut_CWinAtom);
 

@@ -35,5 +35,8 @@
     <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CTime.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CAny.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
