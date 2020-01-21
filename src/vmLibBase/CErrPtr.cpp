@@ -40,44 +40,21 @@
 // Used files included
 #include <vmLibBase/vmUtil.h>
 #include <vmLibBase/CAny.hpp>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 #include <vmLibBase/CParser.h>
 
 // Declare file included
-#include "CErrBase.h"
+#include "CErrPtr.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Name      : CErrBase(...)
-// Brief     :
-// Return    : 
-CErrBase::CErrBase() :mulErrCode(0)
-{
-    vMemZero(mszBuf);
-}
-// End of function CErrBase(...)
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Name      : CErrBase(...)
-// Brief     :
-// Return    : 
-// Parameter : const unsigned long culErrCode
-CErrBase::CErrBase(const unsigned long culErrCode) :mulErrCode(culErrCode)
-{
-    vMemZero(mszBuf);
-}
-// End of function CErrBase(...)
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
 // Name      : ~CErrBase(...)
 // Brief     :
 // Return    : 
-CErrBase::~CErrBase()
+CErrPtr::~CErrPtr()
 {
 
 }
@@ -89,7 +66,7 @@ CErrBase::~CErrBase()
 // Brief     :
 // Return    : 
 // Parameter : const CErrBase & obj
-CErrBase::CErrBase(const CErrBase& obj)
+CErrPtr::CErrPtr(const CErrPtr& obj)
 {
     *this = obj;
 }
@@ -101,7 +78,7 @@ CErrBase::CErrBase(const CErrBase& obj)
 // Brief     :
 // Return    : vm::CErrBase&
 // Parameter : const CErrBase & obj
-vm::CErrBase& CErrBase::operator=(const CErrBase& obj)
+vm::CErrPtr& CErrPtr::operator=(const CErrPtr& obj)
 {
 
     mulErrCode = obj.mulErrCode;
@@ -115,7 +92,7 @@ vm::CErrBase& CErrBase::operator=(const CErrBase& obj)
 // Name      : toErrCode(...)
 // Brief     :
 // Return    : unsigned long
-unsigned long CErrBase::toErrCode()
+unsigned long CErrPtr::toErrCode()
 {
     return mulErrCode;
 }
@@ -126,7 +103,7 @@ unsigned long CErrBase::toErrCode()
 // Name      : toErrStr(...)
 // Brief     :
 // Return    : tchar*
-tchar* CErrBase::toErrStr()
+tchar* CErrPtr::toErrStr()
 {
     size_t lsztStrLen = 0;
     return GetErrStr(mszBuf, sizeof(mszBuf), lsztStrLen);
@@ -139,10 +116,10 @@ tchar* CErrBase::toErrStr()
 // Brief     :
 // Return    : tchar*
 // Parameter : const tchar * const cpFmt
-tchar* CErrBase::Fmt(const tchar* const cpFmt /*= "%EC:%EM" */)
+tchar* CErrPtr::Fmt(const tchar* const cpFmt /*= "%EC:%EM" */)
 {
     // 获取错误代码所包含的错误信息
-    tchar lszCodeStrBuf[ _V_ERR_MAX_BUF_ ] = { 0x00 };
+    tchar lszCodeStrBuf[ _V_CERRPTR_MAX_BUF_ ] = { 0x00 };
     size_t lsztCodeStrLen = 0;
     tchar* lpCodeStr = GetErrStr(lszCodeStrBuf, sizeof(lszCodeStrBuf), lsztCodeStrLen);
 
@@ -168,7 +145,7 @@ tchar* CErrBase::Fmt(const tchar* const cpFmt /*= "%EC:%EM" */)
 // Parameter : tchar * pBufAddr
 // Parameter : const size_t csztBufSzie
 // Parameter : size_t & sztStrLen
-tchar* CErrBase::GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
+tchar* CErrPtr::GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen)
 {
     return pBufAddr;
 }

@@ -38,8 +38,7 @@
 // Platform files included
 
 // Used files included
-#include <vmStdcUtil.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 #include <vmLibBase/CDateTime.hpp>
 #include <vmLibLog/CLog.h>
 

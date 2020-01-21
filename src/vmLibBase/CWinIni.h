@@ -108,7 +108,7 @@ template< size_t sztBufSize >
 inline tVoid CWinIni<sztBufSize>::Open(cpctChar szFileName)
 {
     vm::CFile() loFile(szFileName);
-    vm::CStrPtr lstrPath(mszPath, sizeof(mszPath));
+    vm::CStringPtr lstrPath(mszPath, sizeof(mszPath));
     lstrPath = loFile.cs_Path();
 }
 // End of function 

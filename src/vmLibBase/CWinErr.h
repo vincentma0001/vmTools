@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CWinErr.cpp
+// File name    : CWinErr.hpp
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/14 19:09:13
-// Modify time  : 2020/01/14 19:09:13
+// Create time  : 2019/12/20 10:05:18
+// Modify time  : 2019/12/20 10:05:18
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -13,47 +13,74 @@
 // Copyright : this file is copyright by v.m.'s tools lib
 //
 /////////////////////////////////////////////////////////////////////////////////////////
+// compile macro definition
+#if defined (_MSC_VER) && (_MSC_VER >= 1300)
+#pragma once
+#endif
+
+#ifndef __CWINERR_HPP__
+#define __CWINERR_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Disable warning
-// Example : #pragma warning(disable:4996)
-// #if defined (_MSC_VER)
-// #   pragma warning(disable:4996)
-// #endif
+// include lib
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include files :
-// Standard c/c++ files included
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <string>
+// include file
 
-// Config files included
-#include <vmCfg.h>
+#ifndef   __VM_CFG_H__
+#	error this file need #include <vmCfg.h>
+#endif // __VM_CFG_H__
 
-// platform files included
-#include <windows.h>
+#ifndef   _WINDOWS_
+#   error this file need #include<windows.h>
+#endif // _WINDOWS_
 
-// Used files included
-#include <vmLibBase/vmUtil.h>
-
-// Declare file included
-#include "CErrBase.h"
-#include "CWinErr.h"
+#ifndef   __CERRBASE_H__
+#   error this file need #include <CErrBase.h>
+#endif // __CERRBASE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
+//
+// class CWinErr : 此类为Windows系统错误信息解析类
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+class CWinErr : public CErrPtr
+{
+/////////////////////////////////////////////////////////////////////////////////////////
+// Construct && Destruct
+public:
+    // Construct define
+    explicit CWinErr(const unsigned long culErrCode, tchar* const cpBuf, const size_t csztBufSize);
+    explicit CWinErr(tchar* const cpBuf, const size_t csztBufSize);
+    // Destruct define
+    virtual ~CWinErr();
+    
+public:
+    // Copy define
+    CWinErr(const CWinErr& obj);
+    // Assignment define
+    CWinErr& operator = (const CWinErr& obj);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Functions :
+private:
+    // Get error message by system
+    virtual tchar* GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& sztStrLen);
+
+}; // End of class CWinErr
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CWinErr(...)
 // Brief     :
 // Return    : 
-CWinErr::CWinErr() :CErrBase(::GetLastError())
-{
+CWinErr::CWinErr(const unsigned long culErrCode, tchar* const cpBuf, const size_t csztBufSize)
+                :CErrPtr(culErrCode, cpBuf, csztBufSize)
+{};
 
-}
 // End of function CWinErr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -62,10 +89,11 @@ CWinErr::CWinErr() :CErrBase(::GetLastError())
 // Brief     :
 // Return    : 
 // Parameter : const unsigned long cuiErrCode
-CWinErr::CWinErr(const unsigned long cuiErrCode) :CErrBase(cuiErrCode)
+CWinErr::CWinErr(tchar* const cpBuf, const size_t csztBufSize)
+                :CErrPtr(GetLastError(), cpBuf, csztBufSize)
 {
 
-}
+};
 // End of function CWinErr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -85,9 +113,9 @@ CWinErr::~CWinErr()
 // Brief     :
 // Return    : 
 // Parameter : const CWinErr & obj
-CWinErr::CWinErr(const CWinErr& obj)
+CWinErr::CWinErr(const CWinErr& obj):CErrPtr(obj)
 {
-    *this = obj;
+
 }
 // End of function CWinErr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -99,8 +127,7 @@ CWinErr::CWinErr(const CWinErr& obj)
 // Parameter : const CWinErr & obj
 vm::CWinErr& CWinErr::operator=(const CWinErr& obj)
 {
-    mulErrCode = obj.mulErrCode;
-    v_memcpy(mszBuf, sizeof(mszBuf), obj.mszBuf, sizeof(mszBuf));
+    *this = obj;
     return *this;
 }
 // End of function operator=(...)
@@ -243,9 +270,9 @@ tchar* CWinErr::GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& szt
 
         // 将获得的信息
         sztStrLen = strlen(pBufAddr);
-            
+
         // 去掉字符串的空格类字符
-        vm::v_strtrim_right(pBufAddr,sztStrLen);
+        vm::v_strtrim_right(pBufAddr, sztStrLen);
 
         return pBufAddr;
     } // End of __try
@@ -260,10 +287,41 @@ tchar* CWinErr::GetErrStr(tchar* pBufAddr, const size_t csztBufSzie, size_t& szt
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
+//
+// class CError : ## add class brief here ##
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+template< size_t sztBufSize >
+class CError : public CWinErr
+{
+/////////////////////////////////////////////////////////////////////////////////////////
+// Construct && Destruct
+public:
+    // Construct define
+    explicit CError();
+    explicit CError(const unsigned long culErrCode);
+    // Destruct define
+    virtual ~CError();
+
+public:
+    // No Copy
+    CError(const CError& obj);
+    // No Assignment
+    CError& operator = (const CError& obj);
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Members :
+    tchar mszBuf[sztBufSize];
+
+}; // End of class CError
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
 // Name      : CError(...)
 // Brief     :
 // Return    : 
-CError::CError()
+template< size_t sztBufSize >
+CError<sztBufSize>::CError():CWinErr(mszBuf,sztBufSize),mszBuf{0x00}
 {
 
 }
@@ -275,7 +333,10 @@ CError::CError()
 // Brief     :
 // Return    : 
 // Parameter : const unsigned long culErrCode
-CError::CError(const unsigned long culErrCode) :CWinErr(culErrCode)
+template< size_t sztBufSize >
+CError<sztBufSize>::CError(const unsigned long culErrCode) 
+                          :CWinErr(culErrCode,mszBuf,sztBufSize),
+                           mszBuf{0x00}
 {
 
 }
@@ -286,7 +347,8 @@ CError::CError(const unsigned long culErrCode) :CWinErr(culErrCode)
 // Name      : ~CError(...)
 // Brief     :
 // Return    : 
-CError::~CError()
+template< size_t sztBufSize >
+CError<sztBufSize>::~CError()
 {
 
 }
@@ -298,7 +360,8 @@ CError::~CError()
 // Brief     :
 // Return    : 
 // Parameter : const CError & obj
-CError::CError(const CError& obj)
+template< size_t sztBufSize >
+CError<sztBufSize>::CError(const CError& obj)
 {
     *this = obj;
 }
@@ -310,7 +373,7 @@ CError::CError(const CError& obj)
 // Brief     :
 // Return    : vm::CError&
 // Parameter : const CError & obj
-vm::CError& CError::operator=(const CError& obj)
+CError<sztBufSize>& CError<sztBufSize>::operator=(const CError& obj)
 {
     mulErrCode = obj.mulErrCode;
     v_memcpy(mszBuf, sizeof(mszBuf), obj.mszBuf, sizeof(mszBuf));
@@ -322,5 +385,14 @@ vm::CError& CError::operator=(const CError& obj)
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CWinErr.cpp
+
+/////////////////////////////////////////////////////////////////////////////////////////
+#endif // __CWINERR_H__
+/////////////////////////////////////////////////////////////////////////////////////////
+// usage :
+/*
+
+//*/
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CWinErr.h
 /////////////////////////////////////////////////////////////////////////////////////////

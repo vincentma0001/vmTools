@@ -54,8 +54,8 @@ namespace vm{
 #define ctHandle      const HANDLE 
 #define ctModule      const HMODULE
 
-#define cctHandle     const HANDLE const
-#define cctModule     const HMODULE const
+#define ctcHandle     const HANDLE  const
+#define ctcModule     const HMODULE const
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // File macros redefine :
@@ -290,18 +290,18 @@ typedef unsigned char tByte;
 #define vMaxsLLong     LLONG_MAX
 // Maximum value for an object of type unsigned long long int,	        18446744073709551615 (264-1) or greater*
 #define vMaxuLLong     ULLONG_MAX
-
+// Minimum value for an object of type float                            1.175494351e-38F
 #define vMinFloat      FLT_MIN
+// Maximum value for an object of type float                            3.402823466e+38F
 #define vMaxFloat      FLT_MAX
-
+// Minimum value for an object of type float                            2.2250738585072014e-308
 #define vMinDouble     DBL_MIN
+// Maximum value for an object of type float                            1.7976931348623158e+308
 #define vMaxDouble     DBL_MAX
-
-
-// TODO : convert wchar_t to char
-#define vMinWchar        WCHAR_MIN
-#define vMaxWchar        WCHAR_MAX
-
+// Minimum value for an object of type wchar_t
+#define vMinWchar      WCHAR_MIN
+// Maximum value for an object of type wchar_t
+#define vMaxWchar      WCHAR_MAX
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm

@@ -47,7 +47,6 @@
 #endif // #if defined (_V_PLATFORM)...
 
 #include <vmLibExp/vmExpMcr.h>
-#include <vmVerify.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 #endif // __VM_LIB_EXP_H__

@@ -40,6 +40,9 @@
     <Filter Include="inc\vmLibBase\Test">
       <UniqueIdentifier>{940a5712-0f44-4ad5-addd-aede53607678}</UniqueIdentifier>
     </Filter>
+    <Filter Include="inc\vmLibBase\Error">
+      <UniqueIdentifier>{99324d8b-674f-4271-bfbe-0081b92dd122}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\vmLibBase.h">
@@ -63,9 +66,6 @@
     <ClInclude Include="..\..\src\vmLibBase\CJson.h">
       <Filter>inc\vmLibBase\CJson</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\vmLibBase\CBit8.h">
-      <Filter>inc\vmLibBase\CBit</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CBit16.h">
       <Filter>inc\vmLibBase\CBit</Filter>
     </ClInclude>
@@ -82,9 +82,6 @@
       <Filter>inc\vmLibBase\String</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CString.hpp">
-      <Filter>inc\vmLibBase\String</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\vmLibBase\CStrPtr.h">
       <Filter>inc\vmLibBase\String</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CUseCom.h">
@@ -132,16 +129,40 @@
     <ClInclude Include="..\..\src\vmLibBase\vmStdUtil.h">
       <Filter>inc\vmLibBase\Tools</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\vmLibBase\vmTypeFmt.h">
-      <Filter>inc\vmLibBase\Tools</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\vmLibBase\CAnyFmt.hpp">
       <Filter>inc\vmLibBase\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit08Ptr.h">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CBit08.hpp">
+      <Filter>inc\vmLibBase\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CErrBase.h">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CErrno.h">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CLuxErr.h">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CWinErr.h">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\vmVerify.h">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\vmLibBase\CStringPtr.h">
+      <Filter>inc\vmLibBase\String</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\vmLibBase\CUseCom.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\..\src\vmLibBase\CErrBase.cpp">
+      <Filter>inc\vmLibBase\Error</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\vmLibBase\CWinErr.cpp">
+      <Filter>inc\vmLibBase\Error</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

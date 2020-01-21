@@ -51,7 +51,7 @@
 // test function's files
 #include <vmLibBase/vmUtil.h>
 #include <vmLibBase/CMemPtr.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 #include <vmLibBase/CString.hpp>
 #include <vmLibBase/CDateTime.hpp>
 

@@ -94,12 +94,12 @@ void utLogLine(const tchar* const cpFmt, ...)
 #ifndef   __V_UNIT_TEST_MACRO__
 #define   __V_UNIT_TEST_MACRO__
 
-#define TEST_FUNC_BEGIN(func) class func : public vm::CUnit { public: func():CUnit(vT(#func)){}; ~func(){}; public: virtual bool toDo(void)
-#define TEST_FUNC_ENDED };
-#define UNIT_TEST_BEGIN( unFrame ) class unFrame : public vm::CUnitTestFrame{ virtual void Regist() {
-#define UNIT_TEST_REGIST(func)  {func* lp##func = new func ; mListUnits.push_back( lp##func );}
-#define UNIT_TEST_ENDED } };
-#define RUN_UNITTEST( utFrame ) utFrame lo##utFrame; lo##utFrame.Run()
+#define TEST_FUNC_BEGIN(func)    class func : public vm::CUnit { public: func():CUnit(vT(#func)){}; ~func(){}; public: virtual bool toDo(void)
+#define TEST_FUNC_ENDED          };
+#define UNIT_TEST_BEGIN(unFrame) class unFrame : public vm::CUnitTestFrame{ virtual void Regist() {
+#define UNIT_TEST_REGIST(func)   {func* lp##func = new func ; mListUnits.push_back( lp##func );}
+#define UNIT_TEST_ENDED          }};
+#define RUN_UNITTEST(utFrame)    utFrame lo##utFrame; lo##utFrame.Run()
 
 #endif // __V_UNIT_TEST_MACRO__
 
@@ -188,34 +188,34 @@ public:
         Regist();
 
         tListItor loIter = mListUnits.begin();
-        for ( ; loIter!=mListUnits.end(); loIter++  )
+        for ( ;loIter!=mListUnits.end(); loIter++ )
         {
             CUnit* lpFunc = (*loIter);
             utLog( vT("\n") );
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("/////////////////////////////////////////////////////////////////////////////////////////\n") );
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
             utLog( vm::CWinConsole::emColor::vfLightYellow,vT("%s is running ... \n"), lpFunc->mszName );
-            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
-            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("======================================================================================\n"));
-            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
-            utLog(vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
-            bool lbRet = lpFunc->toDo();
-            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
-            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
-            utLog(vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
             utLog( vm::CWinConsole::emColor::vfLightWhite, vT("======================================================================================\n"));
             utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
-            // #  TODO : Add condition brife here ##
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
+
+            bool lbRet = lpFunc->toDo();
+            
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("\n"));
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            utLog( vm::CWinConsole::emColor::vfLightWhite, vT("======================================================================================\n"));
+            utLog( vm::CWinConsole::emColor::vfDarkYellow, vT("// "));
+            // #  TODO : Add condition brief here ##
             if  ( lbRet == TRUE )
-            { utLog(vm::CWinConsole::emColor::vfLightGreen, vT("%s is %s\n"), lpFunc->mszName, vT("Succeed") ); }
+            { utLog( vm::CWinConsole::emColor::vfLightGreen, vT("%s is %s\n"), lpFunc->mszName, vT("Succeed") ); }
             else
-            { utLog(vm::CWinConsole::emColor::vfLightRed,   vT("%s is %s\n"), lpFunc->mszName, vT("Failed")); }
+            { utLog( vm::CWinConsole::emColor::vfLightRed,   vT("%s is %s\n"), lpFunc->mszName, vT("Failed")); }
              // End of if () ...
             utLog( vm::CWinConsole::emColor::vfDarkYellow,  vT("/////////////////////////////////////////////////////////////////////////////////////////\n") );
             utLog( vm::CWinConsole::emColor::vfDarkYellow,  vT("\n") );
-            
         }
-
     }
 
     // Regist a unit test function class to frame

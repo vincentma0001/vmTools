@@ -36,7 +36,7 @@
 
 // Used files included
 #include <vmLibBase/vmUtil.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 #include <vmLibFile.h>
 
 // Declare file included

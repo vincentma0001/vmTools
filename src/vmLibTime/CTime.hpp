@@ -414,7 +414,7 @@ public:
 
     }
 
-    inline static bool GetCurrY4( tchar* const pYearBuf, const size_t csztYearBufSize )
+    inline static bool GetCurrYear( tchar* const pYearBuf, const size_t csztYearBufSize, const size_t csztYearLen=4 )
     {
         tTimeb  lstTime;
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
@@ -425,8 +425,7 @@ public:
 #else
         _ftime(&lstTime);
 #endif
-        vm::CStrPtr lstrYear(pYearBuf, csztYearBufSize) = CTime(lstTime).Fmt(vT("%Y4"));
-        
+        v_strncpy( mszBuf, sizeof(mszBuf), CTime(lstTime).toTimeStr( vT("%Y") ), csztYearLen );
         return true;
     }
 

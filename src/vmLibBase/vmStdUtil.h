@@ -27,14 +27,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 // Standard c/c++ files included
-#ifndef   _STRING_
-#	error this file need #include <string>
-#endif // _STRING_
 
 // Config files included
-#ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
-#endif // __VM_CFG_H__
+#ifndef   __VM_CFG_TSTRING_H__
+#   include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 // Platform files included
 
@@ -45,10 +42,10 @@
 namespace vm{
 namespace vStd{
 
-    inline vString v_std_strtrim( const vString& strData )
+    inline vStdStr v_std_strtrim( const vString& strData )
     {
         size_t lsztDataLen = strData.length();
-        if ( lsztDataLen == 0 ) return vString(vT(""));
+        if ( lsztDataLen == 0 ) return vStdStr(vT(""));
         
         size_t lsztStartPos = 0;
         tchar lszValue = strData[lsztStartPos];
@@ -72,10 +69,10 @@ namespace vStd{
         return strData.substr( lsztStartPos, lsztNewDataLen );
     }
 
-    inline vString v_std_strtrim_left( const vString& strData )
+    inline vStdStr v_std_strtrim_left( const vString& strData )
     {
         size_t lsztDataLen = strData.length();
-        if (lsztDataLen == 0) return vString(vT(""));
+        if (lsztDataLen == 0) return vStdStr(vT(""));
 
         size_t lsztStartPos = 0;
         tchar lszValue = strData[lsztStartPos];
@@ -90,10 +87,10 @@ namespace vStd{
         return strData.substr(lsztStartPos, lsztNewDataLen);
     }
 
-    inline vString v_std_strtrim_right(const vString& strData)
+    inline vStdStr v_std_strtrim_right(const vString& strData)
     {
         size_t lsztDataLen = strData.length();
-        if (lsztDataLen == 0) return vString(vT(""));
+        if (lsztDataLen == 0) return vStdStr(vT(""));
 
         size_t lsztEndPos = lsztDataLen;
         tchar lszValue = strData[lsztEndPos];
@@ -108,50 +105,50 @@ namespace vStd{
         return strData.substr(0, lsztNewDataLen);
     }
 
-    inline vString v_std_str_substr(const vString& strData, const tchar const cszBegin, const tchar const cszEnd )
+    inline vStdStr v_std_str_substr(const vString& strData, const tchar const cszBegin, const tchar const cszEnd )
     {
         // 获取整个字符串长度
         size_t lsztDataLen = strData.length();
-        if (lsztDataLen == 0) return vString(vT(""));
+        if (lsztDataLen == 0) return vStdStr(vT(""));
 
         // 获取子字符串开头的位置
         size_t lsztStartPos = strData.find_first_of( cszBegin );
-        if ( lsztStartPos == vString::npos )
-            return vString(vT(""));
+        if ( lsztStartPos == vStdStr::npos )
+            return vStdStr(vT(""));
 
         // 获取子字符串结尾的位置
         size_t lsztEndPos = strData.rfind(cszEnd);
-        if ( lsztEndPos == vString::npos )
-            return vString(vT(""));
+        if ( lsztEndPos == vStdStr::npos )
+            return vStdStr(vT(""));
 
         // 判断子字符串是否有效，解决类似“}{”问题
         if (lsztEndPos<=lsztStartPos)
-            return vString(vT(""));
+            return vStdStr(vT(""));
 
         // 计算子字符串长度
         size_t lsztNewDataLen = lsztEndPos - lsztStartPos;
         return strData.substr(lsztStartPos, lsztNewDataLen);
     }
 
-    inline vString v_std_str_substr_first(const vString& strData, const tchar const cszBegin, const tchar const cszEnd)
+    inline vStdStr v_std_str_substr_first(const vString& strData, const tchar const cszBegin, const tchar const cszEnd)
     {
         // 获取整个字符串长度
         size_t lsztDataLen = strData.length();
-        if (lsztDataLen == 0) return vString(vT(""));
+        if (lsztDataLen == 0) return vStdStr(vT(""));
 
         // 获取子字符串开头的位置
         size_t lsztStartPos = strData.find_first_of(cszBegin);
-        if (lsztStartPos == vString::npos)
-            return vString(vT(""));
+        if (lsztStartPos == vStdStr::npos)
+            return vStdStr(vT(""));
 
         // 获取子字符串结尾的位置
         size_t lsztEndPos = strData.find_first_of(cszEnd);
-        if (lsztEndPos == vString::npos)
-            return vString(vT(""));
+        if (lsztEndPos == vStdStr::npos)
+            return vStdStr(vT(""));
 
         // 判断子字符串是否有效，解决类似“}{”问题
         if (lsztEndPos <= lsztStartPos)
-            return vString(vT(""));
+            return vStdStr(vT(""));
 
         // 计算子字符串长度
         size_t lsztNewDataLen = lsztEndPos - lsztStartPos;

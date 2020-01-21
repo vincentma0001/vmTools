@@ -199,7 +199,6 @@
     <ClInclude Include="..\..\src\vmLibExp\CWinSeh.h" />
     <ClInclude Include="..\..\src\vmLibExp\CWinSehExp.h" />
     <ClInclude Include="..\..\src\vmLibExp\vmExpMcr.h" />
-    <ClInclude Include="..\..\src\vmVerify.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\vmLibExp\CExp.cpp" />

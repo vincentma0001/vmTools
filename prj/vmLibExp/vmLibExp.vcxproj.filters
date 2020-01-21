@@ -33,9 +33,6 @@
     <ClInclude Include="..\..\src\vmLibExp\CWinSehExp.h">
       <Filter>inc\vmLibExp</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\vmVerify.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\vmLibExp\vmExpMcr.h">
       <Filter>inc</Filter>
     </ClInclude>

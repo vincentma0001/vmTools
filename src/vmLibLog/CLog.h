@@ -40,8 +40,8 @@
 // Used files included
 #include <vmStdcUtil.h>
 
-#include <vmLibBase/CBit8.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CBit08.h>
+#include <vmLibBase/CStringPtr.h>
 #include "CLogImp.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////

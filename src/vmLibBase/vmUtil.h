@@ -24,20 +24,28 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include files :
 #ifndef   _INC_STDIO
-#   error this file need #include<stdio.h>
+#   include<stdio.h>
 #endif // _INC_STDIO
 
 #ifndef   _INC_STDARG
-#	error this file need #include <stdarg.h>
+#   include <stdarg.h>
 #endif // _INC_STDARG
 
 #ifndef   _INC_STRING
-#	error this file need #include <string.h>
+#   include <string.h>
 #endif // _INC_STRING
 
 #ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
+#   include <vmCfg.h>
 #endif // __VM_CFG_H__
+
+#ifndef   __VM_VERIFY_H__
+#   include <vmLibBase/vmVerify.h>
+#endif // __VM_VERIFY_H__
+
+#ifndef   __CERRNO_H__
+#   include <vmLibBase/CErrno.h>
+#endif // __CERRNO_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -46,46 +54,47 @@ namespace vm{
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macros define :
 
-#ifndef   vMemZero
+#ifndef    vMemZero
 #   define vMemZero(szBuf)          vm::v_memzero(&szBuf,sizeof(szBuf))
-#endif // vMemZero
+#endif  // vMemZero
 
-#ifndef   vMemSet
+#ifndef    vMemSet
 #   define vMemSet(szBuf, ciFlag)   vm::v_memset(&szBuf,ciFlg,sizeof(szBuf))
-#endif // vMemSet
+#endif  // vMemSet
 
-#ifndef   vStrZero
+#ifndef    vStrZero
 #   define vStrZero(szBuf)          vm::v_strzero(&szBuf,vStrSizeof(szBuf))
-#endif // vStrZero
+#endif  // vStrZero
 
-#ifndef   vStrSet
+#ifndef    vStrSet
 #   define vStrSet(szBuf, ciFlag)   vm::v_strset(&szBuf,ciFlg,vStrSizeof(szBuf))
-#endif // vStrSet
+#endif  // vStrSet
 
 #ifndef    vStrPosBegin
-#    define vStrPosBegin vMinsInt
+#   define vStrPosBegin             vMinsInt
 #endif  // vStrPosBegin
 
 #ifndef    vStrPosEnded
-#    define vStrPosEnded vMinsInt
+#   define vStrPosEnded             vMinsInt
 #endif  // vStrPosEnded
-
 
 /////////////////////////////////////////////////////////////////////////////////////////
 #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 // --------------------------------------------------------------------------------------
 // 重构windows中的str,mem系列函数
 
-
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strchr(...)
 // Brief     : 在字节串中搜索第一次出现的ciVal值地址
-// Return    : tchar*                            - 查找的地址
+// Return    : tchar*                           - 查找的地址
 //             nullptr                          - 未查找的指定的数据
 // Parameter : cpBuf                            - 被搜索的字符串
 //             ciVal                            - 标识数据
 inline tchar* v_strchr(tchar* const cpBuf, const int ciVal)
 {
+    // 验证输入参数
+    _VERIFY_(v_strchr(),cpBuf);
+
     return vStrchr(cpBuf, ciVal);
 }
 // End of function v_strchr(...)
@@ -94,12 +103,15 @@ inline tchar* v_strchr(tchar* const cpBuf, const int ciVal)
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strrchr(...)
 // Brief     : 在字节串中反向搜索第一次出现的ciVal地址
-// Return    : tchar*                            - 查找的地址
+// Return    : tchar*                           - 查找的地址
 //             nullptr                          - 未查找的指定的数据
 // Parameter : cpBuf                            - 被搜索的字符串
 //             ciVal                            - 标识数据
 inline tchar* v_strrchr( tchar* const cpBuf, const int ciVal )
 {
+    // 验证输入参数
+    _VERIFY_(v_strrchr(), cpBuf);
+
     return vStrrchr(cpBuf, ciVal);
 }
 // End of function v_strrchr(...)
@@ -108,12 +120,15 @@ inline tchar* v_strrchr( tchar* const cpBuf, const int ciVal )
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strstr(...)
 // Brief     : 在字节串中查找第一次出现子字符串的地址
-// Return    : tchar*                            - 查找的地址，当cpSubStr为null时，返回cpBuf
+// Return    : tchar*                           - 查找的地址，当cpSubStr为null时，返回cpBuf
 //             nullptr                          - 未查找到指定的字符串
 // Parameter : cpBuf                            - 被搜索的字符串
 //             cpSubStr                         - 需要查找的子字符串
 inline tchar* v_strstr( tchar* const cpBuf, const tchar* const cpSubStr )
 {
+    // 验证输入参数
+    _VERIFY_(v_strstr(), cpBuf);
+
     return vStrstr(cpBuf, cpSubStr);
 }
 // End of function v_strstr(...)
@@ -128,6 +143,9 @@ inline tchar* v_strstr( tchar* const cpBuf, const tchar* const cpSubStr )
 //             pStr2                            - 字符串之一
 inline bool v_strcmp_equl( const tchar* const pStr1, const tchar* const pStr2 )
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strcmp_equl(), pStr1, pStr2);
+
     int liRet  = vStrcmp(pStr1, pStr2);
     if ( liRet == 0 ) 
         return  true;
@@ -146,6 +164,9 @@ inline bool v_strcmp_equl( const tchar* const pStr1, const tchar* const pStr2 )
 //             pStr2                            - 字符串之一
 inline bool v_strcmp_more(const tchar* const pStr1, const tchar* const pStr2)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strcmp_more(), pStr1, pStr2);
+
     int liRet = vStrcmp(pStr1, pStr2);
     if (liRet > 0) 
         return  true;
@@ -164,6 +185,9 @@ inline bool v_strcmp_more(const tchar* const pStr1, const tchar* const pStr2)
 //             pStr2                            - 字符串之一
 inline bool v_strcmp_less(const tchar* const pStr1, const tchar* const pStr2)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strcmp_less(), pStr1, pStr2);
+
     int liRet = vStrcmp(pStr1, pStr2);
     if (liRet < 0) 
         return  true;
@@ -182,6 +206,9 @@ inline bool v_strcmp_less(const tchar* const pStr1, const tchar* const pStr2)
 //             pStr2                            - 字符串之一
 inline bool v_strncmp_equl(const tchar* const pStr1, const tchar* const pStr2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strncmp_equl(), pStr1, pStr2);
+
     int liRet = vStrncmp(pStr1, pStr2, csztDataLen);
     if (liRet == 0)
         return  true;
@@ -200,6 +227,9 @@ inline bool v_strncmp_equl(const tchar* const pStr1, const tchar* const pStr2, c
 //             pStr2                            - 字符串之一
 inline bool v_strncmp_more(const tchar* const pStr1, const tchar* const pStr2,const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strncmp_more(), pStr1, pStr2);
+
     int liRet = vStrncmp(pStr1, pStr2,csztDataLen);
     if (liRet > 0)
         return  true;
@@ -218,6 +248,9 @@ inline bool v_strncmp_more(const tchar* const pStr1, const tchar* const pStr2,co
 //             pStr2                            - 字符串之一
 inline bool v_strncmp_less(const tchar* const pStr1, const tchar* const pStr2, const size_t csztDataLen )
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strncmp_less(), pStr1, pStr2);
+
     int liRet = vStrncmp(pStr1, pStr2, csztDataLen);
     if (liRet < 0)
         return  true;
@@ -239,10 +272,12 @@ inline bool v_strncmp_less(const tchar* const pStr1, const tchar* const pStr2, c
 //             csztDataLen                          - 需复制的字符串大小
 inline tchar* v_strncat(tchar* const pDst, const size_t csztDstSize, const tchar* const cpSrc, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strncat(), pDst, cpSrc);
 
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
     errno_t loRet = vStrncat_s(pDst, csztDstSize, cpSrc, csztDataLen);
-    if (loRet != 0) { return nullptr; };
+    vCheckErrCode(v_strncat(), loRet);
 
     return pDst;
 #else
@@ -262,9 +297,12 @@ inline tchar* v_strncat(tchar* const pDst, const size_t csztDstSize, const tchar
 //             cpSrc                                - 源字符串
 inline tchar* v_strcat(tchar* const pDst, const size_t csztDstSize, const tchar* const cpSrc)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strcat(), pDst, cpSrc);
+
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
     errno_t loRet = vStrcat_s(pDst, csztDstSize, cpSrc);
-    if (loRet != 0) { return nullptr; /* TODO : 添加错误处理 */ };
+    vCheckErrCode(v_strcat(), loRet);
 
     return pDst;
 #else
@@ -285,19 +323,22 @@ inline tchar* v_strcat(tchar* const pDst, const size_t csztDstSize, const tchar*
 //             csztDataLen                          - 需复制的字符串大小
 inline size_t v_strncpy(tchar* const pDst, const size_t csztDstSize, const tchar* const cpSrc, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strncpy(), pDst, cpSrc);
+
     size_t lsztDatalen = vMin((csztDstSize-sizeof(tchar)),csztDataLen);
     
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     // errno_t loRet = strncpy_s(pDst, csztDstSize, cpSrc, csztDataLen);
     errno_t loRet = vMemcpy_s(pDst, csztDstSize, cpSrc, lsztDatalen);
-    if (loRet != 0) { return 0;};
-    
-    *(pDst+lsztDatalen) = tchar(0x00);
+    vCheckErrCode(v_strncpy(), loRet);
 
+    *(pDst+lsztDatalen) = tchar(0x00);
     return csztDataLen;
 #else
     tchar* lpEnd = vMemcpy(pDst, cpSrc, lsztDatalen)
     if ( lpEnd == nullptr ){ return 0; }
+    _VERIFY_(v_strncpy(), lpEnd);
 
     size_t lsztCopied= lpEnd -pDst;
     return lsztCopied;
@@ -316,19 +357,21 @@ inline size_t v_strncpy(tchar* const pDst, const size_t csztDstSize, const tchar
 //             cpSrc                                - 源字符串
 inline size_t v_strcpy( tchar* const pDst, const size_t csztDstSize, const tchar* const cpSrc )
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strcpy(), pDst, cpSrc);
+
     size_t lsztSrcLen = vStrlen(cpSrc);
     size_t lsztDataLen = vMin( csztDstSize, lsztSrcLen );
 
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     //errno_t loRet = strcpy_s(pDst,csztDstSize,cpSrc);
     errno_t loRet = vMemcpy_s(pDst,csztDstSize,cpSrc, lsztDataLen);
-    if (loRet != 0) { return 0; };
+    vCheckErrCode(v_strncpy(), loRet);
     
     return lsztDataLen;
 #else
     tchar* lpEnd = vStrcpy(pDst, cpSrc)
-    if ( lpEnd == nullptr )
-        return 0;
+    _VERIFY_(v_strncpy(), lpEnd);
     
     size_t lsztCopied = lpEnd = pDst;
     return lsztCopied;
@@ -345,6 +388,9 @@ inline size_t v_strcpy( tchar* const pDst, const size_t csztDstSize, const tchar
 //             csztDataLen                          - 缓存区大小
 inline void v_memzero(void* const pBuf, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_memzero(), pBuf);
+
     memset(pBuf, 0x00, csztDataLen);
 }
 // End of function v_memzero(...)
@@ -360,6 +406,9 @@ inline void v_memzero(void* const pBuf, const size_t csztDataLen)
 //             csztDataLen                          - 设置的数据大小
 inline void v_memset(void* const pBuf, const int ciVal, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_memset(), pBuf);
+    
     memset(pBuf, ciVal, csztDataLen);
 }
 // End of function v_memset(...)
@@ -373,6 +422,9 @@ inline void v_memset(void* const pBuf, const int ciVal, const size_t csztDataLen
 //             csztDataLen                          - 缓存区大小
 inline void v_strzero(tchar* const pBuf, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_strzero(), pBuf);
+
     vMemset((tchar* const)pBuf, 0x00, csztDataLen);
 }
 // End of function v_strzero(...)
@@ -387,6 +439,9 @@ inline void v_strzero(tchar* const pBuf, const size_t csztDataLen)
 //             csztDataLen                          - 设置的数据大小
 inline void v_strset(tchar* const pBuf, const int ciVal, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_strset(), pBuf);
+
     vMemset(pBuf, ciVal, csztDataLen);
 }
 // End of function v_strset(...)
@@ -400,9 +455,12 @@ inline void v_strset(tchar* const pBuf, const int ciVal, const size_t csztDataLe
 // Parameter : cpBuf                                - 待查找的缓存区地址
 //             iVal                                 - 需要查找的数值
 //             csztLookforLen                       - 待查找的缓存区长度
-inline void* v_memchr( void* const cpBuf, const int iVal, const size_t csztLookforLen)
+inline void* v_memchr( void* const pBuf, const int iVal, const size_t csztLookforLen)
 {
-    return vMemchr((tchar* const)cpBuf, iVal, csztLookforLen);
+    // 验证输入参数
+    _VERIFY_(v_memchr(), pBuf);
+
+    return vMemchr((tchar* const)pBuf, iVal, csztLookforLen);
 }
 // End of function v_memchr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -417,6 +475,9 @@ inline void* v_memchr( void* const cpBuf, const int iVal, const size_t csztLookf
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memicmp_less(const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_memicmp_less(), cpBuf1, cpBuf2);
+
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     int liRet = vMemicmp((const tchar* const)cpBuf1, (const tchar* const)cpBuf2, csztDataLen);
     if (liRet < 0)
@@ -442,6 +503,9 @@ inline bool v_memicmp_less(const void* const cpBuf1, const void* const cpBuf2, c
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memicmp_more(const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_memicmp_more(), cpBuf1, cpBuf2);
+
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     int liRet = vMemicmp((const tchar* const)cpBuf1, (const tchar* const)cpBuf2, csztDataLen);
     if (liRet > 0)
@@ -467,6 +531,9 @@ inline bool v_memicmp_more(const void* const cpBuf1, const void* const cpBuf2, c
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memicmp_equl(const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_memicmp_equl(), cpBuf1, cpBuf2);
+
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     int liRet = vMemicmp((const tchar* const)cpBuf1, (const tchar* const)cpBuf2, csztDataLen);
     if (liRet == 0)
@@ -492,6 +559,9 @@ inline bool v_memicmp_equl(const void* const cpBuf1, const void* const cpBuf2, c
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memcmp_less(const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_memcmp_less(), cpBuf1, cpBuf2);
+
     int liRet = vMemcmp((const tchar* const)cpBuf1, (const tchar* const)cpBuf2, csztDataLen);
     if (liRet < 0)
         return true;
@@ -511,6 +581,9 @@ inline bool v_memcmp_less(const void* const cpBuf1, const void* const cpBuf2, co
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memcmp_more(const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_memcmp_more(), cpBuf1, cpBuf2);
+
     int liRet = vMemcmp((const tchar* const)cpBuf1, (const tchar* const)cpBuf2, csztDataLen);
     if (liRet == 0)
         return true;
@@ -530,6 +603,9 @@ inline bool v_memcmp_more(const void* const cpBuf1, const void* const cpBuf2, co
 //             csztDataLen                          - 对比的数据大小
 inline bool v_memcmp_equl( const void* const cpBuf1, const void* const cpBuf2, const size_t csztDataLen )
 {
+    // 验证输入参
+    _VERIFY_2_(v_memcmp_equl(), cpBuf1, cpBuf2);
+
     int liRet = vMemcmp((tchar*)cpBuf1, (tchar*)cpBuf2, csztDataLen);
     if ( liRet ==0 )
         return true;
@@ -550,16 +626,19 @@ inline bool v_memcmp_equl( const void* const cpBuf1, const void* const cpBuf2, c
 //             csztDataLen                          - 复制的数据长度
 inline size_t v_memccpy(void* const pDst, const size_t csztDstSize, const void* const cpSrc, int iVal, const size_t csztDataLen)
 {
+    // 验证输入参
+    _VERIFY_2_(v_memccpy(), pDst, cpSrc);
+
     size_t lsztDatalen = vMin(csztDstSize, csztDataLen);
 
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     void* lpEnd = vMemccpy((tchar* const)pDst,( const tchar* const )cpSrc, iVal, lsztDatalen);
     if ( lpEnd == 0 )
-        return csztDataLen;
+        return 0;
 #else
     void* lpEnd = vMemccpy((tchar* const)pDst, (const tchar* const)cpSrc, iVal, lsztDatalen);
     if ( lpEnd == 0 )
-        return csztDataLen
+        return 0;
 #endif
 
     size_t lsztCoyied = (tchar*)lpEnd - (tchar*)pDst; 
@@ -578,11 +657,14 @@ inline size_t v_memccpy(void* const pDst, const size_t csztDstSize, const void* 
 //             csztDataLen                          - 复制的数据长度
 inline size_t v_memcpy(void* const pDst, const size_t csztDstSize, const void* const cpSrc, const size_t csztDataLen)
 {
+    // 验证输入参
+    _VERIFY_2_(v_memcpy(), pDst, cpSrc);
+
     size_t lsztDatalen = vMin(csztDstSize, csztDataLen);
 
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     errno_t loRet = vMemcpy_s((tchar* const)pDst, csztDstSize, (const tchar* const)cpSrc, lsztDatalen);
-    if (loRet != 0) { return 0; /* TODO : 添加错误处理 */ };
+    vCheckErrCode(v_memcpy(), loRet);
 
     return csztDataLen;
 #else
@@ -606,11 +688,14 @@ inline size_t v_memcpy(void* const pDst, const size_t csztDstSize, const void* c
 //             csztDataLen                          - 复制的数据长度
 inline size_t v_memmove(void* const pDst, const size_t csztDstSize, const void* const cpSrc, const size_t csztDataLen )
 {
+    // 验证输入参
+    _VERIFY_2_(v_memmove(), pDst, cpSrc);
+
     size_t lsztDatalen = vMin(csztDstSize, csztDataLen);
 
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     errno_t loRet = vMemmove_s((tchar* const)pDst, csztDstSize, (const tchar* const)cpSrc, lsztDatalen);
-    if (loRet != 0) { return 0; /* TODO : 添加错误处理 */ };
+    vCheckErrCode(v_memmove(), loRet);
 
     return csztDataLen;
 #else
@@ -635,12 +720,16 @@ inline size_t v_memmove(void* const pDst, const size_t csztDstSize, const void* 
 //             vList                                - 参数列表
 inline int v_vsprintf(tchar* const pDst, const size_t csztDstSize, const tchar* const cpFmt, va_list vList)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_vsprintf(), pDst, cpFmt);
+
 #if defined (_MSC_VER) && (_MSC_VER > 1300)
     int liRet = vSprintf_s(pDst, csztDstSize, cpFmt, vList);
-    if (liRet<0) { /* TODO 处理错误信息 */ };
+    if (liRet < 0) { vCheckErrCode(v_memmove()); };
+    
 #else
     int liRet = vSprintf(pDst, cpFmt, vList);
-    if (liRet<0) { /* TODO 处理错误信息 */ };
+    if (liRet < 0) { vCheckErrCode(v_memmove()); };
 #endif
     return liRet;
 }
@@ -658,14 +747,17 @@ inline int v_vsprintf(tchar* const pDst, const size_t csztDstSize, const tchar* 
 //             ...                                  - 参数列表
 inline int v_sprintf( tchar* const pDst, const size_t csztDstSize, const tchar* const cpFmt, ... )
 {
+    // 验证输入参数
+    _VERIFY_2_(v_sprintf(), pDst, cpFmt);
+
     va_list vlist;
     va_start( vlist, cpFmt );
 #if defined (_MSC_VER) && (_MSC_VER>=1300)
     int liRet = vVsprintf_s( pDst,csztDstSize, cpFmt,vlist);
-    if (liRet < 0) { /* TODO 处理错误信息 */ };
+    if (liRet < 0) { vCheckErrCode(v_memmove()); };
 #else
     int liRet = vVsprintf( pDst, cpFmt, vlist );
-    if (liRet < 0) { /* TODO 处理错误信息 */ };
+    if (liRet < 0) { vCheckErrCode(v_memmove()); };
 #endif
     va_end(vlist);
 
@@ -676,6 +768,9 @@ inline int v_sprintf( tchar* const pDst, const size_t csztDstSize, const tchar* 
 
 inline tchar* v_strtrim_left( tchar* const pData, const size_t csztDataLen )
 {
+    // 验证输入参数
+    _VERIFY_(v_strtrim_left(), pData);
+
     // TODO : 添加输入错误处理
     if (csztDataLen <= 0) return nullptr;
     tchar* lpEnd = pData+ csztDataLen;
@@ -700,6 +795,9 @@ inline tchar* v_strtrim_left( tchar* const pData, const size_t csztDataLen )
 
 inline tchar* v_strtrim_right( tchar* const pData, const size_t csztDataLen )
 {
+    // 验证输入参数
+    _VERIFY_(v_strtrim_right(), pData);
+
     if (csztDataLen <= 0) return nullptr;
     tchar* lpEnd = pData+ csztDataLen;
 
@@ -719,6 +817,9 @@ inline tchar* v_strtrim_right( tchar* const pData, const size_t csztDataLen )
 
 inline tchar* v_strtrim( tchar* const pData, const size_t csztDataLen )
 {
+    // 验证输入参数
+    _VERIFY_(v_strtrim(), pData);
+
     if (csztDataLen <= 0) return nullptr;
     tchar* lpEnd = pData + csztDataLen;
 
@@ -749,20 +850,23 @@ inline tchar* v_strtrim( tchar* const pData, const size_t csztDataLen )
     return pData;
 }
 
-inline size_t v_strtrim_left(tchar*const        pDst, const size_t sztDstSize,
-                             const tchar* const pSrc, const size_t  sztSrcLen)
+inline size_t v_strtrim_left(tchar*const         pDst, const size_t sztDstSize,
+                             const tchar* const cpSrc, const size_t  sztSrcLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strtrim_left(), pDst, cpSrc);
+
     // TODO : 添加输入错误处理
     if (sztSrcLen <= 0) return 0;
-    tchar* lpEnd = (tchar*)pSrc + sztSrcLen;
+    tchar* lpEnd = (tchar*)cpSrc + sztSrcLen;
 
-    tchar* lpPos = (tchar*)pSrc;
+    tchar* lpPos = (tchar*)cpSrc;
     size_t lsztOffset = 0;
     // while ((lpPos != lpEnd) && ((*lpPos == ' ') || (*lpPos == '\n') || (*lpPos == '\t')))
     while ((lpPos != lpEnd) && (isspace(*lpPos)))
     {
         lsztOffset++;
-        lpPos = (tchar*)pSrc + lsztOffset;
+        lpPos = (tchar*)cpSrc + lsztOffset;
     }
 
     size_t lsztNewDataLen = sztSrcLen - lsztOffset;
@@ -773,15 +877,18 @@ inline size_t v_strtrim_left(tchar*const        pDst, const size_t sztDstSize,
 }
 
 inline size_t v_strtrim_right(tchar*const        pDst, const size_t sztDstSize,
-                              const tchar* const pSrc, const size_t  sztSrcLen)
+                              const tchar* const cpSrc, const size_t  sztSrcLen)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_strtrim_right(), pDst, cpSrc);
+
     if (sztSrcLen <= 0) return 0;
-    tchar* lpEnd = (tchar*)pSrc + sztSrcLen;
+    tchar* lpEnd = (tchar*)cpSrc + sztSrcLen;
 
     tchar* lpPos = lpEnd;
     size_t lsztOffset = 0;
     // while ((lpPos != pSrc) && ((*lpPos == ' ') || (*lpPos == '\t') || (*lpPos == '\n')))
-    while ((lpPos != pSrc) && (isspace(*lpPos)))
+    while ((lpPos != cpSrc) && (isspace(*lpPos)))
     {
         lsztOffset++;
         lpPos = lpEnd - lsztOffset;
@@ -789,24 +896,27 @@ inline size_t v_strtrim_right(tchar*const        pDst, const size_t sztDstSize,
 
     size_t lsztNewDataLen = sztSrcLen - lsztOffset;
     v_memzero(pDst,sztDstSize);
-    size_t lsztCopied = v_memmove(pDst, sztDstSize, pSrc, lsztNewDataLen);
+    size_t lsztCopied = v_memmove(pDst, sztDstSize, cpSrc, lsztNewDataLen);
 
     return lsztNewDataLen;
 }
 
-inline size_t v_strtrim(const tchar* const pSrc, const size_t  sztSrcLen, 
-                        tchar*const        pDst, const size_t sztDstSize)
+inline size_t v_strtrim( tchar*const         pDst, const size_t sztDstSize,
+                         const tchar* const cpSrc, const size_t  sztSrcLen )
 {
-    if (sztSrcLen <= 0) return 0;
-    tchar* lpEnd = (tchar*)pSrc + sztSrcLen;
+    // 验证输入参数
+    _VERIFY_2_(v_strtrim(), pDst, cpSrc);
 
-    tchar* lpStartPos = (tchar*)pSrc;
+    if (sztSrcLen <= 0) return 0;
+    tchar* lpEnd = (tchar*)cpSrc + sztSrcLen;
+
+    tchar* lpStartPos = (tchar*)cpSrc;
     size_t lsztStartOffset = 0;
     // while ((lpStartPos != lpEnd) && ((*lpStartPos == ' ') || (*lpStartPos == '\n') || (*lpStartPos == '\t')))
     while ((lpStartPos != lpEnd) && (isspace(*lpStartPos)))
     {
         lsztStartOffset++;
-        lpStartPos = (tchar*)pSrc + lsztStartOffset;
+        lpStartPos = (tchar*)cpSrc + lsztStartOffset;
     }
 
     tchar* lpEndPos = lpEnd;
@@ -826,19 +936,22 @@ inline size_t v_strtrim(const tchar* const pSrc, const size_t  sztSrcLen,
 }
 
 
-inline size_t v_str_substr(tchar* const       pDst, const size_t csztDstSize,
-                           const tchar* const pSrc, const size_t  csztSrcLen, 
+inline size_t v_str_substr(tchar* const        pDst, const size_t csztDstSize,
+                           const tchar* const cpSrc, const size_t  csztSrcLen, 
                            const int      ciBFlag, const int      ciEFlag )
 {
+    // 验证输入参数
+    _VERIFY_2_(v_str_substr(), pDst, cpSrc);
+
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
     // 获取子字符串开头的位置
-    tchar* lpStartPos = const_cast<tchar*>(pSrc);
+    tchar* lpStartPos = const_cast<tchar*>(cpSrc);
     // 若但ciBFlag传入vMinsInt,则从源字符串的起始字符作为开始
     if  ( ciBFlag != vMinsInt  )
     {
-        lpStartPos = v_strchr((tchar*)pSrc, ciBFlag);
+        lpStartPos = v_strchr((tchar*)cpSrc, ciBFlag);
         if (lpStartPos == nullptr) return 0;
 
         lpStartPos+=sizeof(tchar);
@@ -846,11 +959,11 @@ inline size_t v_str_substr(tchar* const       pDst, const size_t csztDstSize,
     // End of if () ...
 
     // 获取子字符串结尾的位置
-    tchar* lpEndPos = const_cast<tchar*>(pSrc)+csztSrcLen;
+    tchar* lpEndPos = const_cast<tchar*>(cpSrc)+csztSrcLen;
     // 若但ciFFlag传入vMinsInt,则从源字符串的结束字符作为结尾
     if  (  ciEFlag != vMinsInt  )
     {
-        lpEndPos = v_strrchr((tchar*)pSrc, ciEFlag);
+        lpEndPos = v_strrchr((tchar*)cpSrc, ciEFlag);
         if (lpEndPos == nullptr) return 0;
 
     } // End of if () ...
@@ -867,6 +980,9 @@ inline size_t v_str_substr(tchar* const       pDst, const size_t csztDstSize,
 inline size_t v_str_substr(tchar* const    pSrc, const size_t  csztSrcLen,
                            const int   ciBFlag, const int        ciEFlag)
 {
+    // 验证输入参数
+    _VERIFY_(v_str_substr(), pDst);
+
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
@@ -909,6 +1025,9 @@ inline size_t v_str_substr(tchar* const    pSrc, const size_t  csztSrcLen,
 inline size_t v_str_substr_first(tchar* const    pSrc, const size_t  csztSrcLen,
                                  const int   ciBFlag, const int        ciEFlag)
 {
+    // 验证输入参数
+    _VERIFY_(v_str_substr_first(), pSrc);
+
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
@@ -951,6 +1070,9 @@ inline size_t v_str_substr_first(tchar* const    pSrc, const size_t  csztSrcLen,
 inline size_t v_str_substr_last( tchar* const    pSrc, const size_t  csztSrcLen,
                                  const int   ciBFlag, const int        ciEFlag)
 {
+    // 验证输入参数
+    _VERIFY_(v_str_substr_last(), pSrc);
+
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
@@ -993,6 +1115,9 @@ inline size_t v_str_substr_last( tchar* const         pDst, const size_t  cszDst
                                  const tchar* const   pSrc, const size_t  csztSrcLen,
                                  const int         ciBFlag, const int        ciEFlag)
 {
+    // 验证输入参数
+    _VERIFY_2_(v_str_substr_last(), pDst, pSrc);
+
     // 获取整个字符串长度
     if (csztSrcLen == 0) return 0;
 
@@ -1032,6 +1157,9 @@ inline size_t v_str_substr_last( tchar* const         pDst, const size_t  cszDst
 
 inline void v_toupper(tchar* pData, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_toupper(), pData);
+
     tchar* lpPos = pData;
     size_t lsztOffset = 0;
     for ( size_t lsztOffset = 0; lsztOffset < csztDataLen; lsztOffset++ )
@@ -1043,6 +1171,9 @@ inline void v_toupper(tchar* pData, const size_t csztDataLen)
 }
 inline void v_tolower(tchar* pData, const size_t csztDataLen)
 {
+    // 验证输入参数
+    _VERIFY_(v_tolower(), pData);
+
     tchar* lpPos = pData;
     size_t lsztOffset = 0;
     for (size_t lsztOffset = 0; lsztOffset < csztDataLen; lsztOffset++)

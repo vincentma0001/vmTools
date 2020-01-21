@@ -50,7 +50,7 @@
 // test function's files
 #include <vmLibBase/vmUtil.h>
 #include <vmLibBase/CString.hpp>
-#include <vmLibBase/CBit8.h>
+#include <vmLibBase/CBit08.h>
 
 
 /////////////////////////////////////////////////////////////////////////////////////////

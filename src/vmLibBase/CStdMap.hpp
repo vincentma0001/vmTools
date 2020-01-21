@@ -28,7 +28,7 @@
 // Include files :
 // Standard c/c++ files included
 #ifndef   _MAP_
-#	error this file need #include <map>
+#   include <map>
 #endif // _MAP_
 
 // Config files included

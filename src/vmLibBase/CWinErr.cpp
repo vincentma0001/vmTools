@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name 	: vmLibBase.h
-// Version      : 1.0.0.0
+// File name    : CWinErr.cpp
+// Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time 	: 2020/01/05 12:13:48
-// Modify time 	: 2020/01/05 12:13:48
+// Create time  : 2020/01/14 19:09:13
+// Modify time  : 2020/01/14 19:09:13
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -13,44 +13,44 @@
 // Copyright : this file is copyright by v.m.'s tools lib
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-// compile macro definition
-#if defined (_MSC_VER) && (_MSC_VER >= 1300)
-#pragma once
-#endif
-
-#ifndef __VM_LIB_BASE_H__
-#define __VM_LIB_BASE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include libs :
-#pragma comment (lib,"vmLibBase.lib")
+// Disable warning
+// Example : #pragma warning(disable:4996)
+// #if defined (_MSC_VER)
+// #   pragma warning(disable:4996)
+// #endif
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include libs
+// Include files :
+// Standard c/c++ files included
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+#include <string>
 
-// Platform files included
+// Config files included
+#include <vmCfg.h>
 
-#ifndef   __VM_CFG_H__
-#	error this file need #include <vmCfg.h>
-#endif // __VM_CFG_H__
+// platform files included
+#include <windows.h>
 
 // Used files included
+#include <vmLibBase/vmUtil.h>
 
-#include <vmLibBase\CBit08.h>
-#include <vmLibBase\CAny.hpp>
-#include <vmLibBase\CDateTime.hpp>
-#include <vmLibBase\CMemPtr.h>
-#include <vmLibBase\CMem.hpp>
-#include <vmLibBase\CStringPtr.h>
-#include <vmLibBase\CString.hpp>
+// Declare file included
+#include "CErrPtr.h"
+#include "CWinErr.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __VM_LIB_BASE_H__
-/////////////////////////////////////////////////////////////////////////////////////////
-// usage :
-/*
+// using namespace
+namespace vm{
 
-//*/
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file vmLibBase.h
+} // End of namespace vm
+/////////////////////////////////////////////////////////////////////////////////////////
+// End of file CWinErr.cpp
 /////////////////////////////////////////////////////////////////////////////////////////

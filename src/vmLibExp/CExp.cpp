@@ -40,7 +40,7 @@
 #include <vmLibErr.h>
 
 #include <vmLibBase/CMemPtr.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 #include <vmLibBase/CDateTime.hpp>
 
 #include <vmLibFile.h>

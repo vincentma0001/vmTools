@@ -23,10 +23,14 @@
     <ClInclude Include="..\..\src\vmLibBase\CAny.hpp" />
     <ClInclude Include="..\..\src\vmLibBase\CAnyFmt.hpp" />
     <ClInclude Include="..\..\src\vmLibBase\CArgs.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CBit08Ptr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit16.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit32.h" />
     <ClInclude Include="..\..\src\vmLibBase\CBit64.h" />
-    <ClInclude Include="..\..\src\vmLibBase\CBit8.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CBit08.hpp" />
+    <ClInclude Include="..\..\src\vmLibBase\CErrBase.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CErrno.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CLuxErr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CUnitTestFrame.h" />
     <ClInclude Include="..\..\src\vmLibBase\CJson.h" />
     <ClInclude Include="..\..\src\vmLibBase\CJValue.h" />
@@ -42,18 +46,20 @@
     <ClInclude Include="..\..\src\vmLibBase\CStdMap.hpp" />
     <ClInclude Include="..\..\src\vmLibBase\CStdRand.h" />
     <ClInclude Include="..\..\src\vmLibBase\CString.hpp" />
-    <ClInclude Include="..\..\src\vmLibBase\CStrPtr.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CStringPtr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CUseCom.h" />
     <ClInclude Include="..\..\src\vmLibBase\CWinApis.h" />
+    <ClInclude Include="..\..\src\vmLibBase\CWinErr.h" />
     <ClInclude Include="..\..\src\vmLibBase\CWinIni.h" />
     <ClInclude Include="..\..\src\vmLibBase\CXml.h" />
     <ClInclude Include="..\..\src\vmLibBase\vmMatch.h" />
     <ClInclude Include="..\..\src\vmLibBase\vmStdUtil.h" />
-    <ClInclude Include="..\..\src\vmLibBase\vmTypeFmt.h" />
     <ClInclude Include="..\..\src\vmLibBase\vmUtil.h" />
+    <ClInclude Include="..\..\src\vmLibBase\vmVerify.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\vmLibBase\CUseCom.cpp" />
+    <ClCompile Include="..\..\src\vmLibBase\CErrBase.cpp" />
+    <ClCompile Include="..\..\src\vmLibBase\CWinErr.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -64,29 +70,29 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Utility</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />

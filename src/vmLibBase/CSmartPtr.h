@@ -28,7 +28,7 @@
 // Include files :
 // Standard c/c++ files included
 #ifndef   _INC_STDLIB
-#	error this file need #include <stdlib.h>
+#   include <stdlib.h>
 #endif // _INC_STDLIB
 
 // Config files included

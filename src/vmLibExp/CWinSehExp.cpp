@@ -33,7 +33,7 @@
 
 // Used files included
 #include <vmLibBase/vmUtil.h>
-#include <vmLibBase/CStrPtr.h>
+#include <vmLibBase/CStringPtr.h>
 
 // Declare file included
 #include "CExp.h"
