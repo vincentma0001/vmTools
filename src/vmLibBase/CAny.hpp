@@ -182,7 +182,7 @@ private:
 // Members :
 private:
     // 需要被转换的数据
-    unValue         munValue;
+    vm::CAny::unValue munValue;
     // 数据类型
     emType          memType;
     // 转义后字符串缓存

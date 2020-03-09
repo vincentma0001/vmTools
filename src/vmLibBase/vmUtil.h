@@ -49,11 +49,12 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
-namespace vm{
+//namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Macros define :
 
+//*
 #ifndef    vMemZero
 #   define vMemZero(szBuf)          vm::v_memzero(&szBuf,sizeof(szBuf))
 #endif  // vMemZero
@@ -77,11 +78,25 @@ namespace vm{
 #ifndef    vStrPosEnded
 #   define vStrPosEnded             vMinsInt
 #endif  // vStrPosEnded
-
+//*/
 /////////////////////////////////////////////////////////////////////////////////////////
-#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
+//#if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 // --------------------------------------------------------------------------------------
 // 重构windows中的str,mem系列函数
+
+inline tchar* v_strtok(tchar* const cpString, const tchar* const cpDelimiters)
+{
+    // 验证输入参数
+    _VERIFY_2_(v_strtok(), cpString, cpDelimiters);
+
+#if defined (_MSC_VER) && (_MSC_VER>=1300)
+    tchar* lpNextToken = nullptr;
+    return vStrtok_s( cpString, cpDelimiters, &lpNextToken );
+#else
+    return vStrtok( cpString, cpDelimiters );
+#endif
+
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Method    : v_strchr(...)
@@ -1185,18 +1200,18 @@ inline void v_tolower(tchar* pData, const size_t csztDataLen)
 }
 
 // --------------------------------------------------------------------------------------
-#else // _V_PLATFORM_ != _V_PF_WIN_
+//#else // _V_PLATFORM_ != _V_PF_WIN_
 // --------------------------------------------------------------------------------------
 // linux util functions
 
 // TODO : add linux until functions
 
 // --------------------------------------------------------------------------------------
-#endif // #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
+//#endif // #if defined ( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-} // End of namespace vm
+//} // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
 #endif // __VM_UTIL_H__
 /////////////////////////////////////////////////////////////////////////////////////////

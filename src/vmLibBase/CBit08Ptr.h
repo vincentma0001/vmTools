@@ -51,6 +51,7 @@ class CBit08Ptr
 {
 /////////////////////////////////////////////////////////////////////////////////////////
 // Types define :
+public:
 typedef struct stBit08
 {
     unsigned int  bit00 : 1;
@@ -63,20 +64,19 @@ typedef struct stBit08
     unsigned int  bit07 : 1;
 } STBIT08, *PSTBIT08;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-// Macros define :
-
-#define _V_CBIT08_POS_00_  0x00
-#define _V_CBIT08_POS_01_  0x01
-#define _V_CBIT08_POS_02_  0x02
-#define _V_CBIT08_POS_03_  0x04
-#define _V_CBIT08_POS_04_  0x08
-#define _V_CBIT08_POS_05_  0x10
-#define _V_CBIT08_POS_06_  0x20
-#define _V_CBIT08_POS_07_  0x40
-#define _V_CBIT08_POS_08_  0x80
-#define _V_CBIT08_POS_FF_  0xFF
-
+typedef enum emBitPos
+{
+    PosFF = 0xFF,
+    Pos00 = 0x00,
+    Pos01 = 0x01,
+    Pos02 = 0x02,
+    Pos03 = 0x04,
+    Pos04 = 0x08,
+    Pos05 = 0x10,
+    Pos06 = 0x20,
+    Pos07 = 0x40,
+    Pos08 = 0x80
+} EMBITPOS, *PEMBITPOS;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct

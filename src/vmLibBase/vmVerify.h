@@ -88,12 +88,12 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 // Assert macro define :
 #ifndef    THROW_ASSERT_FAILED
-#   define THROW_ASSERT_FAILED(func, pHandle)  throw vT(""#func"Get an Invailed Handle ("#pHandle")!" )
+#   define THROW_ASSERT_FAILED(func, pHandle) vT(""#func"Get an Invailed Handle ("#pHandle")!" )
 #endif  // THROW_ASSERT_FAILED
 
 // --------------------------------------------------------------------------------------
 
-#define _V_ASSERT_( func, X ) if ( !(X) ) { throw THROW_ASSERT_FAILED(func, X); }
+#define _ASSERT_( func, X ) if ( !(X) ) { throw THROW_ASSERT_FAILED(func, X); }
 
 // --------------------------------------------------------------------------------------
 #endif // end of #ifndef _DEBUG
