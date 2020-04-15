@@ -33,7 +33,7 @@
 // Platform files included
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#include <vmTools/CIPCs/CLocker.hpp>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
