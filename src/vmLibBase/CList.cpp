@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : tst_vmLibBase.cpp
+// File name    : CList.cpp
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/14 21:33:43
-// Modify time  : 2020/01/14 21:33:43
+// Create time  : 2020/03/29 16:50:41
+// Modify time  : 2020/03/29 16:50:41
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -27,41 +27,24 @@
 
 // Config files included
 
-// platform files include
-#include <vmCfg.h>
+// platform files included
+#if defined( _V_PLATFORM_ ) && ( _V_PLATFORM_ == _V_PF_WIN_ )
+#include <windows.h>
+#endif // #if defined(...)
+
+// Used files included
 
 // Declare file included
-#include <vmTools/CUnitTestFrame.h>
-
-// Unit test files include
-//#include "ut_CBit8.h"
-//#include "ut_CAny.h"
-//#include "ut_CStdPars.h"
-//#include "ut_CWinAtom.h"
-//#include "ut_CList.h"
-#include "tst_vmTools/ut_CString.h"
+#include "CList.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////
+// using namespace
+namespace vm{
 
-int main( int argc, tchar** argv )
-{
-// --------------------------------------------------------------------------------------
-// TODO : add main functions there
-    // example : RUN_UNITTEST( ut_XXXX );
-    //RUN_UNITTEST(ut_CBit8);
-    //RUN_UNITTEST(ut_CAny);
-    //RUN_UNITTEST(ut_CStdPars);
-    //RUN_UNITTEST(ut_CWinAtom);
-    //RUN_UNITTEST(ut_CList);
-    RUN_UNITTEST(ut_CString);
 
-// ------------------------------------------------------------------------------------
-	::system("Pause");
-	return 0;
-} // End of main(...)
 
 /////////////////////////////////////////////////////////////////////////////////////////
-
+} // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file tst_vmLibBase.cpp
+// End of file CList.cpp
 /////////////////////////////////////////////////////////////////////////////////////////

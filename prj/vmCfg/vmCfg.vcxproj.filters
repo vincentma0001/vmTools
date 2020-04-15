@@ -18,20 +18,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\vmCfg\vmCfgDll.h">
-      <Filter>inc\vmCfg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\vmCfg\vmCfgPlatform.h">
-      <Filter>inc\vmCfg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\vmCfg\vmCfgType.h">
-      <Filter>inc\vmCfg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\vmCfg\vmCfgtString.h">
-      <Filter>inc\vmCfg</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\vmCfg.h">
-      <Filter>inc</Filter>
+      <Filter>资源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

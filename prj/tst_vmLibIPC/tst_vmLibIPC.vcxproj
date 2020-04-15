@@ -23,6 +23,7 @@
     <ProjectGuid>{9AE107E9-1FC2-436C-BEF1-183E08705C95}</ProjectGuid>
     <RootNamespace>tstvmLibIPC</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>006 tst_vmLibIPC</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

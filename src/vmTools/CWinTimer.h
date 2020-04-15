@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CSingleton.h
+// File name    : CWinTimer.h
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/12 21:56:29
-// Modify time  : 2020/01/12 21:56:29
+// Create time  : 2020/01/11 20:38:49
+// Modify time  : 2020/01/11 20:38:49
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 #pragma once
 #endif
 
-#ifndef __CSINGLETON_H__
-#define __CSINGLETON_H__
+#ifndef __CWINTIMER_H__
+#define __CWINTIMER_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include libs  :
@@ -29,98 +29,103 @@
 // Standard c/c++ files included
 
 // Config files included
+#include <vmCfg.h>
 
 // Platform files included
+#include <windows.h>
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#include <vmLibIPC/CWinKernal.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Macro define :
-#ifndef    vSingleTon
-#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
-#endif  // vSingleTon
-
-/////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CSingleton : ## add class brief here ##
+// class CWinTimer : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-template< class tInstance, class tMutex >
-class CSingleton
+class CWinTimer : public CWinKernal
 {
+/////////////////////////////////////////////////////////////////////////////////////////
+// Typedefs :
+typedef void (*vpfTimeRapcRoutine) ( void* lpArgToCompletionRoutine, unsigned long dwTimerLowValue, unsigned long dwTimerHighValue );
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    explicit CSingleton(){};
+    explicit CWinTimer(){};
     // Destruct define
-    virtual ~CSingleton(){};
+    virtual ~CWinTimer(){};
     
 private:
     // No Copy
-    CSingleton(const CSingleton& obj){};
+    CWinTimer(const CWinTimer& obj){};
     // No Assignment
-    CSingleton& operator = ( const CSingleton& obj ){};
+    CWinTimer& operator = ( const CWinTimer& obj ){};
     
+public:
+    CWinTimer& operator = (vpfTimeRapcRoutine pCallBack){ mpCallBack=pCallBack; return *this; }
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Members :
 private:
-    // 锁，要考虑多线程，多核计算机同步问题
-    static tMutex		mtMutex;		        
-    // 实例对象
-    static tInstance*	mptInstance;			
+    vpfTimeRapcRoutine mpCallBack;
+
+public:
+    void SetCallBack( vpfTimeRapcRoutine pCallBack ){ mpCallBack = pCallBack; }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    // 获取实例对象指针
-    static tInstance* Instance()
+    long Create( const tchar* const cpName, bool bManualReset )
     {
-        // three time checked locking for multithreading safe and performance
-        // the detail see the <Modern c++ design> singleton
-        if (mptInstance == NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::CreateWaitableTimer( &mstSecurityAttributes, bManualReset, cpName );
+        return CheckHandle();
+    }
 
-            if (mptInstance == NULL)
-                mptInstance = new T;
-        }
-
-        return mptInstance;
-
-    };        
-    // 销毁实例对象
-    static void Destory()
+    long Open( const tchar* const cpName, const unsigned long cdwDesiredAccess, const bool cbInheritHandle )
     {
-        if (mptInstance != NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::OpenWaitableTimer(cdwDesiredAccess, cbInheritHandle, cpName );
+        return CheckHandle();
+    }
 
-            if (mptInstance!=NULL)
-            {
-                delete mptInstance;
-                mptInstance = NULL;
-            } 
-        }
-    };
+    bool SetTimer( const unsigned long culDueTime, const long clPeriod, const bool cbResume = true,  const void* const cpArg = nullptr )
+    {
+        LARGE_INTEGER lIntger;
+        lIntger.QuadPart = culDueTime*(-10000);
+        BOOL lbRet = ::SetWaitableTimer(mhHandle, &lIntger, clPeriod, (PTIMERAPCROUTINE)mpCallBack, (LPVOID)cpArg, cbResume );
+        if ( lbRet == TRUE )
+            return true;
 
-}; // End of class CSingleton
+        mulErrCode = GetLastError();
+        return false;
+    }
+
+    bool Cancel()
+    {
+        BOOL lbRet = ::CancelWaitableTimer( mhHandle );
+        if ( lbRet == TRUE )
+            return true;
+    
+        mulErrCode = GetLastError();
+        return false;
+    }
+
+}; // End of class CWinTimer
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CSINGLETON_H__
+#endif // __CWINTIMER_H__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CSingleton.h
+// End of file CWinTimer.h
 /////////////////////////////////////////////////////////////////////////////////////////

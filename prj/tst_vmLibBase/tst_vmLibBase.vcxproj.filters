@@ -38,5 +38,11 @@
     <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CAny.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\tst\tst_vmLibBase\ut_CList.h">
+      <Filter>inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\tst\tst_vmTools\ut_CString.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

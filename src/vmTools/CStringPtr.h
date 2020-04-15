@@ -30,13 +30,15 @@
 // Standard c/c++ files included
 
 // Config files included
-#include <vmCfg.h>
+#ifndef   __VM_CFG_TSTRING_H__
+#   include <vmCfg/vmCfgtString.h>
+#endif // __VM_CFG_TSTRING_H__
 
 // Platform files included
 
 // Used files included
 #ifndef   __VM_UTIL_H__
-#   include <vmLibBase/vmUtil.h>
+#   include <vmTools/vmUtil.h>
 #endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -61,22 +63,22 @@ class DLL_API CStringPtr
 // Construct && Destruct
 public:
     // Construct define
-    inline explicit CStringPtr( tchar*& pBuf, const size_t cszBufSize);
+    inline explicit CStringPtr( tchar* const pBuf, const size_t cszBufSize);
     // Destruct define
     inline virtual ~CStringPtr();
     
-private:
+public:
     // Copy construct define
     inline CStringPtr(const CStringPtr& obj);
     // Assignment define
     inline CStringPtr& operator = ( const CStringPtr& obj );
-public:
     inline CStringPtr& operator = ( const tchar* cpSrc );
 
 public:
     // 加法操作
     inline tchar* operator + (const tchar* cpSrc);
     inline tchar* operator + (const tchar cszVal);
+    // 赋值操作
     // 小于操作
     inline bool  operator <  (const tchar* cpSrc);
     // 大于操作
@@ -88,7 +90,7 @@ public:
 // members
 private:
     // 字符串基地址
-    tchar*&  mpBuf;
+    tchar*   mpBuf;
     // 字符串长度
     size_t   mszBufSize;
 
@@ -151,10 +153,9 @@ public:
 // Return    : 
 // Parameter : tchar *  & pBuf
 // Parameter : const size_t cszBufSize
-inline CStringPtr::CStringPtr(tchar*& pBuf, const size_t cszBufSize) :mpBuf(pBuf), mszBufSize(cszBufSize)
+inline CStringPtr::CStringPtr(tchar* const pBuf, const size_t cszBufSize) :mpBuf(pBuf), mszBufSize(cszBufSize)
 {
-    // Test for mpBuf address.
-    // printf("mpBuf(%p), mszBufSize(%d)\n", mpBuf, mszBufSize);
+
 }
 // End of function CStrPtr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -176,8 +177,9 @@ inline CStringPtr::~CStringPtr()
 // Return    : return                                    -     # add return value notes #
 // Parameter : Param1                                    - [O] # add param1 value notes #
 //           : Param2                                    - [I] # add param2 value notes #
-inline CStringPtr::CStringPtr(const CStringPtr& obj):mpBuf(obj.mpBuf)
+inline CStringPtr::CStringPtr(const CStringPtr& obj) 
 { 
+    *this = obj; 
 };
 // End of function CStringPtr(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -191,22 +193,11 @@ inline CStringPtr::CStringPtr(const CStringPtr& obj):mpBuf(obj.mpBuf)
 // Assignment define
 inline CStringPtr& CStringPtr::operator = (const CStringPtr& obj)
 {
+    v_strcpy(mpBuf, mszBufSize, obj.mpBuf);
+    
     return *this;
 };
 // End of function operator = (...)
-/////////////////////////////////////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Name      : operator=(...)
-// Brief     :
-// Return    : void
-// Parameter : const tchar * cpSrc
-CStringPtr& CStringPtr::operator=(const tchar* cpSrc)
-{
-    size_t lsztRet = v_strcpy(mpBuf, mszBufSize, cpSrc);
-    return *this;
-}
-// End of function operator=(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -238,6 +229,19 @@ inline tchar* CStringPtr::operator +  (const tchar  cszVal)
     return mpBuf;
 };
 // End of function operator +(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : operator=(...)
+// Brief     :
+// Return    : void
+// Parameter : const tchar * cpSrc
+CStringPtr& CStringPtr::operator=(const tchar* cpSrc)
+{
+    size_t lsztRet = v_strcpy(mpBuf, mszBufSize, cpSrc);
+    return *this;
+}
+// End of function operator=(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////

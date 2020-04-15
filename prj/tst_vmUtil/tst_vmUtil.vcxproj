@@ -23,6 +23,7 @@
     <ProjectGuid>{3EF33FD8-2979-4104-B458-67536B6B11F0}</ProjectGuid>
     <RootNamespace>tstvmUtil</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>001 tst_vmUtil</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

@@ -23,6 +23,7 @@
     <ProjectGuid>{CE0F23D2-5E8A-466E-A761-3B45A27ABEE0}</ProjectGuid>
     <RootNamespace>tstvmLibTime</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>004 tst_vmLibTime</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

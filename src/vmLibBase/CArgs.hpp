@@ -49,7 +49,7 @@ class CArgs
 // Construct && Destruct
 public:
     // Construct define
-    explicit CArgs(){};
+    explicit CArgs():muiArgc(0),mpArgv{0x00}{};
     // Destruct define
     virtual ~CArgs(){};
     
@@ -63,25 +63,25 @@ private:
 // Members :
 private:
     unsigned int muiArgc;
-    char*        mpArgv[uiMaxArgv];
+    tchar*       mpArgv[uiMaxArgv];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
     // Get argv value by pos
-    char*        operator [](unsigned int uiPos);
+    tchar*        operator [](unsigned int uiPos);
     // Get argv address
-    char**       operator*();
+    tchar**       operator*();
     // Add a string to args
     CArgs&       operator+=(const char* const cpArgv);
 
     // Get argc value
     unsigned int Argc();
     // Get argv address
-    char**       Argv();
+    tchar**       Argv();
     
     // Splite string to args 
-    unsigned int Splite(char* pszString, const char* const cpszDelimiters);
+    unsigned int Splite(tchar* pszString, const tchar* const cpszDelimiters);
     // Free memory space that malloc by Splite function
     void Clear();
 
@@ -93,9 +93,9 @@ public:
 // Brief     :
 // Return    : template<unsigned int uiMaxArgv>
 template<unsigned int uiMaxArgv>
-char** CArgs<uiMaxArgv>::operator*()
+tchar** CArgs<uiMaxArgv>::operator*()
 {
-    return &mpArgv;
+    return mpArgv;
 }
 // End of function operator*(...)
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ char** CArgs<uiMaxArgv>::operator*()
 // Parameter : Param1                                    - [O] # add param1 value notes #
 //           : Param2                                    - [I] # add param2 value notes #
 template<unsigned int uiMaxArgv>
-char*  CArgs<uiMaxArgv>::operator[](unsigned int uiPos)
+tchar*  CArgs<uiMaxArgv>::operator[](unsigned int uiPos)
 {
     if (uiPos > muiArgc || uiPos >= uiMaxArgv)
     {
@@ -126,12 +126,12 @@ char*  CArgs<uiMaxArgv>::operator[](unsigned int uiPos)
 // Return    : template<unsigned int uiMaxArgv>
 // Parameter : const char * const cpArgv
 template<unsigned int uiMaxArgv>
-CArgs<uiMaxArgv>& CArgs<uiMaxArgv>::operator+=(const char* const cpArgv)
+CArgs<uiMaxArgv>& CArgs<uiMaxArgv>::operator+=(const tchar* const cpArgv)
 {
     // #  TODO : Add condition brief here ##
     if (muiArgc < uiMaxArgv)
     {
-        unsigned int luiArgvLen = strlen(cpArgv);
+        unsigned int luiArgvLen = (unsigned int)vStrlen(cpArgv);
         mpArgv[ muiArgc ] = (tchar*)malloc((luiArgvLen + 1) * sizeof(tchar));
         v_strcpy(mpArgv[ muiArgc ], luiArgvLen + 1, cpArgv);
         muiArgc++;
@@ -160,7 +160,7 @@ unsigned int CArgs<uiMaxArgv>::Argc()
 // Brief     :
 // Return    : 
 template<unsigned int uiMaxArgv>
-char** vm::CArgs<uiMaxArgv>::Argv()
+tchar** vm::CArgs<uiMaxArgv>::Argv()
 {
     return mpArgv;
 }
@@ -176,14 +176,14 @@ char** vm::CArgs<uiMaxArgv>::Argv()
 template<unsigned int uiMaxArgv>
 unsigned int vm::CArgs<uiMaxArgv>::Splite(char* pszString, const char* const cpszDelimiters)
 {
-    char* lpch = nullptr;
-    lpch = v_strtok(pszString, cpszDelimiters);
+    tchar* lpch = nullptr;
+    tchar* lpNext = nullptr;
+    lpch = vStrtok_s(pszString, cpszDelimiters, &lpNext);
     while (lpch != nullptr&&muiArgc < uiMaxArgv)
     {
         *this += lpch;
-        lpch = v_strtok(NULL, cpszDelimiters);
+        lpch = vStrtok_s(NULL, cpszDelimiters, &lpNext);
     }
-
     return muiArgc;
 }
 // End of function Splite(...)

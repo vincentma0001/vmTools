@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CSingleton.h
+// File name    : CWinSema.h
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/12 21:56:29
-// Modify time  : 2020/01/12 21:56:29
+// Create time  : 2020/01/11 21:29:54
+// Modify time  : 2020/01/11 21:29:54
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 #pragma once
 #endif
 
-#ifndef __CSINGLETON_H__
-#define __CSINGLETON_H__
+#ifndef __CWINSEMA_H__
+#define __CWINSEMA_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include libs  :
@@ -29,98 +29,80 @@
 // Standard c/c++ files included
 
 // Config files included
+#include <vmCfg.h>
 
 // Platform files included
+#include <windows.h>
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#include <vmLibIPC/CWinKernal.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Macro define :
-#ifndef    vSingleTon
-#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
-#endif  // vSingleTon
-
-/////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CSingleton : ## add class brief here ##
+// class CWinSema : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-template< class tInstance, class tMutex >
-class CSingleton
+class CWinSema : public CWinKernal
 {
+/////////////////////////////////////////////////////////////////////////////////////////
+// Typedefs :
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    explicit CSingleton(){};
+    explicit CWinSema(){};
     // Destruct define
-    virtual ~CSingleton(){};
+    virtual ~CWinSema(){};
     
 private:
     // No Copy
-    CSingleton(const CSingleton& obj){};
+    CWinSema(const CWinSema& obj){};
     // No Assignment
-    CSingleton& operator = ( const CSingleton& obj ){};
+    CWinSema& operator = ( const CWinSema& obj ){};
     
-/////////////////////////////////////////////////////////////////////////////////////////
-// Members :
-private:
-    // 锁，要考虑多线程，多核计算机同步问题
-    static tMutex		mtMutex;		        
-    // 实例对象
-    static tInstance*	mptInstance;			
-
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    // 获取实例对象指针
-    static tInstance* Instance()
+    long Create( const tchar* const cpName, const long clInitialCount, const long clMaxmumCount, void* pSamephoneAttributes = nullptr )
     {
-        // three time checked locking for multithreading safe and performance
-        // the detail see the <Modern c++ design> singleton
-        if (mptInstance == NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::CreateSemaphore( &mstSecurityAttributes,clInitialCount, clMaxmumCount, cpName );
+        return CheckHandle();
+    }
 
-            if (mptInstance == NULL)
-                mptInstance = new T;
-        }
-
-        return mptInstance;
-
-    };        
-    // 销毁实例对象
-    static void Destory()
+    long Open( const tchar* const cpName, const unsigned long culDesiredAccess, const bool cbInheritHandle = false )
     {
-        if (mptInstance != NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::OpenSemaphore( culDesiredAccess, cbInheritHandle, cpName );
+        return CheckHandle();
+    }
+    
+    long Release( const long clReleaseCount )
+    {
+        long llPreviousCount = 0;
+        BOOL lbRet = ::ReleaseSemaphore( mhHandle, clReleaseCount, &llPreviousCount );
+        if ( lbRet == true )
+            return emRet::vSucceed;
 
-            if (mptInstance!=NULL)
-            {
-                delete mptInstance;
-                mptInstance = NULL;
-            } 
-        }
-    };
+        mulErrCode = ::GetLastError();
+        return emRet::vlError;
+    }
 
-}; // End of class CSingleton
+}; // End of class CWinSema
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CSINGLETON_H__
+#endif // __CWINSEMA_H__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CSingleton.h
+// End of file CWinSema.h
 /////////////////////////////////////////////////////////////////////////////////////////

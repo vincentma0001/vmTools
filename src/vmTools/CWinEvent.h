@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CSingleton.h
+// File name    : CWinEvent.h
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/12 21:56:29
-// Modify time  : 2020/01/12 21:56:29
+// Create time  : 2020/01/11 20:02:36
+// Modify time  : 2020/01/11 20:02:36
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 #pragma once
 #endif
 
-#ifndef __CSINGLETON_H__
-#define __CSINGLETON_H__
+#ifndef __CWINEVENT_H__
+#define __CWINEVENT_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include libs  :
@@ -29,98 +29,99 @@
 // Standard c/c++ files included
 
 // Config files included
+#include <vmCfg.h>
 
 // Platform files included
+#include <windows.h>
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#include <vmLibIPC/CWinKernal.h>
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Macro define :
-#ifndef    vSingleTon
-#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
-#endif  // vSingleTon
-
-/////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CSingleton : ## add class brief here ##
+// class CWinEvent : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-template< class tInstance, class tMutex >
-class CSingleton
+class CWinEvent : public CWinKernal
 {
+/////////////////////////////////////////////////////////////////////////////////////////
+// Typedefs :
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    explicit CSingleton(){};
+    explicit CWinEvent(){};
     // Destruct define
-    virtual ~CSingleton(){};
-    
+    virtual ~CWinEvent(){};
+
 private:
     // No Copy
-    CSingleton(const CSingleton& obj){};
+    CWinEvent(const CWinEvent& obj){};
     // No Assignment
-    CSingleton& operator = ( const CSingleton& obj ){};
-    
-/////////////////////////////////////////////////////////////////////////////////////////
-// Members :
-private:
-    // 锁，要考虑多线程，多核计算机同步问题
-    static tMutex		mtMutex;		        
-    // 实例对象
-    static tInstance*	mptInstance;			
+    CWinEvent& operator = ( const CWinEvent& obj ){};
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    // 获取实例对象指针
-    static tInstance* Instance()
+    long Create( const tchar* const cpName, bool bManualRest=false, bool bInitialize=false )
     {
-        // three time checked locking for multithreading safe and performance
-        // the detail see the <Modern c++ design> singleton
-        if (mptInstance == NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::CreateEvent( &mstSecurityAttributes, bManualRest, bInitialize, cpName );
+        return CheckHandle();
+    }
 
-            if (mptInstance == NULL)
-                mptInstance = new T;
-        }
-
-        return mptInstance;
-
-    };        
-    // 销毁实例对象
-    static void Destory()
+    long Open( const tchar* const cpName, unsigned long dwDesiredAccess, bool bInheritHandle = false )
     {
-        if (mptInstance != NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        mhHandle = ::OpenEvent( dwDesiredAccess, bInheritHandle, cpName );
+        return CheckHandle();
+    }
 
-            if (mptInstance!=NULL)
-            {
-                delete mptInstance;
-                mptInstance = NULL;
-            } 
-        }
-    };
+    bool Set()
+    {
+        BOOL lbRet = ::SetEvent( mhHandle );
+        if ( lbRet ==TRUE )
+            return true;
 
-}; // End of class CSingleton
+        mulErrCode = GetLastError();
+        return false;
+    }
+
+    bool Reset()
+    {
+        BOOL lbRet = ::ResetEvent( mhHandle );
+        if ( lbRet == TRUE )
+            return true;
+
+        mulErrCode == GetLastError();
+        return false;
+    }
+
+    bool Signal()
+    {
+        BOOL lbRet = ::PulseEvent(mhHandle);
+        if ( lbRet == TRUE )
+            return true;
+
+        mulErrCode == GetLastError();
+        return false;
+    }
+}; // End of class CWinEvent
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CSINGLETON_H__
+#endif // __CWINEVENT_H__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CSingleton.h
+// End of file CWinEvent.h
 /////////////////////////////////////////////////////////////////////////////////////////

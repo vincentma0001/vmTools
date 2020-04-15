@@ -361,7 +361,8 @@ namespace vStd {
 // Other functions
 #if defined( _V_USE_WCHAR_ ) && ( _V_USE_WCHAR_ == 0 )
 // --------------------------------------------------------------------------------------
-#   define vMemicmp            memicmp
+//#   define vMemicmp            memicmp
+#   define vMemicmp            _memicmp
 #   define vMemccpy            _memccpy
 #else  // _V_USE_WCHAR_ != 0
 #   define vMemicmp            memicmp

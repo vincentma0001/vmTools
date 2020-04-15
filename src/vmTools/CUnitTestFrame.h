@@ -53,7 +53,7 @@
 
 // Used files included
 #ifndef   __CWINCONSOLE_H__
-#include <vmLibIPC/CWinConsole.h>
+#include <vmTools/CWinConsole.h>
 #endif // __CWINCONSOLE_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////

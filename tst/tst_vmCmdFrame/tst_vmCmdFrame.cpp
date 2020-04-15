@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : tst_vmLibBase.cpp
+// File name    : tst_vmCmdFrame.cpp
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/14 21:33:43
-// Modify time  : 2020/01/14 21:33:43
+// Create time  : 2020/03/17 14:24:49
+// Modify time  : 2020/03/17 14:24:49
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -27,33 +27,20 @@
 
 // Config files included
 
-// platform files include
-#include <vmCfg.h>
+// platform files included
 
 // Declare file included
-#include <vmTools/CUnitTestFrame.h>
 
 // Unit test files include
-//#include "ut_CBit8.h"
-//#include "ut_CAny.h"
-//#include "ut_CStdPars.h"
-//#include "ut_CWinAtom.h"
-//#include "ut_CList.h"
-#include "tst_vmTools/ut_CString.h"
+#include <vmLibCmdFrame/vmLibCmdFrame.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
 int main( int argc, tchar** argv )
 {
 // --------------------------------------------------------------------------------------
-// TODO : add main functions there
-    // example : RUN_UNITTEST( ut_XXXX );
-    //RUN_UNITTEST(ut_CBit8);
-    //RUN_UNITTEST(ut_CAny);
-    //RUN_UNITTEST(ut_CStdPars);
-    //RUN_UNITTEST(ut_CWinAtom);
-    //RUN_UNITTEST(ut_CList);
-    RUN_UNITTEST(ut_CString);
+    vm::CCmdFrame loCmdFrame;
+    loCmdFrame.Run();
 
 // ------------------------------------------------------------------------------------
 	::system("Pause");
@@ -63,5 +50,5 @@ int main( int argc, tchar** argv )
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file tst_vmLibBase.cpp
+// End of file tst_vmCmdFrame.cpp
 /////////////////////////////////////////////////////////////////////////////////////////

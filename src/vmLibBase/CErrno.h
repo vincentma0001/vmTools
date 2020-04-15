@@ -167,7 +167,7 @@ inline tchar* CErrno::MsgErrno()
     errno_t loRet = vStrerror_s(mszErrMsg, moErrCode);
     if (loRet != 0)
     {
-        v_sprintf(mszErrMsg, sizeof(mszErrMsg), "CErrno::MsgErrno() - strerror_s failed(%d)", loRet);
+        v_sprintf(mszErrMsg, sizeof(mszErrMsg), vT("CErrno::MsgErrno() - strerror_s failed(%d)"), loRet);
         throw mszErrMsg;
     }
 
@@ -193,7 +193,7 @@ inline tchar* CErrno::MsgErrno(const errno_t oErrCode)
     errno_t loRet = vStrerror_s(mszErrMsg, oErrCode);
     if (loRet != 0)
     {
-        v_sprintf(mszErrMsg, sizeof(mszErrMsg), "CErrno::MsgErrno() - strerror_s failed(%d)", loRet);
+        v_sprintf(mszErrMsg, sizeof(mszErrMsg), vT("CErrno::MsgErrno() - strerror_s failed(%d)"), loRet);
         throw mszErrMsg;
     }
 

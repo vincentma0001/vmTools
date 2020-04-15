@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CSingleton.h
+// File name    : CWinMutex.h
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/12 21:56:29
-// Modify time  : 2020/01/12 21:56:29
+// Create time  : 2020/01/04 18:17:53
+// Modify time  : 2020/01/04 18:17:53
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,109 +18,103 @@
 #pragma once
 #endif
 
-#ifndef __CSINGLETON_H__
-#define __CSINGLETON_H__
+#ifndef __CWINMUTEX_H__
+#define __CWINMUTEX_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include libs  :
+// include lib
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Include files :
-// Standard c/c++ files included
-
-// Config files included
-
-// Platform files included
-
-// Used files included
-#include <vmLibIPC/CLocker.hpp>
+// include file
+#include <vmCfg.h>
+#include <windows.h>
+#include <vmLibIPC/CWinKernal.h>
+#include <vmLibIPC/CWinWaitObj.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Macro define :
-#ifndef    vSingleTon
-#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
-#endif  // vSingleTon
-
-/////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CSingleton : ## add class brief here ##
+// class CWinMutex : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-template< class tInstance, class tMutex >
-class CSingleton
+class CWinMutex : public CWinKernal
 {
+/////////////////////////////////////////////////////////////////////////////////////////
+// type define :
+
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    explicit CSingleton(){};
+    explicit CWinMutex(){};
     // Destruct define
-    virtual ~CSingleton(){};
+    virtual ~CWinMutex(){};
     
 private:
     // No Copy
-    CSingleton(const CSingleton& obj){};
+    CWinMutex(const CWinMutex& obj){};
     // No Assignment
-    CSingleton& operator = ( const CSingleton& obj ){};
+    CWinMutex& operator = ( const CWinMutex& obj ){};
+
     
 /////////////////////////////////////////////////////////////////////////////////////////
-// Members :
+// members
 private:
-    // 锁，要考虑多线程，多核计算机同步问题
-    static tMutex		mtMutex;		        
-    // 实例对象
-    static tInstance*	mptInstance;			
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
-    // 获取实例对象指针
-    static tInstance* Instance()
+    void Enter()
     {
-        // three time checked locking for multithreading safe and performance
-        // the detail see the <Modern c++ design> singleton
-        if (mptInstance == NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
-
-            if (mptInstance == NULL)
-                mptInstance = new T;
-        }
-
-        return mptInstance;
-
-    };        
-    // 销毁实例对象
-    static void Destory()
+        vm::CWinWaitObj loObj;
+        loObj.Wait( mhHandle );
+    }
+    void Leave()
     {
-        if (mptInstance != NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
+        Release();
+    }
 
-            if (mptInstance!=NULL)
-            {
-                delete mptInstance;
-                mptInstance = NULL;
-            } 
-        }
+    enum emDesired
+    {
+        vAllAccess   = MUTEX_ALL_ACCESS,
+        vModifyState = MUTEX_MODIFY_STATE
+    };
+   
+    long Open( const tchar* const pName, unsigned long dwDesiredAccess, bool bInheritHandle )
+    {
+        mhHandle = OpenMutex(dwDesiredAccess,bInheritHandle,pName);
+        return CheckHandle();
+    }
+    long Create( const tchar* const cpName, bool bInitialOwner )
+    {
+        mhHandle = CreateMutex( &mstSecurityAttributes, bInitialOwner, cpName );
+        return CheckHandle();
+    }
+    bool Release ()
+    {
+        BOOL lbRet = ::ReleaseMutex(mhHandle);
+        if ( lbRet == TRUE )
+            return true;
+    
+        mulErrCode = GetLastError();
+        return false;
     };
 
-}; // End of class CSingleton
+}; // End of class CWinMutex
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CSINGLETON_H__
+#endif // __CWINMUTEX_H__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CSingleton.h
+// End of file CWinMutex.h
 /////////////////////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 //
-// File name    : CSingleton.h
+// File name    : CString.hpp
 // Version      : 0.0.0.0
 // Brief        : 
 // Author       : v.m.
-// Create time  : 2020/01/12 21:56:29
-// Modify time  : 2020/01/12 21:56:29
+// Create time  : 2020/01/01 13:38:09
+// Modify time  : 2020/01/01 13:38:09
 // Note         :
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -18,8 +18,8 @@
 #pragma once
 #endif
 
-#ifndef __CSINGLETON_H__
-#define __CSINGLETON_H__
+#ifndef __CSTRING_HPP__
+#define __CSTRING_HPP__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Include libs  :
@@ -33,94 +33,64 @@
 // Platform files included
 
 // Used files included
-#include <vmLibIPC/CLocker.hpp>
+#ifndef   __VM_UTIL_H__
+#   include <vmTools/vmUtil.h>
+#endif // __VM_UTIL_H__
+
+#ifndef   __CSTRPTR_H__
+#   include <vmTools/CStringPtr.h>
+#endif // __CSTRPTR_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
 namespace vm{
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// Macro define :
-#ifndef    vSingleTon
-#   define vSingleTon( tInstance, tMutex ) vm::CSingleton<tInstance, tMutex>::Instance()
-#endif  // vSingleTon
-
-/////////////////////////////////////////////////////////////////////////////////////////
 //
-// class CSingleton : ## add class brief here ##
+// class CString : ## add class brief here ##
 //
 /////////////////////////////////////////////////////////////////////////////////////////
-template< class tInstance, class tMutex >
-class CSingleton
+template <size_t sztBufSize>
+class DLL_API CString : public CStringPtr
 {
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    explicit CSingleton(){};
-    // Destruct define
-    virtual ~CSingleton(){};
-    
-private:
-    // No Copy
-    CSingleton(const CSingleton& obj){};
-    // No Assignment
-    CSingleton& operator = ( const CSingleton& obj ){};
-    
-/////////////////////////////////////////////////////////////////////////////////////////
-// Members :
-private:
-    // 锁，要考虑多线程，多核计算机同步问题
-    static tMutex		mtMutex;		        
-    // 实例对象
-    static tInstance*	mptInstance;			
-
-/////////////////////////////////////////////////////////////////////////////////////////
-// Functions :
-public:
-    // 获取实例对象指针
-    static tInstance* Instance()
+    CString():CStringPtr(mszBuf,sztBufSize),mszBuf{0x00}
     {
-        // three time checked locking for multithreading safe and performance
-        // the detail see the <Modern c++ design> singleton
-        if (mptInstance == NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
-
-            if (mptInstance == NULL)
-                mptInstance = new T;
-        }
-
-        return mptInstance;
-
-    };        
-    // 销毁实例对象
-    static void Destory()
-    {
-        if (mptInstance != NULL)
-        {
-            CLocker<tMutex> lock(mtMutex);
-
-            if (mptInstance!=NULL)
-            {
-                delete mptInstance;
-                mptInstance = NULL;
-            } 
-        }
+        // Test for mszBuf address
+        // printf("mszBuf(%p)\n", &mszBuf);
     };
+    CString(const tchar* const cpStr):CStringPtr(mszBuf, sztBufSize),mszBuf{0x00}{ v_strcpy(mszBuf, sizeof(mszBuf), cpStr); };
+    // Destruct define
+    virtual ~CString(){};
+    
+public:
+    // Copy construct define
+    CString(const CString<sztBufSize>& obj)
+    { *this = obj; };
+    // Assignment define
+    CString& operator = ( const CString<sztBufSize>& obj )
+    { v_memcpy(mszBuf, sizeof(mszBuf), obj.mszBuf, sizeof(obj.mszBuf)); return *this; };
 
-}; // End of class CSingleton
+/////////////////////////////////////////////////////////////////////////////////////////
+// members
+private:
+    tchar   mszBuf[sztBufSize];
+
+}; // End of class CString
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 } // End of namespace vm
 /////////////////////////////////////////////////////////////////////////////////////////
-#endif // __CSINGLETON_H__
+#endif // __CSTRING_HPP__
 /////////////////////////////////////////////////////////////////////////////////////////
 // usage :
 /*
 
 //*/
 /////////////////////////////////////////////////////////////////////////////////////////
-// End of file CSingleton.h
+// End of file CString.hpp
 /////////////////////////////////////////////////////////////////////////////////////////

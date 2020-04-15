@@ -261,6 +261,8 @@ public:
         case emType::emLLong:
             return vT("long long");
         case emType::emULLong:
+            return vT("unsigned long long");
+        case emType::emULLong:
             return vT("unsigned long");
         case emType::emFloat:
             return vT("float");
@@ -295,7 +297,7 @@ public:
     inline tchar* s_bool()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%s"),  munValue.bValue==true?"true":"false");   return mszBuf; };
     inline tchar* s_char()   { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.cValue);   return mszBuf; };
     inline tchar* s_uchar()  { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, vT("%hc"),  munValue.ucValue);  return mszBuf; };
-    inline tchar* s_short  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hd")), munValue.sValue);     return mszBuf; };
+    inline tchar* s_short  (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hd")), munValue.sValue);   return mszBuf; };
     inline tchar* s_ushort (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("hu")), munValue.usValue);  return mszBuf; };
     inline tchar* s_int    (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("li")), munValue.iValue);   return mszBuf; };
     inline tchar* s_uint   (vAnyFmtD stFmt = vAnyFmtD()) { vMemZero(mszBuf); v_sprintf(mszBuf, sztBufSize, *stFmt.S(vT("lu")), munValue.uiValue);  return mszBuf; };
