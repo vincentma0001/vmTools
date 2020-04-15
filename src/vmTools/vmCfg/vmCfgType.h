@@ -33,7 +33,7 @@
 
 // Config files included
 #ifndef   __VM_CFG_PLATFORM_H__
-#   include <vmCfg/vmCfgPlatform.h>
+#   include <vmTools/vmCfg/vmCfgPlatform.h>
 #endif // __VM_CFG_PLATFORM_H__
 
 // Used files included
