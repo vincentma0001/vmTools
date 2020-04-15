@@ -33,8 +33,8 @@
 #endif // _INC_STDARG
 
 // Config files included
-#include <vmTools/vmCfg.h>
-#include <vmTools/vmVerify.h>
+#include <vmCfg.h>
+#include <vmVerify.h>
 
 // Platform files included
 

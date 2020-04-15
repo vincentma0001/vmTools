@@ -40,7 +40,7 @@
 #endif // __VM_CFG_H__
 
 #ifndef   __VM_VERIFY_H__
-#   include <vmTools/vmVerify.h>
+#   include <vmVerify.h>
 #endif // __VM_VERIFY_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////

@@ -36,9 +36,9 @@
 #include <windows.h>
 
 // Used files included
-#include <vmLibBase/vmUtil.h>
-#include <vmLibBase/CWinApis.h>
-#include <vmLibIPC/CWinKernal.h>
+#include <vmUtil/vmUtil.h>
+#include <CTools/CWinApis.h>
+#include <CIPCs/CWinKernal.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
