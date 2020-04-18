@@ -264,6 +264,18 @@
     <ClInclude Include="..\src\vmUtil\vmUtilString.h">
       <Filter>头文件\002 vmUtil</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\vmUtil.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CBits\CBitStream.h">
+      <Filter>头文件\003 vmTools\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CBits\CBit08.h">
+      <Filter>头文件\003 vmTools\CBit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\CBits\CBitStr.h">
+      <Filter>头文件\003 vmTools\CBit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\CData\CList.cpp">
@@ -274,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="..\src\CIPCs\CWinModule.cpp">
       <Filter>头文件\003 vmTools\CIPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CBits\CBit08Ptr.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

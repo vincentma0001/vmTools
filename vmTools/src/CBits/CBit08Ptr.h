@@ -29,13 +29,13 @@
 // Standard c/c++ files included
 
 // Config files included
-#ifndef   __VM_CFG_TSTRING_H__
-#    include <vmCfg/vmCfgtString.h>
-#endif // __VM_CFG_TSTRING_H__
+#ifndef    __VM_CFG_H__
+#   include<vmCfg.h>
+#endif  // __VM_CFG_H__
 
 // Used files included
 #ifndef   __VM_UTIL_H__
-#    include <vmLibBase/vmUtil.h>
+#    include <vmUtil.h>
 #endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -120,6 +120,9 @@ protected:
 /////////////////////////////////////////////////////////////////////////////////////////
 // Functions :
 public:
+    // 返回当前Bit类内存大小
+    inline unsigned int  size() { return sizeof(mBit); }
+
     // 返回当前值
     inline char          toChar () { return (char)mBit; };
     inline unsigned char toUChar() { return       mBit; };
@@ -164,121 +167,204 @@ public:
     inline bool isSet07() { return (((PSTBIT08)mBit)->bit06 & 1) ? true : false; };
     inline bool isSet08() { return (((PSTBIT08)mBit)->bit07 & 1) ? true : false; };
 
-    // 以二进制方式返回bit值字符串
-    inline tchar* toBin08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        tchar* lpPos = mpBuf;
-        for (int i = 7; i >= 0; i--)
-        {
-            (*lpPos) = ((mBit >> i) & 1) ? '1' : '0';;
-            lpPos++;
-        }
-        return mpBuf;
-    };
-    // 以八进制方式返回bit值字符串
-    inline tchar* toOct04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%04o"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toOct08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%08o"), mBit);
-        return mpBuf;
-    };
-    // 以十进制方式返回bit值字符串
-    inline tchar* toDec04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%04d"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toDec08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%08d"), mBit);
-        return mpBuf;
-    };
-    // 以十六进制方式返回bit值字符串
-    inline tchar* toHex02()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%02x"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toHex04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%04x"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toHex08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%08x"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHex02()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%02x"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHex04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%04x"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHex08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%08x"), mBit);
-        return mpBuf;
-    };
-
-    inline tchar* toHeX02()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%02X"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toHeX04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%04X"), mBit);
-        return mpBuf;
-    };
-    inline tchar* toHeX08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("%08X"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHeX02()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%02X"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHeX04()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%04X"), mBit);
-        return mpBuf;
-    };
-    inline tchar* to0xHeX08()
-    {
-        vMemset(mpBuf, 0x00, msztBufSize);
-        int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%08X"), mBit);
-        return mpBuf;
-    };
 
 
 }; // End of class CBit08Ptr
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toBin08(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toBin08()
+{
+
+}
+// End of function toBin08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toOct04(...)
+// Brief     :
+// Return    : tchar*
+tchar* CBit08Ptr::toOct04()
+{
+}
+// End of function toOct04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toOct08(...)
+// Brief     :
+// Return    : tchar*
+tchar* CBit08Ptr::toOct08()
+{
+}
+// End of function toOct08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toDec04(...)
+// Brief     :
+// Return    : tchar*
+tchar* CBit08Ptr::toDec04()
+{
+}
+// End of function toDec04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toDec08(...)
+// Brief     :
+// Return    : tchar*
+tchar* CBit08Ptr::toDec08()
+{
+}
+// End of function toDec08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHex02(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHex02()
+{
+}
+// End of function toHex02(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHex04(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHex04()
+{
+}
+// End of function toHex04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHex08(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHex08()
+{
+}
+// End of function toHex08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHex02(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHex02()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%02x"), mBit);
+    return mpBuf;
+}
+// End of function to0xHex02(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHex04(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHex04()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%04x"), mBit);
+    return mpBuf;
+}
+// End of function to0xHex04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHex08(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHex08()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%08x"), mBit);
+    return mpBuf;
+}
+// End of function to0xHex08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHeX02(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHeX02()
+{
+}
+// End of function toHeX02(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHeX04(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHeX04()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("%04X"), mBit);
+    return mpBuf;
+}
+// End of function toHeX04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : toHeX08(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::toHeX08()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("%08X"), mBit);
+    return mpBuf;
+}
+// End of function toHeX08(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHeX02(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHeX02()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%02X"), mBit);
+    return mpBuf;
+}
+// End of function to0xHeX02(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHeX04(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHeX04()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%04X"), mBit);
+    return mpBuf;
+}
+// End of function to0xHeX04(...)
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// Name      : to0xHeX08(...)
+// Brief     :
+// Return    : tchar*
+inline tchar* CBit08Ptr::to0xHeX08()
+{
+    vMemset(mpBuf, 0x00, msztBufSize);
+    int liRet = v_sprintf(mpBuf, msztBufSize, vT("0x%08X"), mBit);
+    return mpBuf;
+}
+// End of function to0xHeX08(...)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////

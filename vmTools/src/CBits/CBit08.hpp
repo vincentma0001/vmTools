@@ -36,7 +36,7 @@
 // Standard c/c++ files included
 
 #ifndef   __CBIT08PTR_H__
-#    include <vmLibBase/CBit08Ptr.h>
+#    include <CBits/CBit08Ptr.h>
 #endif // __CBIT08PTR_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////
