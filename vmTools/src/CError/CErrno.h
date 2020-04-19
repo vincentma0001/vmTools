@@ -28,7 +28,7 @@
 #endif // _INC_ERRNO
 
 #ifndef   __VM_UTIL_H__
-#   include <vmLibBase/vmUtil.h>
+#   include <vmUtil.h>
 #endif // __VM_UTIL_H__
 
 /////////////////////////////////////////////////////////////////////////////////////////

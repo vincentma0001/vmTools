@@ -49,37 +49,38 @@ class CBit08
 /////////////////////////////////////////////////////////////////////////////////////////
 // Types define :
 public:
-typedef struct stBit08
-{
-    unsigned int  bit00 : 1;
-    unsigned int  bit01 : 1;
-    unsigned int  bit02 : 1;
-    unsigned int  bit03 : 1;
-    unsigned int  bit04 : 1;
-    unsigned int  bit05 : 1;
-    unsigned int  bit06 : 1;
-    unsigned int  bit07 : 1;
-};
+    typedef struct stBit08
+    {
+        unsigned int  bit00 : 1;
+        unsigned int  bit01 : 1;
+        unsigned int  bit02 : 1;
+        unsigned int  bit03 : 1;
+        unsigned int  bit04 : 1;
+        unsigned int  bit05 : 1;
+        unsigned int  bit06 : 1;
+        unsigned int  bit07 : 1;
+    };
 
-typedef enum emBitPos
-{
-    PosFF = 0xFF,
-    Pos00 = 0x00,
-    Pos01 = 0x01,
-    Pos02 = 0x02,
-    Pos03 = 0x04,
-    Pos04 = 0x08,
-    Pos05 = 0x10,
-    Pos06 = 0x20,
-    Pos07 = 0x40,
-    Pos08 = 0x80
-};
+    typedef enum emBitPos
+    {
+        PosFF = 0xFF,
+        Pos00 = 0x00,
+
+        Pos01 = 0x01,
+        Pos02 = 0x02,
+        Pos03 = 0x04,
+        Pos04 = 0x08,
+        Pos05 = 0x10,
+        Pos06 = 0x20,
+        Pos07 = 0x40,
+        Pos08 = 0x80
+    };
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Construct && Destruct
 public:
     // Construct define
-    inline CBit08(char&          cValue):mBit(*((unsigned char*)&cValue)){};
+    inline CBit08(char&          cVal) :mBit(*((unsigned char*)&cVal)) {};
     inline CBit08(unsigned char& cValue):mBit(cValue){};
 
     // Destruct define
@@ -113,12 +114,12 @@ protected:
 // Functions :
 public:
     // 返回当前Bit类内存大小
-    inline unsigned int  size () { return sizeof(mBit); };
+    inline unsigned int  size ()   { return sizeof(mBit); };
     // 重置Bit数值
-    inline void          reset() { mBit = 0;            };
+    inline void          reset()   { mBit = 0;            };
 
     // 返回当前值
-    inline char          toChar() { return (char)mBit; };
+    inline char          toChar()  { return (char)mBit; };
     inline unsigned char toUChar() { return       mBit; };
 
     // 设置bit值

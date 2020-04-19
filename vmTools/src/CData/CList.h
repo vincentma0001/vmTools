@@ -47,6 +47,7 @@
 // Standard c/c++ files included
 
 // Config files included
+#include <vmCfg.h>
 
 // Platform files included
 
@@ -135,7 +136,7 @@ public:
 // Name      : CList(...)
 // Brief     : Construct define
 // Return    : null
-CList::CList() :mpPrev(nullptr), mpNext(nullptr), mpData(nullptr)
+inline CList::CList() :mpPrev(nullptr), mpNext(nullptr), mpData(nullptr)
 {
 
 }
@@ -146,7 +147,7 @@ CList::CList() :mpPrev(nullptr), mpNext(nullptr), mpData(nullptr)
 // Name      : ~CList(...)
 // Brief     : Destruct define
 // Return    : null
-CList::~CList()
+inline CList::~CList()
 {
 
 }
@@ -183,7 +184,7 @@ inline CList* CList::Add(void* pData)
 // Brief     : Add a new node to the list head.
 // Return    : Clist*                                    -     new node pointer
 // Parameter : pData                                     - [I] data pointer
-CList* CList::AddHead(void* pData)
+inline CList* CList::AddHead(void* pData)
 {
     CList* lpHead = Root();
     if (lpHead->mpNext == nullptr && lpHead->mpData == nullptr)
@@ -211,7 +212,7 @@ CList* CList::AddHead(void* pData)
 // Return    : void
 // Parameter : CList*                                    -     new node pointer
 // Parameter : pData                                     - [I] data pointer
-CList* CList::AddTail(void* pData)
+inline CList* CList::AddTail(void* pData)
 {
     CList* lpLast = Last();
     if (lpLast->mpNext == nullptr && lpLast->mpData == nullptr)
@@ -237,7 +238,7 @@ CList* CList::AddTail(void* pData)
 // Name      : Root(...)
 // Brief     : Get list first node.
 // Return    : CList*                                   -     return list first node pointer
-vm::CList* CList::Root()
+inline CList* CList::Root()
 {
     CList* lpHead = this;
     while (lpHead->mpPrev != nullptr)
@@ -254,7 +255,7 @@ vm::CList* CList::Root()
 // Name      : Last(...)
 // Brief     : Get list last node.
 // Return    : CList*                                    -     return list last node pointer
-vm::CList* CList::Last()
+inline CList* CList::Last()
 {
     CList* lpLast = this;
     while (lpLast->mpNext != nullptr)
@@ -318,7 +319,7 @@ inline void* CList::Remove()
 // Name      : RmHead(...)
 // Brief     : remove the list first node. if there are just one node in the list, set the data pointer to null
 // Return    : void*                                     -     return the data pointer of the node has been removed
-void* CList::RmHead()
+inline void* CList::RmHead()
 {
     CList* lpHead = Root();
     void* lpData = lpHead->mpData;
@@ -350,7 +351,7 @@ void* CList::RmHead()
 // Name      : RmTail(...)
 // Brief     : remove the last node of list, if there are just one node in the list, set the data pointer to null
 // Return    : void*                                     -     return the data pointer of the node has been removed
-void* CList::RmTail()
+inline void* CList::RmTail()
 {
     CList* lpLast = Last();
     void* lpData = lpLast->mpData;
@@ -375,7 +376,7 @@ void* CList::RmTail()
 // Name      : Get(...)
 // Brief     : Get the data pointer of current node.
 // Return    : void*                                     -     return the data pointer. 
-void* CList::Get()
+inline void* CList::Get()
 {
     return mpData;
 }
@@ -387,7 +388,7 @@ void* CList::Get()
 // Brief     : Set the data pointer of current node.
 // Return    : void*                                     -     return the old data pointer before setting. 
 // Parameter : pData                                     - [I] the new data pointer,
-void* CList::Set(void* pData)
+inline void* CList::Set(void* pData)
 {
 
     void* lpOldData = mpData;
@@ -402,7 +403,7 @@ void* CList::Set(void* pData)
 // Brief     : the current node is root node or not?
 // Return    : true                                     -     the current is the root.
 //           : false                                    -     the current isn't the root.
-bool CList::IsRoot()
+inline bool CList::IsRoot()
 {
     return mpPrev == nullptr ? true : false;
 }
@@ -414,7 +415,7 @@ bool CList::IsRoot()
 // Brief     : the current node is tailed node or not?
 // Return    : true                                     -     the current is the tail.
 //           : false                                    -     the current isn't the tail.
-bool CList::IsTail()
+inline bool CList::IsTail()
 {
     return mpNext == nullptr ? true : false;
 }
@@ -426,7 +427,7 @@ bool CList::IsTail()
 // Brief     : the current node is empty or not?
 // Return    : true                                     -     the current is the empty.
 //           : false                                    -     the current isn't the empty.
-bool CList::IsEmpty()
+inline bool CList::IsEmpty()
 {
     if (mpData == nullptr && mpNext == nullptr)
     {
@@ -442,7 +443,7 @@ bool CList::IsEmpty()
 // Name      : Prov(...)
 // Brief     : Get the previous node pointer of current node.
 // Return    : CList*                                   -     the previous node pointer.
-vm::CList* CList::Prev()
+inline CList* CList::Prev()
 {
     return mpPrev;
 }
@@ -453,7 +454,7 @@ vm::CList* CList::Prev()
 // Name      : Next(...)
 // Brief     : Get the next node pointer of current node.
 // Return    : CList*                                   -     the next node pointer.
-vm::CList* CList::Next()
+inline CList* CList::Next()
 {
     return mpNext;
 }
