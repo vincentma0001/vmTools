@@ -151,13 +151,45 @@ public:
         return mszBuf;
     }
 
-    tchar* to0xHex02();;
-    tchar* to0xHex04();;
-    tchar* to0xHex08();;
+    // 以十六进制方式返回bit值以0x开头小写字符串,
+    tchar* to0xHex02()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x02x"), mBitType.mBit);
+        return mszBuf;
+    }
+    tchar* to0xHex04()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x04x"), mBitType.mBit);
+        return mszBuf;
+    }
+    tchar* to0xHex08()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x08x"), mBitType.mBit);
+        return mszBuf;
+    }
 
-    tchar* to0xHeX02();;
-    tchar* to0xHeX04();;
-    tchar* to0xHeX08();;
+    // 以十六进制方式返回bit值以0x开头大写字符串,
+    tchar* to0xHeX02()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x02X"), mBitType.mBit);
+        return mszBuf;
+    }
+    tchar* to0xHeX04()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x04X"), mBitType.mBit);
+        return mszBuf;
+    }
+    tchar* to0xHeX08()
+    {
+        vMemZero(mszBuf);
+        int liRet = v_sprintf(mszBuf, sizeof(mszBuf), vT("%0x08X"), mBitType.mBit);
+        return mszBuf;
+    }
 
 
 }; // End of class CBitStr

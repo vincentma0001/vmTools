@@ -116,13 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\CBits\CBit08.h" />
-    <ClInclude Include="..\src\CBits\CBit08.hpp" />
-    <ClInclude Include="..\src\CBits\CBit08Ptr.h" />
     <ClInclude Include="..\src\CBits\CBit16.h" />
     <ClInclude Include="..\src\CBits\CBit32.h" />
     <ClInclude Include="..\src\CBits\CBit64.h" />
     <ClInclude Include="..\src\CBits\CBitStr.h" />
-    <ClInclude Include="..\src\CBits\CBitStream.h" />
     <ClInclude Include="..\src\CData\CList.h" />
     <ClInclude Include="..\src\CData\CStdList.h" />
     <ClInclude Include="..\src\CData\CStdMap.hpp" />
@@ -190,7 +187,6 @@
     <ClInclude Include="..\src\vmUtil\vmUtilString.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\CBits\CBit08Ptr.cpp" />
     <ClCompile Include="..\src\CData\CList.cpp" />
     <ClCompile Include="..\src\CExps\CWinSeh.cpp" />
     <ClCompile Include="..\src\CIPCs\CWinModule.cpp" />
