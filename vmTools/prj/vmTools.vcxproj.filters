@@ -269,9 +269,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\CData\CList.cpp">
-      <Filter>头文件\003 vmTools\CData</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\CExps\CWinSeh.cpp">
       <Filter>头文件\003 vmTools\CExps</Filter>
     </ClCompile>

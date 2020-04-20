@@ -80,7 +80,7 @@ public:
 // Construct && Destruct
 public:
     // Construct define
-    inline CBit08(char&          cVal) :mBit(*((unsigned char*)&cVal)) {};
+    inline CBit08(char&            cVal):mBit(*((unsigned char*)&cVal)) {};
     inline CBit08(unsigned char& cValue):mBit(cValue){};
 
     // Destruct define

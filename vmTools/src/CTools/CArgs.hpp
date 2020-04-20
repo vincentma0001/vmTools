@@ -31,7 +31,7 @@
 // Platform files included
 
 // Used files included
-#include <vmLibBase/vmUtil.h>
+#include <vmUtil.h>
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // using namespace
@@ -76,7 +76,7 @@ public:
     CArgs&       operator+=(const char* const cpArgv);
 
     // Get argc value
-    unsigned int Argc();
+    unsigned int  Argc();
     // Get argv address
     tchar**       Argv();
     
